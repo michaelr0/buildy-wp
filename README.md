@@ -1,6 +1,6 @@
 # Buildy for WP
 
-Buildy for WP is a project born out of frustration with various technical and perforamce related shortcomings experienced with Divi, Buildy is a "Page Builder" of sorts, using VueJS for the backend and Blade templating for the frontend.
+Buildy for WP is a project born out of frustration with various technical and performance related shortcomings experienced with Divi, Buildy is a "Page Builder" of sorts, using VueJS for the backend and Blade templating for the frontend.
 
 ### Changelog
 
