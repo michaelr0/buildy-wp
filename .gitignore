@@ -1,0 +1,9 @@
+composer.lock
+yarn-error.log
+*.code-workspace
+vendor
+**/node_modules
+cache/*
+!cache/.htaccess
+!cache/index.html
+.vscode

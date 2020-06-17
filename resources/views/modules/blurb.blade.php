@@ -1,0 +1,155 @@
+@extends('modules.common')
+
+@php
+//  BUTTON
+$module_link_url = $bladeData->options->module_link->url ?? null;
+$buttonOneEnabled = (!empty($bladeData->content->button->buttonEnabled) || !empty($bladeData->options->buttonOneEnabled)) ?? null;
+$buttonTwoEnabled = $bladeData->options->buttonTwoEnabled ?? null;
+
+if ($buttonOneEnabled) {
+    $buttonOneURL = (string) ($bladeData->content->button->url ?? null);
+    $buttonOneText = (string) ($bladeData->content->button->text ?? null);
+    $buttonOneColor = $bladeData->content->button->color ?? null;
+    $buttonOneBgColor = $bladeData->content->button->backgroundColor ?? null;
+    $buttonOneBorderColor = $bladeData->content->button->borderColor ?? null;
+    $buttonOneShowBG = $bladeData->content->button->showBackground ?? null;
+    $buttonOneOutlined = $bladeData->content->button->outlined ?? null;
+    $buttonOneUnStyled = $bladeData->content->button->unStyled ?? null;
+    $buttonOneTarget = $bladeData->content->button->target ?? null;
+    if (preg_match("/^\d+$/", $buttonOneURL)) {
+        $buttonOneURL = get_permalink($buttonOneURL);
+    }
+}
+
+if ($buttonTwoEnabled) {
+    $buttonTwoURL = (string) ($bladeData->content->buttontwo->url ?? null);
+    $buttonTwoText = (string) ($bladeData->content->buttontwo->text ?? null);
+    $buttonTwoColor = $bladeData->content->buttontwo->color ?? null;
+    $buttonTwoBgColor = $bladeData->content->buttontwo->backgroundColor ?? null;
+    $buttonTwoBorderColor = $bladeData->content->buttontwo->borderColor ?? null;
+    $buttonTwoShowBG = $bladeData->content->buttontwo->showBackground ?? null;
+    $buttonTwoOutlined = $bladeData->content->buttontwo->outlined ?? null;
+    $buttonTwoUnStyled = $bladeData->content->buttontwo->unStyled ?? null;
+    $buttonTwoTarget = $bladeData->content->buttontwo->target ?? null;
+    if (preg_match("/^\d+$/", $buttonTwoURL)) {
+        $buttonTwoURL = get_permalink($buttonTwoURL);
+    }
+}
+
+$image = $bladeData->content->image->url ?? '';
+$imageWidth = !empty($bladeData->content->image->width) ? "width: {$bladeData->content->image->width};" : '';
+$imageMaxWidth = !empty($bladeData->content->image->maxWidth) ? "max-width: {$bladeData->content->image->maxWidth};" : '';
+$imageHeight = !empty($bladeData->content->image->height) ? "height: {$bladeData->content->image->height};" : '';
+$imageMaxHeight = !empty($bladeData->content->image->maxHeight) ? "max-height: {$bladeData->content->image->maxHeight};" : '';
+$imageObjectFit = !empty($bladeData->content->image->objectFit) ? "object-fit: {$bladeData->content->image->objectFit};" : '';
+$imageObjectPosition = !empty($bladeData->content->image->objectPosition) ? "object-position: {$bladeData->content->image->objectPosition};" : '';
+$imageTitlePosition = $bladeData->content->image->imageTitlePosition ?? 'Image Above';
+
+if (function_exists('attachment_url_to_postid')) {
+    $image_ID = attachment_url_to_postid( $image );
+}
+
+@endphp
+
+@section('content')
+    @if(!empty($module_link_url))
+        <a href="{{ $module_link_url }}">
+    @endif
+
+        {{-- When the image is set above the title --}}
+        @if($image && $imageTitlePosition === 'Image Above')
+            <div class="bmcb-blurb__image-wrapper">
+                @if($image_ID && function_exists('wp_get_attachment_image'))
+                    @php echo wp_get_attachment_image($image_ID, 'full', "", array(
+                        "class" => "bmcb-blurb__image",
+                        "style" => "$imageWidth $imageMaxWidth $imageHeight $imageMaxHeight $imageObjectFit $imageObjectPosition" )); @endphp
+                @else
+                    <img style="{{ $width }} {{ $maxWidth }} {{ $height }} {{ $objectFit }} {{ $objectPosition }}"
+                    @if($image) src="{{ $image }}" @endif />
+                @endif
+            </div>
+        @endif
+
+        <div class="bmcb-blurb__content">
+            @component('modules.components.title', ['bladeData'=> $bladeData])@endcomponent
+
+            {{-- When the image is set below the title --}}
+            @if($image && $imageTitlePosition === 'Image Below')
+                <div class="bmcb-blurb__image-wrapper">
+                    @if($image_ID && function_exists('wp_get_attachment_image'))
+                        @php echo wp_get_attachment_image($image_ID, 'full', "", array(
+                            "class" => "bmcb-blurb__image",
+                            "style" => "$width $maxWidth $height $objectFit $objectPosition" )); @endphp
+                    @else
+                        <img style="{{ $width }} {{ $maxWidth }} {{ $height }} {{ $objectFit }} {{ $objectPosition }}"
+                        @if($image) src="{{ $image }}" @endif />
+                    @endif
+                </div>
+            @endif
+
+            @if($bladeData->content->body)
+                <div class="bmcb-blurb__description">{!! $bladeData->content->body !!}</div>
+            @endif
+            @if($buttonOneEnabled || $buttonTwoEnabled)
+                <div class="bmcb-blurb__button-wrapper">
+                    @if($buttonOneEnabled)
+                        <{{ !$module_link_url ? 'a' : 'div' }}
+                        class="btn
+                            @if(!$buttonOneUnStyled)
+                                @if($buttonOneShowBG)
+                                    bg-{{ $buttonOneBgColor }}
+                                @endif
+                                @if(!$buttonOneOutlined)
+                                    bg-{{ $buttonOneBgColor }}
+                                @else
+                                    is-outlined
+                                @endif
+                                @if($buttonOneOutlined && $buttonOneBorderColor)
+                                    border-{{ $buttonOneBorderColor }}
+                                @endif
+                            @else
+                                btn-unstyled
+                            @endif
+                            @if($buttonOneColor)
+                                text-{{ $buttonOneColor }}
+                            @endif
+                            "
+                        @if($buttonOneTarget)
+                            target="{{ $buttonOneTarget }}"
+                        @endif
+                        href="{{ $buttonOneURL ? $buttonOneURL : '#' }}">{{ $buttonOneText }}</{{ !$module_link_url ? 'a' : 'div' }}>
+                    @endif
+                    @if($buttonTwoEnabled)
+                        <{{ !$module_link_url ? 'a' : 'div' }}
+                        class="btn
+                            @if(!$buttonTwoUnStyled)
+                                @if($buttonTwoShowBG)
+                                    bg-{{ $buttonTwoBgColor }}
+                                @endif
+                                @if(!$buttonTwoOutlined)
+                                    bg-{{ $buttonTwoBgColor }}
+                                @else
+                                    is-outlined
+                                @endif
+                                @if($buttonTwoOutlined && $buttonTwoBorderColor)
+                                    border-{{ $buttonTwoBorderColor }}
+                                @endif
+                            @else
+                                btn-unstyled
+                            @endif
+                            @if($buttonTwoColor)
+                                text-{{ $buttonTwoColor }}
+                            @endif
+                            "
+                        @if($buttonTwoTarget)
+                            target="{{ $buttonTwoTarget }}"
+                        @endif
+                        href="{{ $buttonTwoURL ? $buttonTwoURL : '#' }}">{{ $buttonTwoText }}</{{ !$module_link_url ? 'a' : 'div' }}>
+                    @endif
+                </div>
+            @endif
+        </div>
+    @if(!empty($module_link_url))
+        </a>
+    @endif
+@overwrite

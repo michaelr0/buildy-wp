@@ -1,0 +1,28 @@
+$containerWidth: 1280px;
+$sectionPadding: 8rem !default;
+
+// Gap between columns in rem
+$col_gap_md: 1.5 !default;
+$col_gap_lg: 1.5 !default;
+$col_gap_xl: 3 !default;
+
+$box_model: (
+    "p": "padding",
+    "pt": "padding-top",
+    "pr": "padding-right",
+    "pb": "padding-bottom",
+    "pl": "padding-left",
+    "m": "margin",
+    "mt": "margin-top",
+    "mr": "margin-right",
+    "mb": "margin-bottom",
+    "ml": "margin-left"
+) !default;
+
+$grid-breakpoints: (
+    xs: 1px,
+    sm: 480px,
+    md: 768px,
+    lg: 980px,
+    xl: 1170px
+) !default;
