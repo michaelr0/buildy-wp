@@ -1,0 +1,25 @@
+   
+// @font-face {
+// 	font-family: 'Avenir Roman';
+// 	src: url('../../fonts/AvenirLTStd-Roman.woff2') format('woff2'),
+// 		url('../../fonts/AvenirLTStd-Roman.woff') format('woff');
+// 	font-weight: normal;
+// 	font-style: normal;
+// }
+
+
+$font__main: sans-serif;
+$font__heading: $font__main;
+$font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font__pre: "Courier 10 Pitch", Courier, monospace;
+$font__line-height-body: 1.5;
+$font__line-height-pre: 1.6;
+
+
+$btn-padding-y-lg: 1rem;
+$btn-padding-x-lg: 2rem;
+$btn-font-size-lg: 2.4rem;
+
+$btn-padding-y-sm: 0.6rem;
+$btn-padding-x-sm: 1.4rem;
+$btn-font-size-sm: 1.8rem;

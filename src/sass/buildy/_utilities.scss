@@ -1,0 +1,342 @@
+/**** Colour Utils
+This generates a utility for bg, text, border and icon colours
+based on every colour you have in your colours variable list.
+It creates a default Hover style of a darker version of whatever color is.
+E.g .bg-red, .text-gray; *** */
+
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background: $color;
+  }
+  .text-#{$name} {
+    color: $color;
+  }
+  .border-#{$name} {
+    border-color: $color;
+  }
+  .icon-#{$name}::before {
+    color: $color;
+  }
+}
+
+/* Shapes / Radius */
+// For tablet-style buttons
+.is-pill {
+  border-radius: 30px;
+}
+
+/* Spacing Utils
+Generate a shit-tonne of spacing utilities from 0 - 12
+11 and 12 do 1.5x rem for extremities.
+e.g md:
+This does every breakpoint size and every direction (pb, mt, mr, pl, etc)
+/Spacing Utils */
+@each $name, $breakpoint in $grid-breakpoints {
+  // Don't generate XS, instead have no prefix eg .mb-2
+  @if $name == xs {
+    @for $i from 0 through 12 {
+      // Combination sizes
+      .mx-#{$i} {
+        margin-left: #{$i}rem !important;
+        margin-right: #{$i}rem !important;
+      }
+      .my-#{$i} {
+        margin-top: #{$i}rem !important;
+        margin-bottom: #{$i}rem !important;
+      }
+      .px-#{$i} {
+        padding-left: #{$i}rem !important;
+        padding-right: #{$i}rem !important;
+      }
+      .py-#{$i} {
+        padding-top: #{$i}rem !important;
+        padding-bottom: #{$i}rem !important;
+      }
+
+      // Gaps between Columns
+      .col-gap-#{$i} {
+        margin: 0 -#{$i}rem;
+        .bmcb-column {
+          padding-left: #{$i}rem;
+          padding-right: #{$i}rem;
+        }
+      }
+
+      // Breakpoint sizes
+      @each $short, $long in $box_model {
+        .#{$short}-#{$i} {
+          @if ($i < 10) {
+            #{$long}: #{$i}rem !important;
+          } @else {
+            #{$long}: #{$i * 1.5}rem !important;
+          }
+        }
+        .#{$name}\:#{$short}-#{$i} {
+          @if ($i < 10) {
+            #{$long}: #{$i}rem !important;
+          } @else {
+            #{$long}: #{$i * 1.5}rem !important;
+          }
+        }
+      }
+    }
+  } @else {
+    @include media-breakpoint-up($name) {
+      @for $i from 0 through 12 {
+        // Combination sizes
+        .#{$name}\:mx-#{$i} {
+          margin-left: #{$i}rem !important;
+          margin-right: #{$i}rem !important;
+        }
+        .#{$name}\:my-#{$i} {
+          margin-top: #{$i}rem !important;
+          margin-bottom: #{$i}rem !important;
+        }
+        .#{$name}\:px-#{$i} {
+          padding-left: #{$i}rem !important;
+          padding-right: #{$i}rem !important;
+        }
+        .#{$name}\:py-#{$i} {
+          padding-top: #{$i}rem !important;
+          padding-bottom: #{$i}rem !important;
+        }
+        // Breakpoint sizes
+        @each $short, $long in $box_model {
+          .#{$name}\:#{$short}-#{$i} {
+            @if ($i < 10) {
+              #{$long}: #{$i}rem !important;
+            } @else {
+              #{$long}: #{$i * 1.5}rem !important;
+            }
+          }
+        }
+        // Gaps between Columns
+        .#{$name}\:col-gap-#{$i} {
+          margin: 0 -#{$i}rem;
+          .bmcb-column {
+            padding-left: #{$i}rem;
+            padding-right: #{$i}rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@each $name, $breakpoint in $grid-breakpoints {
+  // Don't generate XS, instead have no prefix eg .mb-2
+  @if $name == 'xs' {
+    /* Flex */
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .flex-row {
+      flex-direction: row;
+    }
+
+    .flex-wrap {
+      flex-wrap: wrap;
+    }
+
+    .flex-1 {
+      flex: 1;
+    }
+
+    .items-start {
+      align-items: flex-start;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .items-end {
+      align-items: flex-end;
+    }
+
+    .justify-start {
+      justify-content: flex-start;
+    }
+
+    .justify-center {
+      justify-content: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .justify-end {
+      justify-content: flex-end;
+    }
+
+    .self-start {
+      align-self: start;
+    }
+
+    .self-end {
+      align-self: end;
+    }
+
+    .self-stretch {
+      align-self: stretch;
+    }
+    /* Alignments */
+    .alignleft {
+      display: inline;
+      margin-right: 1.5em;
+    }
+
+    .alignright {
+      display: inline;
+      margin-left: 1.5em;
+    }
+
+    .aligncenter {
+      clear: both;
+      @include center-block;
+    }
+  } @else {
+    @include media-breakpoint-up($name) {
+      /* Flex */
+      .#{$name}\:flex {
+        display: flex;
+      }
+
+      .#{$name}\:flex-col {
+        flex-direction: column;
+      }
+
+      .#{$name}\:flex-row {
+        flex-direction: row;
+      }
+
+      .#{$name}\:flex-wrap {
+        flex-wrap: wrap;
+      }
+
+      .#{$name}\:flex-1 {
+        flex: 1;
+      }
+
+      .#{$name}\:items-start {
+        align-items: flex-start;
+      }
+
+      .#{$name}\:items-center {
+        align-items: center;
+      }
+
+      .#{$name}\:items-end {
+        align-items: flex-end;
+      }
+
+      .#{$name}\:justify-start {
+        justify-content: flex-start;
+      }
+
+      .#{$name}\:justify-center {
+        justify-content: center;
+      }
+
+      .#{$name}\:justify-between {
+        justify-content: space-between;
+      }
+
+      .#{$name}\:justify-end {
+        justify-content: flex-end;
+      }
+
+      .#{$name}\:self-start {
+        align-self: start;
+      }
+
+      .#{$name}\:self-end {
+        align-self: end;
+      }
+
+      .#{$name}\:self-stretch {
+        align-self: stretch;
+      }
+      /* Alignments */
+      .#{$name}\:alignleft {
+        display: inline;
+        margin-right: 1.5em;
+      }
+      .#{$name}\:alignright {
+        display: inline;
+        margin-left: 1.5em;
+      }
+
+      .#{$name}\:aligncenter {
+        clear: both;
+        @include center-block;
+      }
+    }
+  }
+}
+
+/* Start Basic Grid Utils */
+.grid {
+  display: grid;
+}
+
+@include media-breakpoint-up(md) {
+  @for $i from 1 through 6 {
+    .grid-#{$i} {
+      @include grid-cols($i);
+    }
+  }
+}
+@include media-breakpoint-up(lg) {
+  @for $i from 1 through 6 {
+    .grid-lg-#{$i} {
+      @include grid-cols($i);
+    }
+  }
+}
+@include media-breakpoint-up(xl) {
+  @for $i from 1 through 6 {
+    .grid-xl-#{$i} {
+      @include grid-cols($i);
+    }
+  }
+}
+@for $i from 1 through 4 {
+  .gap-#{$i} {
+    gap: #{$i}rem;
+  }
+}
+/* End Basic Grid Utils */
+
+/* Text */
+.text-center {
+  text-align: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.justify-letters-even {
+  display: flex;
+  justify-content: space-between;
+  span {
+    display: block;
+    width: fit-content;
+  }
+}
+
+/* Border Radius */
+.rounded-0 {
+  border-radius: 0 !important;
+}
+
+.rounded {
+  border-radius: $global_radius;
+}

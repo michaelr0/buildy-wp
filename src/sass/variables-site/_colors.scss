@@ -1,0 +1,46 @@
+$colors: (
+    "violet": "--color-alpha",
+    "orange": "--color-bravo",
+    "brown": "--color-charlie",
+    "lightgray": "--color-delta",
+    "darkgray": "--color-echo",
+    "white": "--color-foxtrot",
+    "black": "--color-golf",
+    "blueviolet": "--color-hotel"
+);
+
+$colors_fallback: (
+    "violet": "#534588",
+    "orange": "#f6a800",
+    "brown": "#a44200",
+    "lightgray": "#dfe1e1",
+    "darkgray": "#1b2327",
+    "white": "#fff",
+    "black": "#000",
+    "blueviolet": "#5f6eb3"
+);
+
+$color__alpha: var(--color-alpha);
+$color__bravo: var(--color-bravo);
+$color__charlie: var(--color-charlie);
+$color__charlie-hover: var(--color-charlie);
+$color__delta: var(--color-delta);
+$color__echo: var(--color-echo);
+$color__foxtrot: var(--color-foxtrot);
+$color__golf: var(--color-golf);
+$color__hotel: var(--color-hotel);
+
+$color__background-body: $color__foxtrot;
+$color__background-screen: $color__echo;
+$color__background-hr: $color__echo;
+$color__background-button: $color__bravo;
+$color__background-pre: inherit;
+$color__background-ins: inherit;
+
+$color__text-screen: var(--color-delta);
+$color__text-input: var(--color-golf);
+$color__text-input-focus: var(--color-charlie);
+$color__link: var(--color-charlie);
+$color__link-visited: inherit;
+$color__link-hover: var(--color-charlie-hover);
+$color__text-main: var(--color-golf);
