@@ -14,10 +14,7 @@ class Buildy {
     use WordpressInit;
 
     public $use_PageBuilder = false;
-    public $blade;
     public $ViewCacheLocation;
-    public $viewPaths = [];
-    public $filePath;
 
     public function __construct()
     {

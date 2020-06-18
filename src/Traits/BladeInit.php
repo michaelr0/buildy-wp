@@ -6,7 +6,10 @@ use Jenssegers\Blade\Blade;
 
 trait BladeInit {
 
+    public $blade;
+    public $ViewCacheLocation;
     public $viewPaths = [];
+
 
     public function blade(): object
     {
@@ -22,12 +25,11 @@ trait BladeInit {
              * Share common/global data with Blade views
              * https://laravel.com/docs/6.x/views#sharing-data-with-all-views
              */
-            $globals = [
+            $globalVars = [
                 // 'wpdb' => $this->wpdb,
-                // 'carbon' => new Carbon,
             ];
 
-            foreach ($globals as $key => $val) {
+            foreach ($globalVars as $key => $val) {
                 $this->blade->view()->share($key, $val);
             }
         }
@@ -49,10 +51,13 @@ trait BladeInit {
     {
         $views = [];
 
+        // if(true .....) is currently used as a placeholder, we may add the ability to toggle blade file overrides from the options page.
+        // In which case, overrides would be disabled by default.
+
         /**
          * If current theme is a child theme, then add the buildy-views folder of the child theme to the views path array.
          */
-        if (is_child_theme()) {
+        if (true && is_child_theme()) {
             $childThemeViewsPath = trailingslashit(get_stylesheet_directory()) . 'buildy-views/';
 
             $this->locationExistsOrCreate($childThemeViewsPath) ? $views[] = $childThemeViewsPath : null;
@@ -61,21 +66,24 @@ trait BladeInit {
         /**
          * Add current theme (or Parent Theme) buildy-views folder to the views path array.
          */
-        $themeViewsPath = trailingslashit(get_template_directory()) . 'buildy-views/';
-        $this->locationExistsOrCreate($themeViewsPath) ? $views[] = $themeViewsPath : null;
+        if(true){
+            $themeViewsPath = trailingslashit(get_template_directory()) . 'buildy-views/';
+            $this->locationExistsOrCreate($themeViewsPath) ? $views[] = $themeViewsPath : null;
+        }
 
         /**
          * Add view paths from $this->viewPaths
          */
-        foreach($this->viewPaths as $viewPath){
-            $views[] = trailingslashit($viewPath);
+        if(true){
+            foreach($this->viewPaths as $viewPath){
+                $views[] = trailingslashit($viewPath);
+            }
         }
 
         /**
          * Add buildy views folder to the views path array.
          */
-        $buildyViewsPath = trailingslashit(__DIR__) . '../../resources/views/';
-        $views[] = $buildyViewsPath;
+        $views[] = trailingslashit(__DIR__) . '../../resources/views/';
 
         return $views;
     }
