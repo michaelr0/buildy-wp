@@ -20,6 +20,7 @@ class Buildy {
     {
         $this->ViewCacheLocation = __DIR__ . "/../cache/";
 
+        add_action('admin_init', [$this, 'wordpress_admin_init']);
         add_action('init', [$this, 'wordpress_init']);
     }
 

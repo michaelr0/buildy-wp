@@ -145,21 +145,43 @@ trait WordpressInit {
 
     }
 
-    public function wordpress_init()
+    public function wordpress_admin_init()
     {
-        // Must register custom post types first
-        $this->wordpress_custom_post_types_register_globals();
+        $this->check_plugin_dependency_is_active('classic_editor', 'classic-editor/classic-editor.php');
+        $this->check_plugin_dependency_is_active('acf', 'advanced-custom-fields-pro/acf.php');
 
-        // Must register custom post types first
         $this->wordpress_acf_add_options_pages();
         $this->wordpress_acf_add_options_fields();
         $this->wordpress_acf_add_editor_fields();
 
         add_action('admin_enqueue_scripts', [$this, 'wordpress_admin_enqueue_wp_media']);
-        add_action('admin_footer', [$this, 'wordpress_admin_enqueue_footer']);
         add_action('admin_head', [$this, 'wordpress_admin_enqueue_header']);
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_dependancies']);
+        add_action('admin_footer', [$this, 'wordpress_admin_enqueue_footer']);
         add_action('edit_form_after_editor', [$this, 'wordpress_edit_form_after_editor']);
+    }
+
+    public function wordpress_init()
+    {
+        // Must register custom post types first
+        $this->wordpress_custom_post_types_register_globals();
+
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_dependancies']);
         add_filter('the_content', [$this, 'wordpress_add_filter_the_content']);
+    }
+
+    private function check_plugin_dependency_is_active(string $plugin, string $pluginPath) {
+        if (is_admin() && current_user_can( 'activate_plugins' ) && !is_plugin_active($pluginPath)){
+            add_action('admin_notices', [$this, "dependency_notice_for_{$plugin}"]);
+            deactivate_plugins('buildy-wp/buildy-wp.php');
+        }
+    }
+
+    public function dependency_notice_for_classic_editor(){
+        echo '<div class="error"><p>Sorry, but Buildy requires the Classic Editor plugin to be installed and active.</p></div>';
+    }
+
+    public function dependency_notice_for_acf()
+    {
+        echo '<div class="error"><p>Sorry, but Buildy requires the Advanced Custom Fields plugin to be installed and active.</p></div>';
     }
 }
