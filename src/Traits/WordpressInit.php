@@ -171,7 +171,10 @@ trait WordpressInit {
 
     private function check_plugin_dependency_is_active(string $plugin, string $pluginPath) {
         if (is_admin() && current_user_can( 'activate_plugins' ) && !is_plugin_active($pluginPath)){
-            add_action('admin_notices', [$this, "dependency_notice_for_{$plugin}"]);
+            if(method_exists($this, "dependency_notice_for_{$plugin}")){
+                add_action('admin_notices', [$this, "dependency_notice_for_{$plugin}"]);
+            }
+
             deactivate_plugins('buildy-wp/buildy-wp.php');
         }
     }
