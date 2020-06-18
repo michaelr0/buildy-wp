@@ -150,10 +150,6 @@ trait WordpressInit {
         $this->check_plugin_dependency_is_active('classic_editor', 'classic-editor/classic-editor.php');
         $this->check_plugin_dependency_is_active('acf', 'advanced-custom-fields-pro/acf.php');
 
-        $this->wordpress_acf_add_options_pages();
-        $this->wordpress_acf_add_options_fields();
-        $this->wordpress_acf_add_editor_fields();
-
         add_action('admin_enqueue_scripts', [$this, 'wordpress_admin_enqueue_wp_media']);
         add_action('admin_head', [$this, 'wordpress_admin_enqueue_header']);
         add_action('admin_footer', [$this, 'wordpress_admin_enqueue_footer']);
@@ -164,6 +160,11 @@ trait WordpressInit {
     {
         // Must register custom post types first
         $this->wordpress_custom_post_types_register_globals();
+
+        // Must register custom post types first
+        $this->wordpress_acf_add_options_pages();
+        $this->wordpress_acf_add_options_fields();
+        $this->wordpress_acf_add_editor_fields();
 
         add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_dependancies']);
         add_filter('the_content', [$this, 'wordpress_add_filter_the_content']);
