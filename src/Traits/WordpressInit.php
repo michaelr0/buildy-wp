@@ -69,11 +69,20 @@ trait WordpressInit {
             /**
              * Create config array for the Page Builder.
              */
+
+
+            // Custom theme option settings from Site Options (ACF)
+            if (function_exists('get_field')) :
+                $theme_colours = get_field('theme_colours', 'option');
+                $overwrite_mode = get_field('overwrite_mode', 'option');
+            endif;
+
             $config = json_encode([
                 'post_id' => $post->ID,
                 'post_type' => $post->post_type,
                 'isGlobal' => $isGlobal,
-                'overwrite_mode' => get_field('overwrite_mode', 'option'),
+                'theme_colours' => $theme_colours ?: null,
+                'overwrite_mode' => $overwrite_mode ?: false,
                 'is_admin' => current_user_can('administrator'),
                 'site_url' => get_site_url(),
                 'registered_post_types' => get_post_types(['_builtin' => false]),

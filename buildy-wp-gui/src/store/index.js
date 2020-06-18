@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     isWP: false,
     config: {},
+    colours: [],
     dragDisabled: false,
   },
   mutations: {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     DRAG_TOGGLE(state, payload) {
       state.dragDisabled = payload
+    },
+    SET_COLOURS(state, colours) {
+      state.colours = colours;
     },
     FLAG_WP(state, payload) {
       state.isWP = payload
@@ -29,7 +33,12 @@ export default new Vuex.Store({
         // If you're not admin, immediately disable dragging.
         context.commit('DRAG_TOGGLE', true)
       }
-      
+
+      if (payload.theme_colours && payload.theme_colours.length) {
+          let colours = payload.theme_colours.map(colour => colour.name)
+          context.commit('SET_COLOURS', colours)
+      }
+
       // Config object only exists in wordpress scenarios at the moment
       context.commit('FLAG_WP', true)
     },
@@ -49,6 +58,9 @@ export default new Vuex.Store({
     },
     config: state => {
       return state.config
+    },
+    colours: state => {
+        return state.colours
     },
     dragDisabled: state => {
       return state.dragDisabled

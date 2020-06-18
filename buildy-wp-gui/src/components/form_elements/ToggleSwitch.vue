@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      value: this.status || false
+      value: false
     };
   },
   computed: {
@@ -55,6 +55,9 @@ export default {
     }
   },
   mounted() {
+    if (this.status) {
+        this.value = this.status
+    }
     if (this.path) {
       this.value = getDeep(this.component, this.path);
     }

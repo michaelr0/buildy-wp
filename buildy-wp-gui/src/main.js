@@ -1,8 +1,6 @@
 /*eslint no-undef: 0*/
 import Vue from 'vue'
 import App from './App.vue'
-import { SetThemeOptions } from './classes/themeOptions'
-
 import store from './store'
 
 Vue.config.productionTip = false
@@ -29,13 +27,6 @@ let content;
 if (document.getElementById('content') && document.getElementById('content').value) {
   content = JSON.parse(document.getElementById('content').value)
 }
-
-let tempPayload = {
-  colors: [{ name: 'red', value: 'blue' }],
-  spacing: []
-}
-
-new SetThemeOptions(tempPayload);
 
 new Vue({
   store,

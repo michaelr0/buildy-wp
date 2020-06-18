@@ -51,19 +51,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-$colors: "red", "blue", "pink", "orange", "cyan", "lightgray", "gray", "white",
-  "black";
-@each $color in $colors {
-  .bg-#{$color} {
-    background-color: var(--#{$color});
-  }
-  .text-#{$color} {
-    color: var(--#{$color});
-  }
-  .border-#{$color} {
-    border-color: var(--#{$color});
-  }
-}
-</style>
