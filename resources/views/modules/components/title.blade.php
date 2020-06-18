@@ -10,9 +10,12 @@ $title = $bladeData->content->title->value ?? null;
 $default_level = $default ?? 'h3';
 $heading_level = $bladeData->content->title->level ?? $default_level;
 $color = $bladeData->content->title->color ?? null;
-if ($is_heading) {
+if (!empty($is_heading)) {
     $moduleClasses = $bladeData->attributes->class ?? null;
+}else{
+    $moduleClasses = null;
 }
+
 if($color) {
     if (strpos($color, '#') !== false) {
         $styleAtts = "color: $color;";
