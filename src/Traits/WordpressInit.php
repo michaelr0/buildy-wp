@@ -167,6 +167,12 @@ trait WordpressInit {
 
     public function wordpress_init()
     {
+        // Load jQuery in the header rather than footer.
+        add_action('wp_enqueue_scripts', function () {
+            wp_dequeue_script('jquery');
+            wp_enqueue_script('jquery', '', [], false, false);
+        });
+
         // Must register custom post types first
         $this->wordpress_custom_post_types_register_globals();
 
