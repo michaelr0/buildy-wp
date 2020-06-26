@@ -91,7 +91,7 @@ if (function_exists('attachment_url_to_postid')) {
                 <div class="bmcb-blurb__description">{!! $bladeData->content->body !!}</div>
             @endif
             @if($buttonOneEnabled || $buttonTwoEnabled)
-                <div class="bmcb-blurb__button-wrapper">
+                <div class="bmcb-blurb__button-wrapper @if($buttonOneEnabled && $buttonTwoEnabled)button__group @endif">
                     @if($buttonOneEnabled)
                         <{{ !$module_link_url ? 'a' : 'div' }}
                         class="btn
