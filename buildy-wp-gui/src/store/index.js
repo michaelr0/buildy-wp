@@ -17,8 +17,7 @@ export default new Vuex.Store({
         },
         SET_VALID_COMPONENTS(state, payload) {
             Vue.set(state, 'validComponents', payload)
-
-            console.log(payload)
+            console.log('validComponents', state.validComponents)
         },
         DRAG_TOGGLE(state, payload) {
             state.dragDisabled = payload

@@ -2,7 +2,7 @@
     <div
         @mouseover="hovering = true"
         @mouseleave="hovering = false"
-        class="col px-4 pb-2 flex-col text-center"
+        class="col px-4 pb-2 flex-col text-center column"
         :class="[columnClasses, moduleCount ? 'hasItems' : 'empty']"
     >
         <settings-modal
@@ -105,7 +105,7 @@
                 <h2 class="mb-6 text-2xl">Choose Module:</h2>
                 <div class="flex flex-wrap flex-grow -mx-4">
                     <div
-                        v-for="options in components"
+                        v-for="options in validComponents"
                         :key="options.type"
                         class="flex items-center text-center w-1/4 p-2"
                     >
@@ -137,7 +137,7 @@
                 class="custom-select custom-select-lg mb-3"
             >
                 <option
-                    v-for="options in components"
+                    v-for="options in validComponents"
                     :key="options.type"
                     :value="options.type"
                     >{{ options.name }}</option
@@ -167,7 +167,6 @@ import {
     CodeIcon
 } from "vue-feather-icons";
 
-import { labelUCFirst } from "../../functions/helpers";
 import { debounce } from "../../functions/helpers";
 import draggable from "vuedraggable";
 import { Module } from "../../classes/ModuleClass";
@@ -199,13 +198,12 @@ export default {
             bootcols: "",
             windowWidth: Number,
             breakpoints: this.component.options.columns,
-            components: Array,
             menuOpen: false,
             dragging: false
         };
     },
     computed: {
-        ...mapGetters(["dragDisabled"]),
+        ...mapGetters(["dragDisabled", "validComponents"]),
         selfID() {
             return this.component.id;
         },
@@ -259,19 +257,6 @@ export default {
         }
     },
     methods: {
-        getComponents() {
-            const files = require.context("../", false, /\.vue$/i);
-            let components = [];
-            files.keys().map(key => {
-                const component = files(key).default;
-                components.push({
-                    name: labelUCFirst(component.name),
-                    type: component.name,
-                    icon: component.data().icon
-                });
-            });
-            this.components = [...components];
-        },
         openModal() {
             this.$modal.show("column-" + this.component.id);
         },
@@ -279,7 +264,6 @@ export default {
             this.$modal.hide("column-" + this.component.id);
         },
         incrementCol() {
-            console.log(this.component.options.columns[this.curBreakpoint]);
             if (this.component.options.columns[this.curBreakpoint]) {
                 let curVal = parseInt(
                     this.component.options.columns[this.curBreakpoint]
@@ -342,8 +326,6 @@ export default {
         EventBus.$on("dragToggle", val => {
             this.dragging = val;
         });
-
-        this.getComponents();
 
         this.$nextTick(() => {
             const vm = this;

@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
+import { labelUCFirst } from './functions/helpers'
 import 'prismjs'
 import 'prismjs/themes/prism.css'
 
@@ -12,15 +13,25 @@ import '@/assets/css/tailwind.css'
 import VModal from 'vue-js-modal'
 Vue.use(VModal)
 
-const files = require.context('./components', true, /\.vue$/i)
+const files = require.context('./components', false, /\.vue$/i)
+const filesRecursive = require.context('./components', true, /\.vue$/i)
+
+filesRecursive.keys().map(key => {
+    let name = key.split('/').pop().split('.')[0];
+    Vue.component(name, filesRecursive(key).default)
+})
+
 const validComponents = []
 files.keys().map(key => {
-    let name = key.split('/').pop().split('.')[0];
+    let component = files(key).default;
 
-    // Save registered components names
-    validComponents.push(files(key).default.name)
-
-    Vue.component(name, files(key).default)
+    if (component.name) {
+        validComponents.push({
+            name: labelUCFirst(component.name),
+            type: component.name,
+            icon: component.data().icon
+        })
+    }
 })
 
 let config = '';

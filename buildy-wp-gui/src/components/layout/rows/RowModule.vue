@@ -1,7 +1,7 @@
 <template>
     <div
         :id="component.id"
-        class="bg-gray-300 mx-0 flex flex-wrap"
+        class="bg-gray-300 mx-0 flex flex-wrap row"
         :class="[settingsOpen ? 'highlight-row' : '']"
     >
         <module-settings-bar

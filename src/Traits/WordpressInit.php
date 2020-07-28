@@ -147,11 +147,10 @@ trait WordpressInit {
          */
         $url = plugins_url() . "/buildy-wp";
 
-         if ($this->isPageBuilderEnabled() && !get_field('disable_frontend_enqueue', 'option')) {
-            wp_enqueue_style( 'buildy-css', "{$url}/public/frontend.css", null, '1.0.0', '');
+        if (/*$this->isPageBuilderEnabled() && */!get_field('disable_frontend_enqueue', 'option')) {
             wp_enqueue_script( 'buildy-js', "{$url}/public/frontend-bundle.js", null, '1.0.0', true );
+            wp_enqueue_style( 'buildy-css', "{$url}/public/frontend.css", null, '1.0.0', '');
         }
-
     }
 
     public function wordpress_admin_init()
