@@ -12,7 +12,7 @@
       <select-box
         class="px-2 flex-grow"
         label="Text Color"
-        options="light, dark"
+        :options="textColours"
         :key="`textColor-${breakpoint}`"
         :path="`inline.color.${breakpoint}`"
       />
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 //import { setDeep, getDeep } from '../../functions/objectHelpers';
 export default {
   name: "text-settings",
@@ -28,6 +29,13 @@ export default {
     return {
       breakpoint: "xl",
     };
+  },
+  computed: {
+    ...mapGetters(["colours"]),
+    textColours() {
+        let defaultColours = ['light', 'dark']
+        return [...defaultColours, ...this.colours].join()
+    }
   },
   methods: {
     swapBreakpoint(breakpoint) {

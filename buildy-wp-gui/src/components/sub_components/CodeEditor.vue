@@ -1,33 +1,42 @@
 <template>
     <div class="module module-settings">
-      <span v-if="header" class="text-2xl block mb-4" v-text="header" />     
-      <textarea class="w-full h-24 p-4" v-model="value" @blur="change"></textarea>
+        <span v-if="header" class="text-2xl block mb-4" v-text="header" />
+        <prism-editor
+            :code="value"
+            language="html"
+            @change="change"
+        ></prism-editor>
     </div>
 </template>
 <script>
-import { setDeep, getDeep } from '../../functions/objectHelpers';
+import { setDeep, getDeep } from "../../functions/objectHelpers";
+import PrismEditor from "vue-prism-editor";
 
 // @ts-ignore
 export default {
-  name: 'code-editor',
+    name: "code-editor",
     data: function() {
-      return {
-        value: '',
-      }
-    }, 
+        return {
+            value: "test"
+        };
+    },
     props: {
-      path: String,
-      header: String,
+        path: String,
+        header: String
     },
     methods: {
-      change() {
-        setDeep(this.component, this.path, this.value)
-        this.$emit('change', {data: this.value, path: this.path})
-      },
+        change(e) {
+            this.value = e;
+            setDeep(this.component, this.path, this.value);
+            this.$emit("change", { data: this.value, path: this.path });
+        }
+    },
+    components: {
+        PrismEditor
     },
     mounted() {
-      this.value = getDeep(this.component, this.path) || ''
+        this.value = getDeep(this.component, this.path) || "<html>test</html>";
     },
-    inject: ['component']
-}
+    inject: ["component"]
+};
 </script>

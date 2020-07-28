@@ -34,191 +34,6 @@ trait WordpressInit {
         return $content;
     }
 
-    public function wordpress_acf_add_editor_fields()
-    {
-        if (function_exists('acf_add_local_field_group')) {
-            $post_types = get_field('BMCB_post_types', 'option');
-            if (!empty($post_types)) {
-                $locations = [];
-
-                foreach ($post_types as $post_type) {
-                    $locations[][] = [
-                        'param' => 'post_type',
-                        'operator' => '==',
-                        'value' => strtolower(trim($post_type['BMCB_post_type'])),
-                    ];
-                }
-
-                $acf_options = array(
-                    'key' => 'group_5d55280584f62',
-                    'title' => 'PageBuilder',
-                    'fields' => array(
-                        array(
-                            'key' => 'field_5d552835c0f95',
-                            'label' => 'Enable PageBuilder',
-                            'name' => 'BMCB_use_PageBuilder',
-                            'type' => 'true_false',
-                            'instructions' => "",
-                            'required' => 0,
-                            'conditional_logic' => 0,
-                            'wrapper' => array(
-                                'width' => "",
-                                'class' => "",
-                                'id' => "",
-                            ),
-                            'default_value' => 0,
-                            'ui' => 1,
-                            'ui_on_text' => "",
-                            'ui_off_text' => "",
-                        ),
-                    ),
-                    'location' => $locations,
-                    'menu_order' => 0,
-                    'position' => 'side',
-                    'style' => 'default',
-                    'label_placement' => 'top',
-                    'instruction_placement' => 'label',
-                    'hide_on_screen' => "",
-                    'active' => true,
-                    'description' => "",
-                );
-
-                acf_add_local_field_group($acf_options);
-            }
-        }
-    }
-
-    public function wordpress_acf_add_options_fields()
-    {
-        if (function_exists('acf_add_local_field_group')) {
-            acf_add_local_field_group(array(
-                'key' => 'group_5d81b07219727',
-                'title' => 'Buildy Options',
-                'fields' => array(
-                    array(
-                        'key' => 'field_5d81b912abb03',
-                        'label' => 'Post Types',
-                        'name' => 'BMCB_post_types',
-                        'type' => 'repeater',
-                        'instructions' => 'Enable buildy functionality on these post types',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'collapsed' => '',
-                        'min' => 0,
-                        'max' => 0,
-                        'layout' => 'table',
-                        'button_label' => 'Add Post Type',
-                        'sub_fields' => array(
-                            array(
-                                'key' => 'field_5d81b924abb04',
-                                'label' => 'Post Type',
-                                'name' => 'BMCB_post_type',
-                                'type' => 'text',
-                                'instructions' => '',
-                                'required' => 1,
-                                'conditional_logic' => 0,
-                                'wrapper' => array(
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'default_value' => '',
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
-                            ),
-                        ),
-                    ),
-                ),
-                'location' => array(
-                    array(
-                        array(
-                            'param' => 'options_page',
-                            'operator' => '==',
-                            'value' => 'bmcb-settings',
-                        ),
-                    ),
-                ),
-                'menu_order' => 0,
-                'position' => 'normal',
-                'style' => 'seamless',
-                'label_placement' => 'top',
-                'instruction_placement' => 'label',
-                'hide_on_screen' => '',
-                'active' => true,
-                'description' => '',
-            ));
-
-            acf_add_local_field_group(array(
-                'key' => 'group_5e6f6786bb470',
-                'title' => 'GUI Options',
-                'fields' => array(
-                    array(
-                        'key' => 'field_5e6f67948b46b',
-                        'label' => 'Overwrite Mode',
-                        'name' => 'overwrite_mode',
-                        'type' => 'true_false',
-                        'instructions' => 'If things are not saving in the way they should (or everytime you open a module, the settings aren\'t saved from before) enable this option. This will force buildy to overwrite anything that was previously set (if it was corrupted or anything like that) and add the correct data in.',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'message' => '',
-                        'default_value' => 0,
-                        'ui' => 1,
-                        'ui_on_text' => '',
-                        'ui_off_text' => '',
-                    ),
-                    array(
-                        'key' => 'field_2f3f35918b46c',
-                        'label' => 'Disable Frontend Files Output?',
-                        'name' => 'disable_frontend_enqueue',
-                        'type' => 'true_false',
-                        'instructions' => 'If you\'re adding the scss and js into your theme itself, this disables the output of buildy default .css and .js',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'message' => '',
-                        'default_value' => 0,
-                        'ui' => 1,
-                        'ui_on_text' => '',
-                        'ui_off_text' => '',
-                    ),
-                ),
-                'location' => array(
-                    array(
-                        array(
-                            'param' => 'options_page',
-                            'operator' => '==',
-                            'value' => 'bmcb-settings',
-                        ),
-                    ),
-                ),
-                'menu_order' => 0,
-                'position' => 'normal',
-                'style' => 'default',
-                'label_placement' => 'top',
-                'instruction_placement' => 'label',
-                'hide_on_screen' => '',
-                'active' => true,
-                'description' => '',
-            ));
-        }
-    }
-
     public function wordpress_custom_post_types_register_globals()
     {
         return register_post_type(
@@ -254,11 +69,20 @@ trait WordpressInit {
             /**
              * Create config array for the Page Builder.
              */
+
+
+            // Custom theme option settings from Site Options (ACF)
+            if (function_exists('get_field')) :
+                $theme_colours = get_field('theme_colours', 'option');
+                $overwrite_mode = get_field('overwrite_mode', 'option');
+            endif;
+
             $config = json_encode([
                 'post_id' => $post->ID,
                 'post_type' => $post->post_type,
                 'isGlobal' => $isGlobal,
-                'overwrite_mode' => get_field('overwrite_mode', 'option'),
+                'theme_colours' => $theme_colours ?: null,
+                'overwrite_mode' => $overwrite_mode ?: false,
                 'is_admin' => current_user_can('administrator'),
                 'site_url' => get_site_url(),
                 'registered_post_types' => get_post_types(['_builtin' => false]),
@@ -323,33 +147,31 @@ trait WordpressInit {
          */
         $url = plugins_url() . "/buildy-wp";
 
-         if ($this->isPageBuilderEnabled() && !get_field('disable_frontend_enqueue', 'option')) {
-            wp_enqueue_style( 'buildy-css', "{$url}/public/frontend.css", null, '1.0.0', '');
+        if (/*$this->isPageBuilderEnabled() && */!get_field('disable_frontend_enqueue', 'option')) {
             wp_enqueue_script( 'buildy-js', "{$url}/public/frontend-bundle.js", null, '1.0.0', true );
+            wp_enqueue_style( 'buildy-css', "{$url}/public/frontend.css", null, '1.0.0', '');
         }
-
     }
 
-    public function wordpress_acf_add_options_pages()
+    public function wordpress_admin_init()
     {
+        $this->check_plugin_dependency_is_active('classic_editor', 'classic-editor/classic-editor.php');
+        $this->check_plugin_dependency_is_active('acf', 'advanced-custom-fields-pro/acf.php');
 
-        // Check function exists.
-        if (!function_exists('acf_add_options_page')) {
-            return false;
-        }
-
-        // register options pages.
-        acf_add_options_page(array(
-            'page_title'    => __("BMCB General Settings"),
-            'menu_title'    => __('BMCB Settings'),
-            'menu_slug'     => 'bmcb-settings',
-            'capability'    => 'edit_posts',
-            'redirect'      => false
-        ));
+        add_action('admin_enqueue_scripts', [$this, 'wordpress_admin_enqueue_wp_media']);
+        add_action('admin_head', [$this, 'wordpress_admin_enqueue_header']);
+        add_action('admin_footer', [$this, 'wordpress_admin_enqueue_footer']);
+        add_action('edit_form_after_editor', [$this, 'wordpress_edit_form_after_editor']);
     }
 
     public function wordpress_init()
     {
+        // Load jQuery in the header rather than footer.
+        add_action('wp_enqueue_scripts', function () {
+            wp_dequeue_script('jquery');
+            wp_enqueue_script('jquery', '', [], false, false);
+        });
+
         // Must register custom post types first
         $this->wordpress_custom_post_types_register_globals();
 
@@ -358,11 +180,26 @@ trait WordpressInit {
         $this->wordpress_acf_add_options_fields();
         $this->wordpress_acf_add_editor_fields();
 
-        add_action('admin_enqueue_scripts', [$this, 'wordpress_admin_enqueue_wp_media']);
-        add_action('admin_footer', [$this, 'wordpress_admin_enqueue_footer']);
-        add_action('admin_head', [$this, 'wordpress_admin_enqueue_header']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_dependancies']);
-        add_action('edit_form_after_editor', [$this, 'wordpress_edit_form_after_editor']);
         add_filter('the_content', [$this, 'wordpress_add_filter_the_content']);
+    }
+
+    private function check_plugin_dependency_is_active(string $plugin, string $pluginPath) {
+        if (is_admin() && current_user_can( 'activate_plugins' ) && !is_plugin_active($pluginPath)){
+            if(method_exists($this, "dependency_notice_for_{$plugin}")){
+                add_action('admin_notices', [$this, "dependency_notice_for_{$plugin}"]);
+            }
+
+            deactivate_plugins('buildy-wp/buildy-wp.php');
+        }
+    }
+
+    public function dependency_notice_for_classic_editor(){
+        echo '<div class="error"><p>Sorry, but Buildy requires the Classic Editor plugin to be installed and active.</p></div>';
+    }
+
+    public function dependency_notice_for_acf()
+    {
+        echo '<div class="error"><p>Sorry, but Buildy requires the Advanced Custom Fields plugin to be installed and active.</p></div>';
     }
 }

@@ -2,27 +2,26 @@
 
 namespace Michaelr0\BuildyWp;
 
-use Michaelr0\BuildyWp\Traits\BladeFrontend;
+use Michaelr0\BuildyWp\Traits\ACFInit;
+use Michaelr0\BuildyWp\Traits\BladeInit;
 use Michaelr0\BuildyWp\Traits\HelperTrait;
 use Michaelr0\BuildyWp\Traits\WordpressInit;
 
-class Buildy
-{
+class Buildy {
     use HelperTrait;
-    use BladeFrontend;
+    use BladeInit;
+    use ACFInit;
     use WordpressInit;
 
     public $use_PageBuilder = false;
-    public $blade;
     public $ViewCacheLocation;
-    public $viewPaths = [];
-    public $filePath;
 
     public function __construct()
     {
         $this->ViewCacheLocation = __DIR__ . "/../cache/";
 
-        add_action('init', array($this, 'wordpress_init'));
+        add_action('admin_init', [$this, 'wordpress_admin_init']);
+        add_action('init', [$this, 'wordpress_init']);
     }
 
     public function renderFrontend($post_id): string

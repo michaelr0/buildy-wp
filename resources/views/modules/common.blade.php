@@ -7,7 +7,7 @@ $dataAtts = $bladeData->attributes->data ?? null;
 
 $colors = $bladeData->inline->color ?? null;
 
-$textAlign = $bladeData->inline->textAlign;
+$textAlign = $bladeData->inline->textAlign ?? null;
 
 // Temporary large/small version of text align, I'll loop this eventually
 if ($textAlign) {
