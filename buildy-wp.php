@@ -9,7 +9,7 @@
  * Author:
  * Author URI:
  * Text Domain: buildy-wp
- * Github Plugin URI: https://github.com/michaelr0/buildy-wp.git
+ * GitHub Plugin URI: https://github.com/michaelr0/buildy-wp.git
  */
 
 if (!defined('ABSPATH')) {
