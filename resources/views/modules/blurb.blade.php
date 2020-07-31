@@ -3,6 +3,7 @@
 @php
 //  BUTTON
 $module_link_url = $bladeData->options->module_link->url ?? null;
+    $module_link_new_tab = $bladeData->options->module_link->new_tab ?? null;
 $buttonOneEnabled = (!empty($bladeData->content->button->buttonEnabled) || !empty($bladeData->options->buttonOneEnabled)) ?? null;
 $buttonTwoEnabled = $bladeData->options->buttonTwoEnabled ?? null;
 
@@ -53,7 +54,7 @@ if (function_exists('attachment_url_to_postid')) {
 
 @section('content')
     @if(!empty($module_link_url))
-        <a href="{{ $module_link_url }}">
+        <a @if($module_link_new_tab) target="_blank" @endif href="{{ $module_link_url }}">
     @endif
 
         {{-- When the image is set above the title --}}

@@ -17,7 +17,6 @@ export default new Vuex.Store({
         },
         SET_VALID_COMPONENTS(state, payload) {
             Vue.set(state, 'validComponents', payload)
-            console.log('validComponents', state.validComponents)
         },
         DRAG_TOGGLE(state, payload) {
             state.dragDisabled = payload
@@ -31,6 +30,7 @@ export default new Vuex.Store({
     },
     actions: {
         config(context, payload) {
+            console.log(payload)
             // Set the config options globally
             context.commit('SET_CONFIG', payload)
 
@@ -58,7 +58,10 @@ export default new Vuex.Store({
         },
         validComponents({ commit }, payload) {
             if (payload.length) {
-                let clean = payload.filter(el => el)
+                console.log(payload)
+                let clean = payload.filter(el => {
+                    return el
+                })
                 commit('SET_VALID_COMPONENTS', clean)
             }
         }
