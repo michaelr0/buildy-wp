@@ -10,7 +10,7 @@ export class Module {
             content: [],
             options: {
                 isEditable: true,
-                admin_label: options && options.alias ? options.alias : options.name
+                admin_label: options && options.alias ? options.alias : options && options.name
             }
         }
         if (options && options.atts) {
