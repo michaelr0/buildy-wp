@@ -117,7 +117,7 @@ export default {
             this.pageBuilder.push(newComponent);
         },
         addHR() {
-            let newObj = new Module({ type: "hr-module" });
+            let newObj = new Module({ type: "hr-module", alias: "Divider" });
             this.pageBuilder.push(newObj.newModule());
         },
         async getGlobals() {

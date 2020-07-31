@@ -115,7 +115,7 @@ export default {
             this.component.content.push(newComponent);
         },
         addHR() {
-            let newObj = new Module({ type: "hr-module" });
+            let newObj = new Module({ type: "hr-module", alias: "Divider" });
             this.component.content.push(newObj.newModule());
         }
     },

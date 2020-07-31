@@ -1,16 +1,20 @@
 <template>
-  <settings-modal>     
-    <attribute-editor path="inline.height" label="Height"></attribute-editor>
-    <color-picker label="Color" path="inline.backgroundColor" />
-  </settings-modal> 
+    <settings-modal>
+        <attribute-editor
+            path="inline.height"
+            label="Height"
+        ></attribute-editor>
+        <color-picker label="Color" path="inline.backgroundColor" />
+    </settings-modal>
 </template>
 <script>
-  export default { 
-    name: 'hr-module', 
+export default {
+    name: "hr-module",
     data: function() {
-      return {
-        icon: 'MenuIcon',
-      }
+        return {
+            alias: "Divider",
+            icon: "MenuIcon"
+        };
     }
-  }
+};
 </script>

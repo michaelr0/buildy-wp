@@ -10,7 +10,7 @@ export class Module {
             content: [],
             options: {
                 isEditable: true,
-                admin_label: (options && options.type) ? labelUCFirst(options.type) : ''
+                admin_label: options && options.alias ? options.alias : options.name
             }
         }
         if (options && options.atts) {
