@@ -30,7 +30,6 @@ export default new Vuex.Store({
     },
     actions: {
         config(context, payload) {
-            console.log(payload)
             // Set the config options globally
             context.commit('SET_CONFIG', payload)
 
@@ -58,7 +57,6 @@ export default new Vuex.Store({
         },
         validComponents({ commit }, payload) {
             if (payload.length) {
-                console.log(payload)
                 let clean = payload.filter(el => {
                     return el
                 })

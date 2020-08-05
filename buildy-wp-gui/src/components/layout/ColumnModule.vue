@@ -280,7 +280,7 @@ export default {
                     this.component.options.columns[this.curBreakpoint]
                 );
                 if (curVal > 2) {
-                    console.log(curVal);
+                    // console.log(curVal);
                     this.component.options.columns[this.curBreakpoint] =
                         curVal - 1;
                 }
@@ -383,7 +383,7 @@ input[type="radio"] + label span {
 }
 
 .hidden {
-    display: none !important;
+    display: none;
 }
 
 input[type="radio"] + label span:hover,

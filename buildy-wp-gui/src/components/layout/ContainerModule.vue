@@ -142,7 +142,7 @@ export default {
 </script>
 <style scoped>
 .hidden {
-    display: none !important;
+    display: none;
 }
 
 /* For components directly inside Root (HR, global) */

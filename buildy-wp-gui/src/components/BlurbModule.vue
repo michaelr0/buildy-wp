@@ -54,7 +54,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.component);
+        // console.log(this.component);
     },
     props: {
         hidecontrols: Boolean,

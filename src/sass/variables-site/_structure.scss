@@ -2,9 +2,9 @@ $containerWidth: 1280px;
 $sectionPadding: 8rem !default;
 
 // Gap between columns in rem
-$col_gap_md: 1.5 !default;
-$col_gap_lg: 1.5 !default;
-$col_gap_xl: 3 !default;
+$col_gap: 2 !default;
+$col_gap_lg: $col_gap !default;
+$col_gap_xl: $col_gap * 2 !default;
 
 $box_model: (
     "p": "padding",

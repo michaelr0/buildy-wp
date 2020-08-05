@@ -52,7 +52,7 @@ export default {
     },
     methods: {
         componentMap(type) {
-            console.log(this.validComponents);
+            // console.log(this.validComponents);
             return !!this.validComponents.find(el => el.type === type);
         },
         setDeep
