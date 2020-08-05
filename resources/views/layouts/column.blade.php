@@ -16,7 +16,7 @@ if ($spacing) {
 @endphp
 
 <div id="{{ $moduleID }}"
-    class="bmcb-column {{ $bladeData->generatedAttributes->columns ?? 'col' }} {{ $moduleClasses ? $moduleClasses : '' }}"
+    class="bmcb-column col {{ $bladeData->generatedAttributes->columns }} {{ $moduleClasses ? $moduleClasses : null }}"
     @if($bgColor || $bgImage) style="{{ $bgColor }} {{ $bgImage }} {{ $bgSize }} {{ $bgPosition }}" @endif
     @if ($dataAtts)
         @foreach($dataAtts as $att)
