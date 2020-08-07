@@ -29,7 +29,7 @@ $gray-light: #eceff1;
         align-items: center;
         list-style: none; // Hide the marker (proper method)
         border-radius: $global_radius;
-        background: $color__delta;
+        background: $color__quaternary;
         outline: 0;
         font-family: $font__heading;
         cursor: pointer;
@@ -59,7 +59,7 @@ $gray-light: #eceff1;
         }
 
         [open] > & {
-            background: $color__foxtrot;
+            background: $color__white;
         }
 
         [open] &::after {

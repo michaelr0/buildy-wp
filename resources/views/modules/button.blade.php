@@ -22,6 +22,7 @@
     $outlined = $bladeData->content->button->outlined;
     $unStyled = $bladeData->content->button->unStyled;
     $target = $bladeData->content->button->target;
+    $size = $bladeData->content->button->size;
 @endphp
 
 @section('content')
@@ -44,6 +45,9 @@
     @endif
     @if($color)
         text-{{ $color }}
+    @endif
+    @if($size)
+        btn--{{ $size }}
     @endif
     "
     @if($target)
