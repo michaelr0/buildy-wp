@@ -33,7 +33,6 @@ export default {
         configAPI() {
             if (this.config.length) {
                 const configObj = JSON.parse(this.config);
-                // console.log(configObj);
                 return configObj.global_api;
             }
             return "";

@@ -9,7 +9,6 @@
         <toggle-switch
             label="Enable Button 1"
             path="options.buttonOneEnabled"
-            @toggle="log"
         />
         <transition name="fade">
             <Button
@@ -22,7 +21,6 @@
         <toggle-switch
             label="Enable Button 2"
             path="options.buttonTwoEnabled"
-            @toggle="log"
         />
         <transition name="fade">
             <Button
@@ -53,18 +51,12 @@ export default {
             return this.isWP ? "rich-tiny" : "rich-text";
         }
     },
-    mounted() {
-        // console.log(this.component);
-    },
     props: {
         hidecontrols: Boolean,
         component: Object
     },
     methods: {
-        setDeep,
-        log(value) {
-            console.log(value);
-        }
+        setDeep
     }
 };
 </script>

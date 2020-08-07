@@ -80,7 +80,6 @@ export class Module {
                 for (const [key, val] of entries) {
                     let path = att.path + `.${key}`
                     setDeep(base, path, val, true)
-                    // console.log('base', this.base)
                 }
             }
         })

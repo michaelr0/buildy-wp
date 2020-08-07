@@ -158,9 +158,6 @@ export default {
     },
     async mounted() {
         this.value = getDeep(this.component, this.path) || "";
-        // console.log('index', this.index);
-        // console.log('path', this.path);
-
         this.$nextTick(() => {
             this.editorInit();
         });

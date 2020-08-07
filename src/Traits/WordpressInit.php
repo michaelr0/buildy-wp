@@ -73,7 +73,35 @@ trait WordpressInit {
 
             // Custom theme option settings from Site Options (ACF)
             if (function_exists('get_field')) :
-                $theme_colours = get_field('theme_colours', 'option');
+                $theme_colours = function () {
+                    // get the textarea value from options page without any formatting
+                    // check if the repeater field has rows of data
+                    $set_colours = [];
+                    $additional_colours = [];
+
+                    if( have_rows('theme_colours', 'option') ):
+
+                        $set_colours_data = get_field('theme_colours', 'option');
+
+                        // If it's the old repeater method, just return the repeater /// Backwards compatibility
+                        if (isset($set_colours_data[0]['name'])) {
+                            return $set_colours_data;
+                        }
+
+                        $additional_colours_data = array_pop($set_colours_data);
+
+                        foreach($set_colours_data as $key=>$val) {
+                            $set_arr = [];
+                            $set_arr['name'] = $key;
+                            $set_arr['value'] = $val;
+                            array_push($set_colours, $set_arr);
+                        }
+
+                        // return the field
+                    endif;
+
+                    return array_merge($set_colours, $additional_colours_data);
+                };
                 $overwrite_mode = get_field('overwrite_mode', 'option');
             endif;
 
@@ -81,7 +109,7 @@ trait WordpressInit {
                 'post_id' => $post->ID,
                 'post_type' => $post->post_type,
                 'isGlobal' => $isGlobal,
-                'theme_colours' => $theme_colours ?: null,
+                'theme_colours' => $theme_colours() ?: null,
                 'overwrite_mode' => $overwrite_mode ?: false,
                 'is_admin' => current_user_can('administrator'),
                 'site_url' => get_site_url(),
@@ -166,6 +194,9 @@ trait WordpressInit {
 
     public function wordpress_init()
     {
+        // Enables the rich text/media stuff to work
+        wp_enqueue_editor();
+
         // Load jQuery in the header rather than footer.
         add_action('wp_enqueue_scripts', function () {
             wp_dequeue_script('jquery');

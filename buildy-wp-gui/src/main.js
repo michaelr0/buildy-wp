@@ -26,7 +26,6 @@ files.keys().map(key => {
     let component = files(key).default;
 
     if (component.name) {
-        console.log(component)
         validComponents.push({
             name: component.data().alias ? labelUCFirst(component.data().alias) : labelUCFirst(component.name),
             type: component.name,

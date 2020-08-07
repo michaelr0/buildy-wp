@@ -55,7 +55,6 @@ export default {
     },
     mounted() {
         this.setColor(getDeep(this.component, this.path) || "");
-        // console.log(this.colors.hex)
     },
     methods: {
         setColor(color) {

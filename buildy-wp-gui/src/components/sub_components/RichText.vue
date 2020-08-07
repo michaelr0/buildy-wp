@@ -63,11 +63,10 @@ export default {
         }
     },
     methods: {
-        updateCursorLocation(e) {
-            // console.log(e)
-            // if (index) {
-            //   this.cursorLocation = index
-            // }
+        updateCursorLocation(index) {
+            if (index) {
+                this.cursorLocation = index;
+            }
         },
         change() {
             setDeep(this.component, this.path, this.value);

@@ -93,7 +93,6 @@ export default {
         },
         openModal() {
             this.$modal.show(this.component.id);
-            //   console.log("component", this.component);
         }
     },
     props: {

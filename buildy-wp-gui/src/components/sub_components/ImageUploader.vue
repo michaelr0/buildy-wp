@@ -128,7 +128,6 @@ export default {
                 selectedImages.map(attachment => {
                     attachment = attachment.toJSON();
                     setDeep(this.component, `${this.path}.url`, attachment.url);
-                    //   console.log(this.imageSrc)
                 });
             });
         }

@@ -280,7 +280,6 @@ export default {
                     this.component.options.columns[this.curBreakpoint]
                 );
                 if (curVal > 2) {
-                    // console.log(curVal);
                     this.component.options.columns[this.curBreakpoint] =
                         curVal - 1;
                 }
