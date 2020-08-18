@@ -26,6 +26,4 @@ if ($spacing) {
                 <? echo 'data-' . $att->name . '="' . $att->value . '"' ; ?>
             @endif
         @endforeach
-    @endif>
-    {!! $buildy->renderContent($bladeData->content) !!}
-</div>
+    @endif>{!!$buildy->renderContent($bladeData->content)!!}</div>

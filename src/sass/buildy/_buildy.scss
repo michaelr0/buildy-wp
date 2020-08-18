@@ -72,7 +72,7 @@
 ---------------------- Columns ------------------
 --------------------------------------------------------------*/
 // When columns are stacked add space above, unless there is a gap then Grid will take over
-.row:not([class*="gap-"]) .bmcb-column + .bmcb-column {
+.row:not([class*="gap-"]) .bmcb-column:not(:empty) + .bmcb-column:not(:empty) {
     margin-top: 4rem;
     @include media-breakpoint-up(md) {
         margin-top: 0;

@@ -22,7 +22,7 @@
     $outlined = $bladeData->content->button->outlined;
     $unStyled = $bladeData->content->button->unStyled;
     $target = $bladeData->content->button->target;
-    $size = $bladeData->content->button->size;
+    $size = $bladeData->content->button->size && $bladeData->content->button->size !== 'Initial' ? $bladeData->content->button->size : false;
 @endphp
 
 @section('content')

@@ -93,12 +93,11 @@ class Accordion {
         // Set the height so only the toggle is visible
         item.style.height = toggle_height + "px";
 
-        item.removeAttribute("open");
-
         setTimeout(() => {
             // Check if still closing
             if (item.classList.contains("is-closing"))
-                item.classList.remove("is-closing");
+                item.removeAttribute("open");
+            item.classList.remove("is-closing");
         }, this.settings.speed);
     }
 }

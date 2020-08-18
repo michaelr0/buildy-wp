@@ -71,7 +71,13 @@
         }
         @for $i from 0 through 12 {
             .col-#{$i} {
-                flex: 0 0 calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
+                @if $i == 12 {
+                    flex: 0 0 100%;
+                } @else {
+                    flex: 0
+                        0
+                        calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
+                }
             }
         }
     } @else {
@@ -89,9 +95,15 @@
             @for $i from 0 through 12 {
                 // Breakpoint sizes
                 .col-#{$name}-#{$i} {
-                    flex: 0
-                        0
-                        calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
+                    @if $i == 12 {
+                        flex: 0 0 100%;
+                    } @else {
+                        flex: 0
+                            0
+                            calc(
+                                (#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2)
+                            );
+                    }
                 }
             }
         }

@@ -17,6 +17,7 @@ if ($buttonOneEnabled) {
     $buttonOneOutlined = $bladeData->content->button->outlined ?? null;
     $buttonOneUnStyled = $bladeData->content->button->unStyled ?? null;
     $buttonOneTarget = $bladeData->content->button->target ?? null;
+    $buttonOneSize = $bladeData->content->button->size && $bladeData->content->button->size !== 'Initial' ? $bladeData->content->button->size : false;
     if (preg_match("/^\d+$/", $buttonOneURL)) {
         $buttonOneURL = get_permalink($buttonOneURL);
     }
@@ -32,6 +33,7 @@ if ($buttonTwoEnabled) {
     $buttonTwoOutlined = $bladeData->content->buttontwo->outlined ?? null;
     $buttonTwoUnStyled = $bladeData->content->buttontwo->unStyled ?? null;
     $buttonTwoTarget = $bladeData->content->buttontwo->target ?? null;
+    $buttonTwoSize = $bladeData->content->buttontwo->size && $bladeData->content->buttontwo->size !== 'Initial' ? $bladeData->content->buttontwo->size : false;
     if (preg_match("/^\d+$/", $buttonTwoURL)) {
         $buttonTwoURL = get_permalink($buttonTwoURL);
     }
@@ -114,6 +116,9 @@ if (function_exists('attachment_url_to_postid')) {
                             @if($buttonOneColor)
                                 text-{{ $buttonOneColor }}
                             @endif
+                            @if($buttonOneSize)
+                                btn--{{ $buttonOneSize }}
+                            @endif
                             "
                         @if($buttonOneTarget)
                             target="{{ $buttonOneTarget }}"
@@ -140,6 +145,9 @@ if (function_exists('attachment_url_to_postid')) {
                             @endif
                             @if($buttonTwoColor)
                                 text-{{ $buttonTwoColor }}
+                            @endif
+                            @if($buttonTwoSize)
+                                btn--{{ $buttonTwoSize }}
                             @endif
                             "
                         @if($buttonTwoTarget)
