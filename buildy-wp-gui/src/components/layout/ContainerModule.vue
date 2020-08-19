@@ -50,11 +50,11 @@
                 ></x-icon>
                 <div class="w-full bg-gray-400 px-12 py-6">
                     <h2 class="mb-6 text-2xl">Choose Module:</h2>
-                    <div v-if="globalModules" class="flex">
+                    <div v-if="globalModules" class="flex flex-wrap">
                         <div
                             v-for="globalModule in globalModules"
                             :key="globalModule.id"
-                            class="flex items-center mr-4 mb-4"
+                            class="mb-1 md:w-1/2"
                         >
                             <label
                                 @click="addGlobal(globalModule)"
@@ -62,12 +62,16 @@
                                 class="flex items-center cursor-pointer text-large"
                             >
                                 <span
-                                    class="p-4 inline-block mr-2 bg-gray-200 rounded border border-grey flex-no-shrink flex items-center justify-center"
+                                    class="px-2 py-1 flex-b inline-block mr-2 bg-gray-200 rounded border border-grey flex-no-shrink flex items-center justify-center"
                                     >{{ globalModule.title.rendered }}</span
                                 >
                             </label>
                         </div>
                     </div>
+                    <h3 v-else>
+                        No global modules found. Have you added any inside
+                        wordpress?
+                    </h3>
                 </div>
                 <!-- <select v-if="newComponent.menuOpen" @change="addModuleClick(component)" v-model="newComponent.type" class="custom-select custom-select-lg mb-3">
         <option v-for="options in newComponent.options" :key="options.type" :value="options.type">{{ options.name }}</option>
