@@ -35,7 +35,7 @@ if (document.querySelector(sliderClass)) {
 
                     boxContent.forEach(el => el.classList.replace("is-visible", "is-hidden"))
 
-                    if (boxContent[this.currentSlide].classList.contains('is-hidden')) {
+                    if (boxContent[this.currentSlide] && boxContent[this.currentSlide].classList.contains('is-hidden')) {
                         boxContent[this.currentSlide].classList.replace('is-hidden', 'is-visible')
                     }
                 }
