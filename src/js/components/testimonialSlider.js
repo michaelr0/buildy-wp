@@ -26,13 +26,18 @@ if (document.querySelector(sliderClass)) {
             rtl: false,
             onInit: function () {
                 currentIndex = this.currentSlide
-                boxContent[this.currentSlide].classList.add('is-visible')
+                if (boxContent) {
+                    boxContent[this.currentSlide].classList.add('is-visible')
+                }
             },
             onChange: function () {
-                boxContent.forEach(el => el.classList.replace("is-visible", "is-hidden"))
+                if (boxContent) {
 
-                if (boxContent[this.currentSlide].classList.contains('is-hidden')) {
-                    boxContent[this.currentSlide].classList.replace('is-hidden', 'is-visible')
+                    boxContent.forEach(el => el.classList.replace("is-visible", "is-hidden"))
+
+                    if (boxContent[this.currentSlide].classList.contains('is-hidden')) {
+                        boxContent[this.currentSlide].classList.replace('is-hidden', 'is-visible')
+                    }
                 }
             },
         });
