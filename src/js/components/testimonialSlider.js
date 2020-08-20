@@ -26,8 +26,8 @@ if (document.querySelector(sliderClass)) {
             rtl: false,
             onInit: function () {
                 currentIndex = this.currentSlide
-                if (boxContent) {
-                    boxContent[this.currentSlide].classList.add('is-visible')
+                if (boxContent[currentIndex]) {
+                    boxContent[currentIndex].classList.add('is-visible')
                 }
             },
             onChange: function () {
