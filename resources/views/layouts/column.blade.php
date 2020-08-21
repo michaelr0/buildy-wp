@@ -7,6 +7,14 @@ $bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) 
 $bgColor = (!empty($bladeData->inline->backgroundColor)) ? "background-color: {$bladeData->inline->backgroundColor};" : "";
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
+$dataAttString = null;
+
+if (isset($dataAtts)) {
+  foreach($dataAtts as $dataAtt) {
+    $name = strtolower($dataAtt->name);
+    $dataAttString .= " data-{$name}={$dataAtt->value}";
+  }
+}
 
 /* Add responsive margin/padding classes if they're set */
 if ($spacing) {
@@ -18,12 +26,4 @@ if ($spacing) {
 <div id="{{ $moduleID }}"
     class="bmcb-column col {{ $bladeData->generatedAttributes->columns }} {{ $moduleClasses ? $moduleClasses : null }}"
     @if($bgColor || $bgImage) style="{{ $bgColor }} {{ $bgImage }} {{ $bgSize }} {{ $bgPosition }}" @endif
-    @if ($dataAtts)
-        @foreach($dataAtts as $att)
-            @if(!$att->value)
-                <? echo 'data-' . $att->name; ?>
-            @else
-                <? echo 'data-' . $att->name . '="' . $att->value . '"' ; ?>
-            @endif
-        @endforeach
-    @endif>{!!$buildy->renderContent($bladeData->content)!!}</div>
+    @if($dataAttString) {{ $dataAttString }} @endif>{!!$buildy->renderContent($bladeData->content)!!}</div>
