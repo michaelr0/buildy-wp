@@ -12,7 +12,14 @@ $bgColor = (!empty($bladeData->inline->backgroundColor)) ? "background-color: {$
 $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
 $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
 $internalLinkTarget = $internalLinkText ? preg_replace("/\W|_/",'',$internalLinkText) : null;
-$dataAtts = $bladeData->attributes->data ?? null;
+$dataAttString = null;
+
+if (isset($dataAtts)) {
+  foreach($dataAtts as $dataAtt) {
+    $name = strtolower($dataAtt->name);
+    $dataAttString .= " data-{$name}={$dataAtt->value}";
+  }
+}
 
 // CSS GRID
 $enableCSSGrid = $bladeData->inline->cssGrid->enabled ?? null;
@@ -34,7 +41,7 @@ if ($enableCSSGrid) {
 
 if ($enableCSSGrid && $cssGridGap) {
     $moduleClasses .= " gap-$cssGridGap";
-} 
+}
 
 if (!$enableCSSGrid && $cssGridGap) {
     $moduleClasses .= " col-gap-$cssGridGap";
@@ -63,14 +70,6 @@ if ($spacing) {
     @if($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endif
     class="bmcb-row row {{ $moduleClasses ? $moduleClasses : '' }}"
     @if($bgColor || $bgImage) style="{{ $bgColor }} {{ $bgImage }} {{ $bgSize }} {{ $bgPosition }}" @endif
-    @if ($dataAtts)
-        @foreach($dataAtts as $att)
-            @if(!$att->value)
-                <? echo 'data-' . $att->name; ?>
-            @else
-                <? echo 'data-' . $att->name . '="' . $att->value . '"' ; ?>
-            @endif
-        @endforeach
-    @endif>
+    @if($dataAttString) {{ $dataAttString }} @endif>
     {!! $buildy->renderContent($bladeData->content) !!}
 </div>

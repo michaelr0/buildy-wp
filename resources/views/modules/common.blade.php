@@ -4,6 +4,14 @@ $moduleID = $bladeData->attributes->id ?? null;
 $moduleClasses = $bladeData->attributes->class ?? null;
 
 $dataAtts = $bladeData->attributes->data ?? null;
+$dataAttString = null;
+
+if (isset($dataAtts)) {
+  foreach($dataAtts as $dataAtt) {
+    $name = strtolower($dataAtt->name);
+    $dataAttString .= " data-{$name}={$dataAtt->value}";
+  }
+}
 
 $colors = $bladeData->inline->color ?? null;
 
@@ -64,14 +72,6 @@ if ($colors) {
     @yield('class')"
 
     {{-- Data Attributes --}}
-    @if ($dataAtts)
-        @foreach($dataAtts as $att)
-            @if(!$att->value)
-                <? echo 'data-' . $att->name; ?>
-            @else
-                <? echo 'data-' . $att->name . '="' . $att->value . '"' ; ?>
-            @endif
-        @endforeach
-    @endif>
+    @if($dataAttString) {{ $dataAttString }} @endif>
     @yield('content')
 </div>

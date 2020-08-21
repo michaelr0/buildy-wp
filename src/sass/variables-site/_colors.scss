@@ -1,24 +1,14 @@
-$colors: (
-    "violet": "--color-primary",
-    "orange": "--color-secondary",
-    "brown": "--color-tertiary",
-    "lightgray": "--color-quaternary",
-    "darkgray": "--color-quinary",
-    "white": "--color-foxtwhiterot",
-    "black": "--color-black"
-);
+/*
 
-$colors_fallback: (
-    "violet": "#534588",
-    "orange": "#f6a800",
-    "brown": "#a44200",
-    "lightgray": "#dfe1e1",
-    "darkgray": "#1b2327",
-    "white": "#fff",
-    "black": "#000",
-    "blueviolet": "#5f6eb3"
-);
+Colours from primary to hotel are configured in site options (backend)
 
+From there you can also specify any number of custom colours and reference them by name throughout
+the website var(--color-customname);
+
+The theme options page also generates utility classes for each colour you add. Read more: <insert docs link>
+
+*/
+// These are just aliases for faster typing
 $color__primary: var(--color-primary);
 $color__secondary: var(--color-secondary);
 $color__tertiary: var(--color-tertiary);
@@ -28,16 +18,29 @@ $color__quinary: var(--color-quinary);
 $color__white: var(--color-white);
 $color__black: var(--color-black);
 
+// scss-docs-start theme-colors-map
+$theme-colors: (
+  'primary': $color__primary,
+  'secondary': $color__secondary,
+  'tertiary': $color__tertiary,
+  'quaternary': $color__quaternary,
+  'quinary': $color__quinary,
+  'white': $color__white,
+  'black': $color__black
+) !default;
+// scss-docs-end theme-colors-map
+
 $color__background-body: $color__white;
 $color__background-screen: $color__quinary;
 $color__background-hr: $color__quinary;
-$color__background-button: $color__secondary;
 $color__background-pre: inherit;
 $color__background-ins: inherit;
 
 $color__text-screen: $color__quaternary;
 $color__text-input: $color__black;
 $color__text-input-focus: $color__tertiary;
-$color__link: $color__primary;
+$color__link: var(--color-link);
 $color__link-visited: inherit;
-$color__text-main: $color__black;
+$color__link-hover: $color__tertiary-hover;
+$color__text-main: var(--color-text-main);
+$color__text-headings: var(--color-text-headings);
