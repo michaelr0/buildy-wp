@@ -16,7 +16,7 @@ if (isset($dataAtts)) {
   }
 }
 
-/* Add responsive margin/padding classes if they're set */
+/* Add responsive margin/padding classes if they are set */
 if ($spacing) {
     $moduleClasses ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
 }

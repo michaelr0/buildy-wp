@@ -13,6 +13,7 @@ $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
+// Add data atts to a string
 if (isset($dataAtts)) {
   foreach($dataAtts as $dataAtt) {
     $name = strtolower($dataAtt->name);
