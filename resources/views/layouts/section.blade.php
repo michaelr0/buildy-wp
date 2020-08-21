@@ -31,9 +31,9 @@ if ($spacing) {
     @if ($dataAtts)
         @foreach($dataAtts as $att)
             @if(!$att->value)
-                <? echo 'data-' . $att->name; ?>
+                <?php echo 'data-' . $att->name; ?>
             @else
-                <? echo 'data-' . $att->name . '="' . $att->value . '"' ; ?>
+                <?php echo 'data-' . $att->name . '="' . $att->value . '"' ; ?>
             @endif
         @endforeach
     @endif>
