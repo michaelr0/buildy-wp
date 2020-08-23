@@ -22,30 +22,9 @@
   );
 }
 
-@mixin test-size($size) {
-  // Ensure smallest size is never below 1.4rem
-  $smallSize: ($size - ($size * 0.4));
-  @if $smallSize < 14 {
-    $smallSize: 14;
-  }
-  font-size: ($size * 2px);
-  font-size: clamp(
-    ($smallSize / 10) * 1rem,
-    ($size / 10) * 1vw,
-    ($size / 10) * 1rem
-  );
-}
-
-// Center block
-@mixin center-block {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 // Clearfix
 @mixin clearfix() {
-  content: '';
+  content: "";
   display: table;
   table-layout: fixed;
 }
@@ -66,5 +45,5 @@
   grid-template-columns: repeat($numberColumns, 1fr);
 }
 
-@import 'breakpoints';
-@import 'utilities';
+@import "breakpoints";
+@import "utilities";

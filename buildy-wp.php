@@ -5,7 +5,7 @@
  * Plugin Name: Buildy for WP
  * Plugin URI:
  * Description: Just like a chocolate milk, only apples!
- * Version:     2.2.10
+ * Version:     2.2.11
  * Author:
  * Author URI:
  * Text Domain: buildy-wp

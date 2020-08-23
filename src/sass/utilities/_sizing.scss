@@ -4,71 +4,64 @@ $utilities: () !default;
 
 $utilities: map-merge(
   (
-    'width':
-    (
+    "width": (
       property: width,
       class: w,
       values: (
-        25: 25%,
-        50: 50%,
-        75: 75%,
-        100: 100%,
+        full: 100%,
         auto: auto
       )
     ),
-    'max-width': (
+    "max-width": (
       property: max-width,
       class: mw,
       values: (
         100: 100%
       )
     ),
-    'viewport-width': (
+    "viewport-width": (
       property: width,
       class: vw,
       values: (
         100: 100vw
       )
     ),
-    'min-viewport-width': (
+    "min-viewport-width": (
       property: min-width,
       class: min-vw,
       values: (
         100: 100vw
       )
     ),
-    'height': (
+    "height": (
       property: height,
       class: h,
       values: (
-        25: 25%,
-        50: 50%,
-        75: 75%,
-        100: 100%,
+        full: 100%,
         auto: auto
       )
     ),
-    'max-height': (
+    "max-height": (
       property: max-height,
       class: mh,
       values: (
         100: 100%
       )
     ),
-    'viewport-height': (
+    "viewport-height": (
       property: height,
       class: vh,
       values: (
         100: 100vh
       )
     ),
-    'min-viewport-height': (
+    "min-viewport-height": (
       property: min-height,
       class: min-vh,
       values: (
         100: 100vh
       )
-    ),
+    )
   ),
   $utilities
 );

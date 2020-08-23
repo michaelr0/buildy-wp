@@ -1,17 +1,19 @@
 $containerWidth: 1280px;
 $sectionPadding: 8rem !default;
 
+$column_count: 12 !default;
+
 // Gap between columns in rem
 $col_gap: 6 !default;
 $col_gap_lg: $col_gap !default;
 $col_gap_xl: $col_gap * 6 !default;
 
 $grid-breakpoints: (
-    xs: 0,
-    sm: 480px,
-    md: 768px,
-    lg: 980px,
-    xl: 1170px
+  xs: 0,
+  sm: 480px,
+  md: 768px,
+  lg: 980px,
+  xl: 1170px
 ) !default;
 
 // Quickly modify global styling by enabling or disabling optional features.
@@ -26,20 +28,20 @@ $enable-negative-margins: false !default;
 
 $spacer: 1rem !default;
 $spacers: (
-    0: 0,
-    1: 1rem,
-    2: 2rem,
-    3: 3rem,
-    4: 4rem,
-    6: 6rem,
-    8: 8rem,
-    12: 10rem,
-    16: 16rem,
-    24: 24rem
+  0: 0,
+  1: 1rem,
+  2: 2rem,
+  3: 3rem,
+  4: 4rem,
+  6: 6rem,
+  8: 8rem,
+  12: 10rem,
+  16: 16rem,
+  24: 24rem
 ) !default;
 
 $negative-spacers: if(
-    $enable-negative-margins,
-    negativify-map($spacers),
-    null
+  $enable-negative-margins,
+  negativify-map($spacers),
+  null
 ) !default;

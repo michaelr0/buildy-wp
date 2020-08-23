@@ -4,11 +4,6 @@ $utilities: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $utilities: map-merge(
     (
-        "align": (
-            property: vertical-align,
-            class: align,
-            values: baseline top middle bottom text-bottom text-top
-        ),
         "overflow": (
             property: overflow,
             values: auto hidden
@@ -17,9 +12,7 @@ $utilities: map-merge(
             responsive: true,
             print: true,
             property: display,
-            class: d,
-            values: none inline inline-block block table table-row table-cell
-                inline-flex
+            values: hidden inline inline-block block table table-row table-cell
         ),
         "position": (
             property: position,
