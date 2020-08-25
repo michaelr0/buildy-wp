@@ -59,6 +59,9 @@ class Buildy {
                 $columns = "";
                 if (!empty($data->options->columns)) {
                     foreach ($data->options->columns as $key => $val) {
+                      if ($key == 'xs' && !$val) {
+                        $val === 12;
+                      }
                         if (!empty($val)) {
                             // Legacy -- XS no longer exists and is defaulted to just col-val
                             if ($key == 'xs') {
