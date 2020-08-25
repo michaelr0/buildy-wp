@@ -5,7 +5,11 @@
       ref="previewWindow"
       class="previewWindow relative z-50 flex"
       :class="[labelClass === 'bottom' ? 'flex-col' : '']"
-      :style="(preview.width > 0) ? `transform: translateX(-${preview.width / 2}px)` : null"
+      :style="
+        preview.width > 0
+          ? `transform: translateX(-${preview.width / 2}px)`
+          : null
+      "
     >
       <span
         class="line-1"
@@ -56,7 +60,7 @@ export default {
       value: "None",
       preview: {
         show: false,
-        width: '',
+        width: "",
         value: "",
         timeout: null
       },
@@ -65,8 +69,8 @@ export default {
   },
   computed: {
     optionsArr() {
-      let range = 13;
-      return Array.from(Array(range).keys());
+      let range = this.$store.getters.spacers || 13;
+      return Array.isArray(range) ? range : Array.from(Array(range).keys());
     },
     previewClass() {
       return this.path.includes("margin") ? "margin" : "padding";
@@ -105,8 +109,8 @@ export default {
     updatePreview(option) {
       this.preview.value = option;
       this.$nextTick(() => {
-        this.preview.width = this.$refs.previewWindow.clientWidth
-      })
+        this.preview.width = this.$refs.previewWindow.clientWidth;
+      });
     }
   },
   mounted() {
@@ -203,7 +207,7 @@ export default {
 .previewWindow {
   background: white;
   padding: 2rem;
-  box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
   position: absolute;
   bottom: 100%;
   left: 50%;
