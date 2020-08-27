@@ -79,8 +79,6 @@ export default {
           newCol.options.columns.md = 6;
         }
 
-        newCol.options.columns.xs = 12;
-
         // Set the lg size to seleted value
         newCol.options.columns.lg = col;
 

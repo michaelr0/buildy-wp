@@ -15,7 +15,7 @@
       $bladeData->content->generatedAttributes->spacing
     --}}
 
-    <div>
+    <div class="{{ $moduleClasses = $bladeData->attributes->class ?: '' }}">
       {!! $buildy->renderFrontend($bladeData->content->id) !!}
     </div>
 @endif
