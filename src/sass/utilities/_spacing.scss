@@ -8,6 +8,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin,
       class: m,
+      important: true,
       values:
         map-merge(
           $spacers,
@@ -20,6 +21,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-right margin-left,
       class: mx,
+      important: true,
       values:
         map-merge(
           $spacers,
@@ -32,6 +34,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-top margin-bottom,
       class: my,
+      important: true,
       values:
         map-merge(
           $spacers,
@@ -44,6 +47,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-top,
       class: mt,
+      important: true,
       values:
         map-merge(
           $spacers,
@@ -56,6 +60,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-right,
       class: mr,
+      important: true,
       values:
         map-merge(
           $spacers,
@@ -68,6 +73,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-bottom,
       class: mb,
+      important: true,
       values:
         map-merge(
           $spacers,
@@ -80,6 +86,7 @@ $utilities: map-merge(
       responsive: true,
       property: margin-left,
       class: ml,
+      important: true,
       values:
         map-merge(
           $spacers,
@@ -94,42 +101,49 @@ $utilities: map-merge(
         responsive: true,
         property: margin,
         class: m,
+        important: true,
         values: $negative-spacers
       ),
     "negative-margin-x": (
       responsive: true,
       property: margin-right margin-left,
       class: mx,
+      important: true,
       values: $negative-spacers
     ),
     "negative-margin-y": (
       responsive: true,
       property: margin-top margin-bottom,
       class: my,
+      important: true,
       values: $negative-spacers
     ),
     "negative-margin-top": (
       responsive: true,
       property: margin-top,
       class: mt,
+      important: true,
       values: $negative-spacers
     ),
     "negative-margin-right": (
       responsive: true,
       property: margin-right,
       class: mr,
+      important: true,
       values: $negative-spacers
     ),
     "negative-margin-bottom": (
       responsive: true,
       property: margin-bottom,
       class: mb,
+      important: true,
       values: $negative-spacers
     ),
     "negative-margin-left": (
       responsive: true,
       property: margin-left,
       class: ml,
+      important: true,
       values: $negative-spacers
     ),
     // Padding utilities
@@ -138,18 +152,21 @@ $utilities: map-merge(
         responsive: true,
         property: padding,
         class: p,
+        important: true,
         values: $spacers
       ),
     "padding-x": (
       responsive: true,
       property: padding-right padding-left,
       class: px,
+      important: true,
       values: $spacers
     ),
     "padding-y": (
       responsive: true,
       property: padding-top padding-bottom,
       class: py,
+      important: true,
       values: $spacers
     ),
     "padding-top": (
@@ -163,6 +180,7 @@ $utilities: map-merge(
       responsive: true,
       property: padding-right,
       class: pr,
+      important: true,
       values: $spacers
     ),
     "padding-bottom": (
@@ -176,6 +194,7 @@ $utilities: map-merge(
       responsive: true,
       property: padding-left,
       class: pl,
+      important: true,
       values: $spacers
     )
   ),
