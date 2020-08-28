@@ -26,7 +26,6 @@ export class SetThemeOptions {
     setThemeColors() {
         this.themeColors.map(color => {
             this.setVar(`--${color.name}`, color.value)
-            // console.log(color)
         })
     }
 }

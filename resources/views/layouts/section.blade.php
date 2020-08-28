@@ -11,6 +11,15 @@ $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
 $internalLinkTarget = $internalLinkText ? preg_replace("/\W|_/",'',$internalLinkText) : null;
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
+$dataAttString = null;
+
+// Add data atts to a string
+if (isset($dataAtts)) {
+  foreach($dataAtts as $dataAtt) {
+    $name = strtolower($dataAtt->name);
+    $dataAttString .= " data-{$name}={$dataAtt->value}";
+  }
+}
 
 /* Add responsive margin/padding classes if they're set */
 if ($spacing) {
@@ -28,15 +37,7 @@ if ($spacing) {
     @if($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endif
     class="bmcb-section {{ $boxed ? $boxed : '' }} {{ $moduleClasses ? $moduleClasses : '' }}"
     @if($bgColor || $bgImage) style="{{ $bgColor }} {{ $bgImage }} {{ $bgSize }} {{ $bgPosition }}" @endif
-    @if ($dataAtts)
-        @foreach($dataAtts as $att)
-            @if(!$att->value)
-                <? echo 'data-' . $att->name; ?>
-            @else
-                <? echo 'data-' . $att->name . '="' . $att->value . '"' ; ?>
-            @endif
-        @endforeach
-    @endif>
+    @if($dataAttString) {{ $dataAttString }} @endif>
     @if ($bladeData->options->inner_container ?? false)
         <div class="container">
     @endif

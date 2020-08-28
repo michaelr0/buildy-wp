@@ -9,6 +9,7 @@
     $objectFit = $bladeData->content->image->objectFit ? "object-fit: {$bladeData->content->image->objectFit};" : '';
     $objectPosition = $bladeData->content->image->objectPosition ? "object-position: {$bladeData->content->image->objectPosition};" : '';
     $module_link_url = $bladeData->options->module_link->url ?? null;
+    $module_link_new_tab = $bladeData->options->module_link->new_tab ?? null;
     if (function_exists('attachment_url_to_postid')) {
         $image_ID = attachment_url_to_postid( $image );
     }
@@ -16,7 +17,7 @@
 
 @section('content')
     @if(!empty($module_link_url))
-        <a href="{{ $module_link_url }}">
+        <a @if($module_link_new_tab) target="_blank" @endif href="{{ $module_link_url }}">
     @endif
     @component('modules.components.title', ['bladeData'=> $bladeData])@endcomponent
     @if($image_ID && function_exists('wp_get_attachment_image'))

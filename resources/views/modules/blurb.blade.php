@@ -3,6 +3,7 @@
 @php
 //  BUTTON
 $module_link_url = $bladeData->options->module_link->url ?? null;
+    $module_link_new_tab = $bladeData->options->module_link->new_tab ?? null;
 $buttonOneEnabled = (!empty($bladeData->content->button->buttonEnabled) || !empty($bladeData->options->buttonOneEnabled)) ?? null;
 $buttonTwoEnabled = $bladeData->options->buttonTwoEnabled ?? null;
 
@@ -16,6 +17,7 @@ if ($buttonOneEnabled) {
     $buttonOneOutlined = $bladeData->content->button->outlined ?? null;
     $buttonOneUnStyled = $bladeData->content->button->unStyled ?? null;
     $buttonOneTarget = $bladeData->content->button->target ?? null;
+    $buttonOneSize = $bladeData->content->button->size && $bladeData->content->button->size !== 'Initial' ? $bladeData->content->button->size : false;
     if (preg_match("/^\d+$/", $buttonOneURL)) {
         $buttonOneURL = get_permalink($buttonOneURL);
     }
@@ -31,6 +33,7 @@ if ($buttonTwoEnabled) {
     $buttonTwoOutlined = $bladeData->content->buttontwo->outlined ?? null;
     $buttonTwoUnStyled = $bladeData->content->buttontwo->unStyled ?? null;
     $buttonTwoTarget = $bladeData->content->buttontwo->target ?? null;
+    $buttonTwoSize = $bladeData->content->buttontwo->size && $bladeData->content->buttontwo->size !== 'Initial' ? $bladeData->content->buttontwo->size : false;
     if (preg_match("/^\d+$/", $buttonTwoURL)) {
         $buttonTwoURL = get_permalink($buttonTwoURL);
     }
@@ -53,7 +56,7 @@ if (function_exists('attachment_url_to_postid')) {
 
 @section('content')
     @if(!empty($module_link_url))
-        <a href="{{ $module_link_url }}">
+        <a @if($module_link_new_tab) target="_blank" @endif href="{{ $module_link_url }}">
     @endif
 
         {{-- When the image is set above the title --}}
@@ -113,6 +116,9 @@ if (function_exists('attachment_url_to_postid')) {
                             @if($buttonOneColor)
                                 text-{{ $buttonOneColor }}
                             @endif
+                            @if($buttonOneSize)
+                                btn--{{ $buttonOneSize }}
+                            @endif
                             "
                         @if($buttonOneTarget)
                             target="{{ $buttonOneTarget }}"
@@ -139,6 +145,9 @@ if (function_exists('attachment_url_to_postid')) {
                             @endif
                             @if($buttonTwoColor)
                                 text-{{ $buttonTwoColor }}
+                            @endif
+                            @if($buttonTwoSize)
+                                btn--{{ $buttonTwoSize }}
                             @endif
                             "
                         @if($buttonTwoTarget)

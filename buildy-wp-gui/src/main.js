@@ -27,7 +27,7 @@ files.keys().map(key => {
 
     if (component.name) {
         validComponents.push({
-            name: labelUCFirst(component.name),
+            name: component.data().alias ? labelUCFirst(component.data().alias) : labelUCFirst(component.name),
             type: component.name,
             icon: component.data().icon
         })

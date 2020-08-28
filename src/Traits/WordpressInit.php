@@ -72,8 +72,8 @@ trait WordpressInit {
 
 
             // Custom theme option settings from Site Options (ACF)
-            if (function_exists('get_field')) :
-                $theme_colours = get_field('theme_colours', 'option');
+            if (function_exists('get_field') && function_exists('get_theme_colors')) :
+                $theme_colours = get_theme_colors();
                 $overwrite_mode = get_field('overwrite_mode', 'option');
             endif;
 
@@ -166,6 +166,9 @@ trait WordpressInit {
 
     public function wordpress_init()
     {
+        // Enables the rich text/media stuff to work
+        wp_enqueue_editor();
+
         // Load jQuery in the header rather than footer.
         add_action('wp_enqueue_scripts', function () {
             wp_dequeue_script('jquery');

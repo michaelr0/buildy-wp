@@ -1,13 +1,12 @@
 /*------------------------------------------------------------
 ---------------------- Colors ------------------
 --------------------------------------------------------------*/
-
 .text-light {
-    color: white;
+    color: $color__white;
 }
 
 .text-dark {
-    color: black;
+    color: $color__black;
 }
 
 /*------------------------------------------------------------
@@ -16,7 +15,7 @@
 .bmcb-section {
     position: relative;
     padding: 0;
-    background-size: cover !important;
+    background-size: cover;
     background-repeat: no-repeat !important;
     // Fix for full-width sections with no horizontal padding
     &.px-0 .bmcb-row {
@@ -72,7 +71,7 @@
 ---------------------- Columns ------------------
 --------------------------------------------------------------*/
 // When columns are stacked add space above, unless there is a gap then Grid will take over
-.row:not([class*="gap-"]) .bmcb-column + .bmcb-column {
+.row:not([class*="gap-"]) .bmcb-column:not(:empty) + .bmcb-column:not(:empty) {
     margin-top: 4rem;
     @include media-breakpoint-up(md) {
         margin-top: 0;
@@ -115,16 +114,16 @@
 }
 
 // Remove spacings from h-tags when they're in the header module. This will control padding instead
-.bmcb-heading-module h1,
-.bmcb-heading-module h2,
-.bmcb-heading-module h3,
-.bmcb-heading-module h4,
-.bmcb-heading-module h5 {
+.bmcb-heading h1,
+.bmcb-heading h2,
+.bmcb-heading h3,
+.bmcb-heading h4,
+.bmcb-heading h5 {
     margin: 0;
 }
 
 // Default
-.bmcb-heading-module {
+.bmcb-heading {
     margin-bottom: 1.8rem;
 }
 
@@ -135,7 +134,6 @@
 
 // Import bootstrap grid dependancy
 @import "grid";
-@import "utilities";
 
 /*------------------------------------------------------------
 ---------------------- Individual Component Defaults ---------
