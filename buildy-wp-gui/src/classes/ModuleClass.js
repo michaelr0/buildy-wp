@@ -22,6 +22,7 @@ export class Module {
     const base = JSON.parse(JSON.stringify(this.base))
     base.type = 'global-module'
     base.content = { id: payload.id }
+    base.id = generateModuleID(base.type)
     base.options.admin_label = payload.title.rendered
     return base
   }
