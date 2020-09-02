@@ -10,7 +10,7 @@ $buttonTwoEnabled = $bladeData->options->buttonTwoEnabled ?? null;
 if ($buttonOneEnabled) {
     $buttonOneURL = (string) ($bladeData->content->button->url ?? null);
     $buttonOneText = (string) ($bladeData->content->button->text ?? null);
-    $buttonOneColor = $bladeData->content->button->color ?? null;
+    $buttonOneColor = $bladeData->content->button->colour ?? null;
     $buttonOneBgColor = $bladeData->content->button->backgroundColor ?? null;
     $buttonOneBorderColor = $bladeData->content->button->borderColor ?? null;
     $buttonOneShowBG = $bladeData->content->button->showBackground ?? null;
@@ -26,7 +26,7 @@ if ($buttonOneEnabled) {
 if ($buttonTwoEnabled) {
     $buttonTwoURL = (string) ($bladeData->content->buttontwo->url ?? null);
     $buttonTwoText = (string) ($bladeData->content->buttontwo->text ?? null);
-    $buttonTwoColor = $bladeData->content->buttontwo->color ?? null;
+    $buttonTwoColor = $bladeData->content->buttontwo->colour ?? null;
     $buttonTwoBgColor = $bladeData->content->buttontwo->backgroundColor ?? null;
     $buttonTwoBorderColor = $bladeData->content->buttontwo->borderColor ?? null;
     $buttonTwoShowBG = $bladeData->content->buttontwo->showBackground ?? null;

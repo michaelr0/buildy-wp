@@ -15,7 +15,7 @@
     if (preg_match("/^\d+$/", $buttonURL)) {
         $buttonURL = get_permalink($buttonURL);
     }
-    $color = $bladeData->content->button->color;
+    $color = $bladeData->content->button->colour;
     $bgColor = $bladeData->content->button->backgroundColor;
     $borderColor = $bladeData->content->button->borderColor;
     $showBG = $bladeData->content->button->showBackground;
