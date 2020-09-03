@@ -75,6 +75,7 @@
           flex: 0 0 100%;
         } @else {
           flex: 0 0 calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
+          max-width: calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
         }
       }
     }
@@ -97,6 +98,7 @@
             flex: 0 0 100%;
           } @else {
             flex: 0 0 calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
+            max-width: calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
           }
         }
       }
