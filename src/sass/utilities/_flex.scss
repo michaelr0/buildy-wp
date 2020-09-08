@@ -32,7 +32,12 @@ $utilities: map-merge(
       responsive: true,
       property: flex-direction,
       class: flex,
-      values: row column row-reverse column-reverse
+      values: (
+        row: row,
+        col: column,
+        row-reverse: row-reverse,
+        column-reverse: column-reverse
+      )
     ),
     "flex-grow": (
       responsive: true,
