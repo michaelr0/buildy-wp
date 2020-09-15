@@ -8,12 +8,6 @@ $utilities: map-merge(
       property: overflow,
       values: auto hidden
     ),
-    "display": (
-      responsive: true,
-      print: true,
-      property: display,
-      values: hidden inline inline-block block table table-row table-cell
-    ),
     "position": (
       property: position,
       values: static relative absolute fixed sticky
