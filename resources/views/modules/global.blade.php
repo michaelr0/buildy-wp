@@ -44,4 +44,3 @@ if ($spacing) {
       {!! $buildy->renderFrontend($bladeData->content->id) !!}
     </div>
 @endif
-class="bmcb-section {{ $boxed ? $boxed : '' }} {{ $moduleClasses ? $moduleClasses : '' }}"
