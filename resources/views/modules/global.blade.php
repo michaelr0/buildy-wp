@@ -8,6 +8,19 @@ $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
+// Text colours
+$colors = $bladeData->inline->color ?? null;
+if ($colors) {
+    forEach($colors as $key=>$val) {
+        if ($val !== 'None') {
+            if ($key !== 'xs') {
+                $moduleClasses ? $moduleClasses .= " $key:text-$val" : $moduleClasses = "$key:text-$val";
+            } else {
+                $moduleClasses ? $moduleClasses .= " text-$val" : $moduleClasses = "text-$val";
+            }
+        }
+    }
+}
 // Add data atts to a string
 if (isset($dataAtts)) {
   foreach($dataAtts as $dataAtt) {
