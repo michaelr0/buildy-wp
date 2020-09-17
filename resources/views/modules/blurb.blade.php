@@ -86,9 +86,9 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
                     @if(function_exists('wp_get_attachment_image'))
                         @php echo wp_get_attachment_image($imageID, $imageSize, "", array(
                             "class" => "bmcb-blurb__image",
-                            "style" => "$width $maxWidth $height $objectFit $objectPosition" )); @endphp
+                            "style" => "$imageWidth $imageMaxWidth $imageHeight $imageMaxHeight $imageObjectFit $imageObjectPosition" )); @endphp
                     @else
-                        <img style="{{ $width }} {{ $maxWidth }} {{ $height }} {{ $objectFit }} {{ $objectPosition }}"
+                        <img style="{{ $imageWidth }} {{ $imageMaxWidth }} {{ $imageHeight }} {{ $imageMaxHeight }} {{ $imageObjectFit }} {{ $imageObjectPosition }}"
                         @if($imageURL) src="{{ $imageURL }}" @endif />
                     @endif
                 </div>
