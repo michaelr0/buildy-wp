@@ -88,7 +88,7 @@ if ($spacing) {
     style="
     @if($bgColor) {{ "background-color: $bgColor;" }} @endif
     @if($bgImage) {{ "background-image: url($bgImage);" }} @endif
-    @if($bgSize) {{ "backround-size: $bgSize;" }} @endif
+    @if($bgSize) {{ "background-size: $bgSize;" }} @endif
     @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
     @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
     @if($dataAttString) {{ $dataAttString }} @endif>
