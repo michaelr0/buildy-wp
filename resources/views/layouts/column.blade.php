@@ -7,7 +7,7 @@ $dataAttString = null;
 
 $bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? $bladeData->inline->backgroundImage->backgroundSize : "";
 $bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? $bladeData->inline->backgroundImage->backgroundPosition : "";
-$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?: 'no-repeat';
+$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?: null;
 $bgColor = (!empty($bladeData->inline->backgroundColor)) ? $bladeData->inline->backgroundColor : "";
 
 $bgImageSize = (!empty($bladeData->inline->backgroundImage->imageSize)) ? $bladeData->inline->backgroundImage->imageSize : "full";

@@ -1,12 +1,25 @@
 @php
 $moduleClasses = $bladeData->attributes->class ?? null;
-$bgColor = (!empty($bladeData->inline->backgroundColor)) ? "background-color: {$bladeData->inline->backgroundColor};" : "";
-$bgImage = (!empty($bladeData->inline->backgroundImage->url)) ? 'background-image: url(' . $bladeData->inline->backgroundImage->url . ');' : "";
-$bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? 'background-size:' . $bladeData->inline->backgroundImage->backgroundSize . ';' : "";
-$bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? 'background-position:' . $bladeData->inline->backgroundImage->backgroundPosition . ';' : "";
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
+
+$bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? $bladeData->inline->backgroundImage->backgroundSize : "";
+$bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? $bladeData->inline->backgroundImage->backgroundPosition : "";
+$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?: null;
+$bgColor = (!empty($bladeData->inline->backgroundColor)) ? $bladeData->inline->backgroundColor : "";
+$bgImageSize = (!empty($bladeData->inline->backgroundImage->imageSize)) ? $bladeData->inline->backgroundImage->imageSize : "full";
+$bgImageURL = (!empty($bladeData->inline->backgroundImage->url)) ? $bladeData->inline->backgroundImage->url : null;
+$bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+
+if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
+  $bgImageID = attachment_url_to_postid( $bgImageURL );
+}
+
+if ($bgImageID) {
+  $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize);
+  $bgImage = $bgImageURL;
+}
 
 // Text colours
 $colors = $bladeData->inline->color ?? null;
@@ -52,7 +65,12 @@ if ($spacing) {
     --}}
 
     <div
-    @if($bgColor || $bgImage) style="{{ $bgColor }} {{ $bgImage }} {{ $bgSize }} {{ $bgPosition }}" @endif
+    style="
+    @if($bgColor) {{ "background-color: $bgColor;" }} @endif
+    @if($bgImage) {{ "background-image: url($bgImage);" }} @endif
+    @if($bgSize) {{ "backround-size: $bgSize;" }} @endif
+    @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
+    @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
     class="bmcb-global-wrapper {{ $moduleClasses ? $moduleClasses : '' }}">
       {!! $buildy->renderFrontend($bladeData->content->id) !!}
     </div>
