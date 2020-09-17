@@ -81,9 +81,9 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
             @component('modules.components.title', ['bladeData'=> $bladeData])@endcomponent
 
             {{-- When the image is set below the title --}}
-            @if($image && $imageTitlePosition === 'Image Below')
+            @if($imageID && $imageTitlePosition === 'Image Below')
                 <div class="bmcb-blurb__image-wrapper">
-                    @if($imageID && function_exists('wp_get_attachment_image'))
+                    @if(function_exists('wp_get_attachment_image'))
                         @php echo wp_get_attachment_image($imageID, $imageSize, "", array(
                             "class" => "bmcb-blurb__image",
                             "style" => "$width $maxWidth $height $objectFit $objectPosition" )); @endphp
