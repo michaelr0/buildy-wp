@@ -9,7 +9,8 @@ export default new Vuex.Store({
     config: {},
     colours: [],
     dragDisabled: false,
-    validComponents: []
+    validComponents: [],
+    imageSizes: []
   },
   mutations: {
     SET_CONFIG(state, payload) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     SET_COLOURS(state, colours) {
       state.colours = colours;
+    },
+    SET_REGISTERED_IMAGE_SIZES(state, sizes) {
+      state.imageSizes = sizes;
     },
     FLAG_WP(state, payload) {
       state.isWP = payload
@@ -41,6 +45,10 @@ export default new Vuex.Store({
       if (payload.theme_colours && payload.theme_colours.length) {
         let colours = payload.theme_colours.map(colour => colour.name)
         context.commit('SET_COLOURS', colours)
+      }
+
+      if (payload.registered_image_sizes) {
+        context.commit('SET_REGISTERED_IMAGE_SIZES', payload.registered_image_sizes)
       }
 
       // Config object only exists in wordpress scenarios at the moment
@@ -79,6 +87,9 @@ export default new Vuex.Store({
     },
     dragDisabled: state => {
       return state.dragDisabled
+    },
+    imageSizes: state => {
+      return Object.keys(state.imageSizes).join(',')
     },
     validComponents: state => {
       return state.validComponents

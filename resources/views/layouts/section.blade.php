@@ -2,10 +2,24 @@
 $moduleID = $bladeData->attributes->id ?? null;
 $moduleClasses = $bladeData->attributes->class ?? null;
 $boxed = (!empty($bladeData->options->layout_boxed) && $bladeData->options->layout_boxed) ? 'container' : 'container-fluid';
-$bgImage = (!empty($bladeData->inline->backgroundImage->url)) ? 'background-image: url(' . $bladeData->inline->backgroundImage->url . ');' : "";
-$bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? 'background-size:' . $bladeData->inline->backgroundImage->backgroundSize . ';' : "";
-$bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? 'background-position:' . $bladeData->inline->backgroundImage->backgroundPosition . ';' : "";
-$bgColor = (!empty($bladeData->inline->backgroundColor)) ? "background-color: {$bladeData->inline->backgroundColor};" : "";
+
+$bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? $bladeData->inline->backgroundImage->backgroundSize : "";
+$bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? $bladeData->inline->backgroundImage->backgroundPosition : "";
+$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?: 'no-repeat';
+$bgColor = (!empty($bladeData->inline->backgroundColor)) ? $bladeData->inline->backgroundColor : "";
+$bgImageSize = (!empty($bladeData->inline->backgroundImage->imageSize)) ? $bladeData->inline->backgroundImage->imageSize : "full";
+$bgImageURL = (!empty($bladeData->inline->backgroundImage->url)) ? $bladeData->inline->backgroundImage->url : null;
+$bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+
+if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
+  $bgImageID = attachment_url_to_postid( $bgImageURL );
+}
+
+if ($bgImageID) {
+  $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize);
+  $bgImage = $bgImageURL;
+}
+
 $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
 $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
 $internalLinkTarget = $internalLinkText ? preg_replace("/\W|_/",'',$internalLinkText) : null;
@@ -36,7 +50,12 @@ if ($spacing) {
         data-internal_link_enabled="true" @endif
     @if($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endif
     class="bmcb-section {{ $boxed ? $boxed : '' }} {{ $moduleClasses ? $moduleClasses : '' }}"
-    @if($bgColor || $bgImage) style="{{ $bgColor }} {{ $bgImage }} {{ $bgSize }} {{ $bgPosition }}" @endif
+    style="
+    @if($bgColor) {{ "background-color: $bgColor;" }} @endif
+    @if($bgImage) {{ "background-image: url($bgImage);" }} @endif
+    @if($bgSize) {{ "backround-size: $bgSize;" }} @endif
+    @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
+    @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
     @if($dataAttString) {{ $dataAttString }} @endif>
     @if ($bladeData->options->inner_container ?? false)
         <div class="container">
