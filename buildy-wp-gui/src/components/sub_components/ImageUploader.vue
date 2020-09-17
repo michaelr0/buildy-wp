@@ -36,16 +36,15 @@
             />
         </div>
 
-        <div class="flex -mx-2">
+        <div v-if="path === 'content.image'" class="flex -mx-2">
             <attribute-editor
                 class="px-2 flex-1"
-                v-if="path === 'content.image'"
+
                 label="Height"
                 :path="`${path}.height`"
             />
             <attribute-editor
                 class="px-2 flex-1"
-                v-if="path === 'content.image'"
                 label="Max Height"
                 :path="`${path}.maxHeight`"
             />
@@ -88,6 +87,12 @@
                 :path="`${path}.backgroundPosition`"
                 options="center, center top, center bottom, center left, center right, top right, top left, bottom left, bottom right"
             />
+            <select-box
+                class="px-2 flex-1"
+                label="Image Size"
+                :path="`${path}.imageSize`"
+                :options="imageSizes"
+            />
         </div>
     </div>
 </template>
@@ -96,8 +101,10 @@
 import { setDeep, getDeep } from "../../functions/objectHelpers";
 import { Trash2Icon } from "vue-feather-icons";
 import mediaLibrary from "../../mixins/mediaLibrary";
+import {mapGetters} from 'vuex'
 export default {
     computed: {
+      ...mapGetters(['imageSizes']),
         imageSrc() {
             return getDeep(this.component, `${this.path}.url`);
         }
@@ -127,7 +134,9 @@ export default {
                     .get("selection");
                 selectedImages.map(attachment => {
                     attachment = attachment.toJSON();
+                    console.log(attachment)
                     setDeep(this.component, `${this.path}.url`, attachment.url);
+                    setDeep(this.component, `${this.path}.imageID`, attachment.id);
                 });
             });
         }

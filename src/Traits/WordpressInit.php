@@ -70,6 +70,33 @@ trait WordpressInit {
              * Create config array for the Page Builder.
              */
 
+             if (!function_exists('_get_all_image_sizes')) {
+               /**
+                 * Get all the registered image sizes along with their dimensions
+                 *
+                 * @global array $_wp_additional_image_sizes
+                 *
+                 * @link http://core.trac.wordpress.org/ticket/18947 Reference ticket
+                 * @return array $image_sizes The image sizes
+                 */
+                function _get_all_image_sizes() {
+                  global $_wp_additional_image_sizes;
+
+                  $default_image_sizes = array( 'thumbnail', 'medium', 'large' );
+
+                  foreach ( $default_image_sizes as $size ) {
+                    $image_sizes[$size]['width']	= intval( get_option( "{$size}_size_w") );
+                    $image_sizes[$size]['height'] = intval( get_option( "{$size}_size_h") );
+                    $image_sizes[$size]['crop']	= get_option( "{$size}_crop" ) ? get_option( "{$size}_crop" ) : false;
+                  }
+
+                  if ( isset( $_wp_additional_image_sizes ) && count( $_wp_additional_image_sizes ) )
+                    $image_sizes = array_merge( $image_sizes, $_wp_additional_image_sizes );
+
+                  return $image_sizes;
+                }
+             }
+
 
             // Custom theme option settings from Site Options (ACF)
             if (function_exists('get_field') && function_exists('get_theme_colors')) :
@@ -85,6 +112,7 @@ trait WordpressInit {
                 'overwrite_mode' => $overwrite_mode ?: false,
                 'is_admin' => current_user_can('administrator'),
                 'site_url' => get_site_url(),
+                'registered_image_sizes' => _get_all_image_sizes(),
                 'registered_post_types' => get_post_types(['_builtin' => false]),
                 'global_api' => get_rest_url(get_current_blog_id(), 'wp/v2/bmcb-global'),
             ]);

@@ -39,7 +39,10 @@ if ($buttonTwoEnabled) {
     }
 }
 
-$image = $bladeData->content->image->url ?? '';
+$imageURL = (!empty($bladeData->content->image->url)) ? $bladeData->content->image->url : null;
+$imageSize = (!empty($bladeData->content->image->imageSize)) ? $bladeData->content->image->imageSize : "full";
+$imageID = $bladeData->content->image->imageID ?? null;
+
 $imageWidth = !empty($bladeData->content->image->width) ? "width: {$bladeData->content->image->width};" : '';
 $imageMaxWidth = !empty($bladeData->content->image->maxWidth) ? "max-width: {$bladeData->content->image->maxWidth};" : '';
 $imageHeight = !empty($bladeData->content->image->height) ? "height: {$bladeData->content->image->height};" : '';
@@ -48,8 +51,9 @@ $imageObjectFit = !empty($bladeData->content->image->objectFit) ? "object-fit: {
 $imageObjectPosition = !empty($bladeData->content->image->objectPosition) ? "object-position: {$bladeData->content->image->objectPosition};" : '';
 $imageTitlePosition = $bladeData->content->image->imageTitlePosition ?? 'Image Above';
 
-if (function_exists('attachment_url_to_postid')) {
-    $image_ID = attachment_url_to_postid( $image );
+// Backwards compatibility for images that are set with URL only
+if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
+  $imageID = attachment_url_to_postid( $imageURL );
 }
 
 @endphp
@@ -60,10 +64,10 @@ if (function_exists('attachment_url_to_postid')) {
     @endif
 
         {{-- When the image is set above the title --}}
-        @if($image && $imageTitlePosition === 'Image Above')
+        @if($imageID && $imageTitlePosition === 'Image Above')
             <div class="bmcb-blurb__image-wrapper">
-                @if($image_ID && function_exists('wp_get_attachment_image'))
-                    @php echo wp_get_attachment_image($image_ID, 'full', "", array(
+                @if(function_exists('wp_get_attachment_image'))
+                    @php echo wp_get_attachment_image($imageID, $imageSize, "", array(
                         "class" => "bmcb-blurb__image",
                         "style" => "$imageWidth $imageMaxWidth $imageHeight $imageMaxHeight $imageObjectFit $imageObjectPosition" )); @endphp
                 @else
@@ -79,13 +83,13 @@ if (function_exists('attachment_url_to_postid')) {
             {{-- When the image is set below the title --}}
             @if($image && $imageTitlePosition === 'Image Below')
                 <div class="bmcb-blurb__image-wrapper">
-                    @if($image_ID && function_exists('wp_get_attachment_image'))
-                        @php echo wp_get_attachment_image($image_ID, 'full', "", array(
+                    @if($imageID && function_exists('wp_get_attachment_image'))
+                        @php echo wp_get_attachment_image($image_ID, $imageSize, "", array(
                             "class" => "bmcb-blurb__image",
                             "style" => "$width $maxWidth $height $objectFit $objectPosition" )); @endphp
                     @else
                         <img style="{{ $width }} {{ $maxWidth }} {{ $height }} {{ $objectFit }} {{ $objectPosition }}"
-                        @if($image) src="{{ $image }}" @endif />
+                        @if($imageURL) src="{{ $imageURL }}" @endif />
                     @endif
                 </div>
             @endif
