@@ -91,7 +91,7 @@
 ---------------------- Modules ------------------
 --------------------------------------------------------------*/
 // When modules are stacked add space above unless they have a gap set (which will do it via grid)
-.bmcb-module:not(:empty) + .bmcb-module {
+.bmcb-module:not(:empty):not(.bmcb-heading) + .bmcb-module {
   margin-top: 2rem;
 }
 
