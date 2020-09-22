@@ -33,7 +33,6 @@
     </settings-modal>
 </template>
 <script>
-import { setDeep } from "../functions/objectHelpers";
 import { mapGetters } from "vuex";
 
 export default {
@@ -54,9 +53,6 @@ export default {
     props: {
         hidecontrols: Boolean,
         component: Object
-    },
-    methods: {
-        setDeep
     }
 };
 </script>

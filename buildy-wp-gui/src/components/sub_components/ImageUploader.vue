@@ -91,6 +91,7 @@
                 class="px-2 flex-1"
                 label="Image Size"
                 :path="`${path}.imageSize`"
+                defaultVal="full"
                 :options="imageSizes"
             />
         </div>

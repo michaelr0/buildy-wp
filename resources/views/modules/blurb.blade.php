@@ -4,8 +4,10 @@
 //  BUTTON
 $module_link_url = $bladeData->options->module_link->url ?? null;
     $module_link_new_tab = $bladeData->options->module_link->new_tab ?? null;
-$buttonOneEnabled = (!empty($bladeData->content->button->buttonEnabled) || !empty($bladeData->options->buttonOneEnabled)) ?? null;
+$buttonOneEnabled = $bladeData->content->button->buttonEnabled || $bladeData->options->buttonOneEnabled ?? null;
 $buttonTwoEnabled = $bladeData->options->buttonTwoEnabled ?? null;
+
+// var_dump($buttonOneEnabled); exit;
 
 if ($buttonOneEnabled) {
     $buttonOneURL = (string) ($bladeData->content->button->url ?? null);

@@ -6,7 +6,7 @@
       v-model="value"
       @change="handleChange"
     >
-      <option value="None">None</option>
+      <option :value="defaultVal">{{ defaultVal }}</option>
       <option
         v-for="(option, i) in optionsArr"
         :key="option + i"
@@ -27,11 +27,15 @@ export default {
     range: Number,
     options: String,
     path: String,
-    selected: String
+    selected: String,
+    defaultVal: {
+      type: String,
+      default: 'None'
+    }
   },
   data() {
     return {
-      value: "None"
+      value: this.defaultVal
     };
   },
   computed: {
@@ -57,7 +61,7 @@ export default {
     }
 
     if (!this.selected && this.path) {
-      this.value = getDeep(this.component, this.path) || "None";
+      this.value = getDeep(this.component, this.path) || this.defaultVal;
     }
 
     this.$emit("change", this.value);
