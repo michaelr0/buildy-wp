@@ -27,6 +27,7 @@ if ($bgImageID) {
 $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
 $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
 $internalLinkTarget = $internalLinkText ? preg_replace("/\W|_/",'',$internalLinkText) : null;
+$dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
 // Add data atts to a string
@@ -36,6 +37,7 @@ if (isset($dataAtts)) {
     $dataAttString .= " data-{$name}={$dataAtt->value}";
   }
 }
+
 
 // CSS GRID
 $enableCSSGrid = $bladeData->inline->cssGrid->enabled ?? null;
