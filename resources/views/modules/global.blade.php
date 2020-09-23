@@ -38,7 +38,8 @@ if ($colors) {
 if (isset($dataAtts)) {
   foreach($dataAtts as $dataAtt) {
     $name = strtolower($dataAtt->name);
-    $dataAttString .= " data-{$name}={$dataAtt->value}";
+    $value = stripslashes($dataAtt->value);
+    $dataAttString .= " data-{$name}='{$value}' ";
   }
 }
 
@@ -55,7 +56,10 @@ if ($spacing) {
     @if($bgSize) {{ "background-size: $bgSize;" }} @endif
     @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
     @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
-    class="bmcb-global-wrapper {{ $moduleClasses ? $moduleClasses : '' }}">
+    class="bmcb-global-wrapper {{ $moduleClasses ? $moduleClasses : '' }}"
+    @if($dataAttString)
+      {!! $dataAttString !!}
+    @endif>
       {!! $buildy->renderFrontend($bladeData->content->id) !!}
     </div>
 @endif

@@ -10,7 +10,8 @@ $dataAttString = null;
 if (isset($dataAtts)) {
   foreach($dataAtts as $dataAtt) {
     $name = strtolower($dataAtt->name);
-    $dataAttString .= " data-{$name}={$dataAtt->value}";
+    $value = stripslashes($dataAtt->value);
+    $dataAttString .= " data-{$name}='{$value}' ";
   }
 }
 
@@ -73,6 +74,8 @@ if ($colors) {
     @yield('class')"
 
     {{-- Data Attributes --}}
-    @if($dataAttString) {{ $dataAttString }} @endif>
+    @if($dataAttString)
+      {!! $dataAttString !!}
+    @endif>
     @yield('content')
 </div>

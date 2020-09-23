@@ -31,7 +31,8 @@ $dataAttString = null;
 if (isset($dataAtts)) {
   foreach($dataAtts as $dataAtt) {
     $name = strtolower($dataAtt->name);
-    $dataAttString .= " data-{$name}={$dataAtt->value}";
+    $value = stripslashes($dataAtt->value);
+    $dataAttString .= " data-{$name}='{$value}' ";
   }
 }
 
@@ -56,7 +57,9 @@ if ($spacing) {
     @if($bgSize) {{ "background-size: $bgSize;" }} @endif
     @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
     @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
-    @if($dataAttString) {{ $dataAttString }} @endif>
+    @if($dataAttString)
+      {!! $dataAttString !!}
+    @endif>
     @if ($bladeData->options->inner_container ?? false)
         <div class="container">
     @endif
