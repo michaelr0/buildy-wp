@@ -74,7 +74,9 @@
         @if $i == 12 {
           flex: 0 0 100%;
         } @else {
-          flex: 0 0 calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
+          flex-grow: 0;
+          flex-shrink: 0;
+          flex-basis: calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
           max-width: calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
         }
       }
@@ -97,7 +99,9 @@
           @if $i == 12 {
             flex: 0 0 100%;
           } @else {
-            flex: 0 0 calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
             max-width: calc((#{$i} / 12 * 100) * 1% - (#{$col_gap}rem / 2));
           }
         }
