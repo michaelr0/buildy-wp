@@ -80,7 +80,9 @@
 
 @each $name, $breakpoint in $grid-breakpoints {
   @include media-breakpoint-up($name) {
-    .col-#{$name}-12 + .bmcb-column:not(:empty) {
+    .row:not([class*="gap-"])
+      .col-#{$name}-12:not(:empty)
+      + .bmcb-column:not(:empty) {
       margin-top: 4rem;
     }
   }
