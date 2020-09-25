@@ -10,6 +10,23 @@ const debounce = (fn, delay) => {
   }
 }
 
+const tryParseJSON = (jsonString) => {
+  try {
+    var o = JSON.parse(jsonString);
+
+    // Handle non-exception-throwing cases:
+    // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+    // but... JSON.parse(null) returns null, and typeof null === "object",
+    // so we must check for that, too. Thankfully, null is falsey, so this suffices:
+    if (o && typeof o === "object") {
+      return o;
+    }
+  }
+  catch (e) { console.log("You didn't paste valid JSON, please re-try copying the section and paste again.") }
+
+  return false;
+};
+
 const UCFirst = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1)
 }
@@ -34,4 +51,4 @@ const copyToClipboard = (text) => {
   document.body.removeChild(dummy);
 }
 
-export { debounce, labelUCFirst, UCFirst, spaceToDash, copyToClipboard }
+export { debounce, labelUCFirst, UCFirst, spaceToDash, copyToClipboard, tryParseJSON }

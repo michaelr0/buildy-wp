@@ -127,7 +127,6 @@ export default {
     },
     copyCode() {
       copyToClipboard(this.component);
-      console.log(this.component);
     }
   },
   props: {

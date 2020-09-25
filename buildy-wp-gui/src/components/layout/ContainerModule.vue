@@ -97,6 +97,7 @@ import { Module } from "../../classes/ModuleClass";
 import { PlusCircleIcon, XIcon, ClipboardIcon } from "vue-feather-icons";
 import draggable from "vuedraggable";
 import { recursifyID } from "../../functions/idHelpers";
+import { tryParseJSON } from "../../functions/helpers";
 export default {
   name: "container-module",
   data: function() {
@@ -141,12 +142,12 @@ export default {
       if (!e.clipboardData.getData("text")) {
         return;
       }
-      let content = JSON.parse(e.clipboardData.getData("text"));
+      let content = tryParseJSON(e.clipboardData.getData("text"));
 
-      // let newObj = new Module({ type: "hr-module", alias: "Divider" });
-      recursifyID(content);
-      console.log(content);
-      this.pageBuilder.push(content);
+      if (content) {
+        recursifyID(content);
+        this.pageBuilder.push(content);
+      }
     },
     async getGlobals() {
       if (this.globalAPI) {
