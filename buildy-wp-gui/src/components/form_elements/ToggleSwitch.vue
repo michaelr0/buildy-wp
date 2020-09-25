@@ -43,22 +43,23 @@ export default {
   },
   computed: {
     labelID() {
-      return `${this.component.id}-${spaceToDash(this.label)}`;
+      return `${(this.component && this.component.id) ||
+        "toggle"}-${spaceToDash(this.label)}`;
     }
   },
   methods: {
     handleChange() {
       this.$emit("toggle", this.value);
-      if (this.path) {
+      if (this.path && this.component) {
         setDeep(this.component, this.path, this.value, true);
       }
     }
   },
   mounted() {
     if (this.status) {
-        this.value = this.status
+      this.value = this.status;
     }
-    if (this.path) {
+    if (this.path && this.component) {
       this.value = getDeep(this.component, this.path);
     }
   },

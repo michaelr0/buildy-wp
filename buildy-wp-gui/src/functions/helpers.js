@@ -24,4 +24,14 @@ const spaceToDash = (str) => {
   return str
 }
 
-export { debounce, labelUCFirst, UCFirst, spaceToDash }
+const copyToClipboard = (text) => {
+  var dummy = document.createElement("textarea");
+  document.body.appendChild(dummy);
+  text = typeof text !== 'string' ? JSON.stringify(text) : text
+  dummy.value = text;
+  dummy.select();
+  document.execCommand("copy");
+  document.body.removeChild(dummy);
+}
+
+export { debounce, labelUCFirst, UCFirst, spaceToDash, copyToClipboard }

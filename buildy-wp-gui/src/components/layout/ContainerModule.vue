@@ -41,6 +41,13 @@
         ><plus-circle-icon class="mr-2"></plus-circle-icon> Add Section
         Separator</a
       >
+      <a
+        href="#"
+        class="flex pr-6 items-center justify-center"
+        @click.prevent="showTextarea = !showTextarea"
+        label="Paste Section"
+        ><clipboard-icon class="mr-2" /> Paste Section</a
+      >
       <modal name="global-selection-selector" :height="'auto'">
         <x-icon
           @click="$modal.hide('global-selection-selector')"
@@ -76,20 +83,27 @@
       </select> -->
       </modal>
     </div>
+    <textarea
+      v-show="showTextarea"
+      @paste.prevent="pasteSection"
+      class="flex mx-auto w-1/2 items-center bg-gray-200 justify-center"
+    />
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import { EventBus } from "../../EventBus";
 import { Module } from "../../classes/ModuleClass";
-import { PlusCircleIcon, XIcon } from "vue-feather-icons";
+import { PlusCircleIcon, XIcon, ClipboardIcon } from "vue-feather-icons";
 import draggable from "vuedraggable";
+import { recursifyID } from "../../functions/idHelpers";
 export default {
   name: "container-module",
   data: function() {
     return {
       globalModules: [],
-      dragArray: this.pageBuilder
+      dragArray: this.pageBuilder,
+      showTextarea: false
     };
   },
   computed: {
@@ -105,6 +119,7 @@ export default {
   components: {
     PlusCircleIcon,
     XIcon,
+    ClipboardIcon,
     draggable
   },
   methods: {
@@ -121,6 +136,17 @@ export default {
     addHR() {
       let newObj = new Module({ type: "hr-module", alias: "Divider" });
       this.pageBuilder.push(newObj.newModule());
+    },
+    pasteSection(e) {
+      if (!e.clipboardData.getData("text")) {
+        return;
+      }
+      let content = JSON.parse(e.clipboardData.getData("text"));
+
+      // let newObj = new Module({ type: "hr-module", alias: "Divider" });
+      recursifyID(content);
+      console.log(content);
+      this.pageBuilder.push(content);
     },
     async getGlobals() {
       if (this.globalAPI) {
