@@ -69,6 +69,10 @@ if ($colors) {
         @endif
     @endif
 
+    @if($bladeData->options->isToggle)
+    data-isToggle
+    @endif
+
     {{-- Classes --}}
     class="bmcb-{{ $moduleType }} bmcb-module {{ $moduleClasses ? $moduleClasses : '' }}
     @yield('class')"

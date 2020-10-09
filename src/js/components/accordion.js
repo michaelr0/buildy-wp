@@ -3,6 +3,7 @@ import debounce from '../util/debounce'
 class Accordion {
   constructor(el, settings) {
     this.group = el;
+    this.isToggle = this.group.dataset.hasOwnProperty('istoggle')
     this.accordionItems = this.group.getElementsByClassName("accordion");
     this.toggles = this.group.getElementsByClassName("accordion-title");
     this.contents = this.group.getElementsByClassName("accordion-body");
@@ -14,7 +15,7 @@ class Accordion {
     // Set default settings if necessary
     this.settings = {
       speed: 300,
-      one_visible: false,
+      one_visible: this.isToggle,
       ...settings
     };
 
