@@ -10,10 +10,6 @@ export default {
   data: function() {
     return {
       icon: "CodeIcon"
-      // settingSlots: [
-      //   'attributes',
-      //   'stats'
-      // ]
     };
   }
 };
