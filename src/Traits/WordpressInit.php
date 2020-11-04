@@ -211,6 +211,16 @@ trait WordpressInit {
         // Enables the rich text/media stuff to work
         wp_enqueue_editor();
 
+        //The Following registers an api route with multiple parameters.
+        add_action( 'rest_api_init', function() {
+            register_rest_route( 'bmcb/v1', '/module_styles=(?P<module_styles>[a-zA-Z0-9-]+)', array(
+                'methods' => 'GET',
+                'callback' => 'get_module_styles',
+            ));
+        });
+
+
+
         // Load jQuery in the header rather than footer.
         add_action('wp_enqueue_scripts', function () {
             wp_dequeue_script('jquery');
