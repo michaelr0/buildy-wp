@@ -3,6 +3,12 @@ $moduleID = $bladeData->attributes->id ?? null;
 
 $moduleClasses = $bladeData->attributes->class ?? null;
 
+$moduleStyle = $bladeData->options->moduleStyle ?? null;
+
+if ($moduleStyle && $moduleStyle !== 'none') {
+ $moduleClasses .= " module-style__$moduleStyle";
+}
+
 $dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
@@ -45,7 +51,7 @@ if ($spacing) {
 
 if ($colors) {
     forEach($colors as $key=>$val) {
-        if ($val !== 'None') {
+        if (strtolower($val) !== 'none') {
             if ($key !== 'xs') {
                 $moduleClasses ? $moduleClasses .= " $key:text-$val" : $moduleClasses = "$key:text-$val";
             } else {

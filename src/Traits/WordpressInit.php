@@ -137,6 +137,18 @@ trait WordpressInit {
         if ($this->isPageBuilderEnabled()) {
             $url = plugins_url() . "/buildy-wp";
 
+            wp_localize_script( 'hmw-child-frontend-scripts', 'global_vars', array(
+            'admin_ajax_url' => admin_url( 'admin-ajax.php' )
+          ) );
+
+          echo sprintf("
+            <script type='text/javascript'>
+                var global_vars = {
+                  rest_api_base: '%s'
+                }
+            </script>",
+          get_rest_url());
+
             echo "<script src='{$url}/buildy-wp-gui/dist/chunk-vendors.js'></script>";
             echo "<script src='{$url}/buildy-wp-gui/dist/app.js'></script>";
         }

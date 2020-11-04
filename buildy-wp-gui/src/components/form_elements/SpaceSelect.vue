@@ -89,7 +89,7 @@ export default {
       this.value = option;
       this.$emit("change", option || null);
       if (this.component && this.path) {
-        if (this.value === "None") {
+        if (this.value.toLowerCase() === "none") {
           setDeep(this.component, this.path, "");
         } else {
           setDeep(this.component, this.path, option);

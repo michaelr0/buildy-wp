@@ -51,4 +51,10 @@ const copyToClipboard = (text) => {
   document.body.removeChild(dummy);
 }
 
-export { debounce, labelUCFirst, UCFirst, spaceToDash, copyToClipboard, tryParseJSON }
+const stripTrailingSlash = (str) => {
+  return str.endsWith('/') ?
+    str.slice(0, -1) :
+    str;
+};
+
+export { debounce, labelUCFirst, UCFirst, spaceToDash, copyToClipboard, tryParseJSON, stripTrailingSlash }
