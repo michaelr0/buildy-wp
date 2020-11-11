@@ -206,6 +206,25 @@ trait WordpressInit {
         add_action('edit_form_after_editor', [$this, 'wordpress_edit_form_after_editor']);
     }
 
+    public function get_module_styles($request) {
+      if (!is_wp_error($request) ) {
+
+        $module_type = $request['module_styles'];
+
+        $data = get_field("module_styles_{$module_type}", 'option');
+
+        // print_r($request);
+        return new \WP_REST_Response(
+          array(
+            'status' => 200,
+            'response' => 'API hit success',
+            'body' => $data
+        ));
+      } else {
+        return new WP_Error($response_code, $response_message, $response_body);
+      }
+    }
+
     public function wordpress_init()
     {
         // Enables the rich text/media stuff to work
@@ -215,7 +234,7 @@ trait WordpressInit {
         add_action( 'rest_api_init', function() {
             register_rest_route( 'bmcb/v1', '/module_styles=(?P<module_styles>[a-zA-Z0-9-]+)', array(
                 'methods' => 'GET',
-                'callback' => 'get_module_styles',
+                'callback' => [$this, 'get_module_styles'],
             ));
         });
 

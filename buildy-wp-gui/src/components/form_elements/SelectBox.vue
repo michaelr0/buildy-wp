@@ -53,7 +53,10 @@ export default {
       }
 
       if (this.api_options) {
-        return this.api_options.split(",").map(el => el.trim());
+        if (this.api_options.includes(",")) {
+          return this.api_options.split(",").map(el => el.trim());
+        }
+        return this.api_options.split("\n").map(el => el.trim());
       }
 
       return this.options ? this.options.split(",").map(el => el.trim()) : null;
