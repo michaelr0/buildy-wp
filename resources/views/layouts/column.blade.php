@@ -1,6 +1,13 @@
 @php
 $moduleID = $bladeData->attributes->id ?? null;
 $moduleClasses = $bladeData->attributes->class ?? null;
+
+$moduleStyle = $bladeData->options->moduleStyle ?? null;
+
+if ($moduleStyle && $moduleStyle !== 'none') {
+ $moduleClasses .= " module-style__$moduleStyle";
+}
+
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;

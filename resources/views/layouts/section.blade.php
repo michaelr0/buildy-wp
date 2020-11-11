@@ -1,6 +1,13 @@
 @php
 $moduleID = $bladeData->attributes->id ?? null;
 $moduleClasses = $bladeData->attributes->class ?? null;
+
+$moduleStyle = $bladeData->options->moduleStyle ?? null;
+
+if ($moduleStyle && $moduleStyle !== 'none') {
+ $moduleClasses .= " module-style__$moduleStyle";
+}
+
 $boxed = (!empty($bladeData->options->layout_boxed) && $bladeData->options->layout_boxed) ? 'container' : 'container-fluid';
 
 $bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? $bladeData->inline->backgroundImage->backgroundSize : "";
