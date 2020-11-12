@@ -45,6 +45,10 @@ $imageURL = (!empty($bladeData->content->image->url)) ? $bladeData->content->ima
 $imageSize = (!empty($bladeData->content->image->imageSize)) ? $bladeData->content->image->imageSize : "full";
 $imageID = $bladeData->content->image->imageID ?? null;
 
+$image_id = $bladeData->content->image->id ?? null;
+$image_class = $bladeData->content->image->class ?? null;
+
+
 $imageWidth = !empty($bladeData->content->image->width) ? "width: {$bladeData->content->image->width};" : '';
 $imageMaxWidth = !empty($bladeData->content->image->maxWidth) ? "max-width: {$bladeData->content->image->maxWidth};" : '';
 $imageHeight = !empty($bladeData->content->image->height) ? "height: {$bladeData->content->image->height};" : '';
@@ -87,7 +91,8 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
                 <div class="bmcb-blurb__image-wrapper">
                     @if(function_exists('wp_get_attachment_image'))
                         @php echo wp_get_attachment_image($imageID, $imageSize, "", array(
-                            "class" => "bmcb-blurb__image",
+                            "id" => $image_id,
+                            "class" => "bmcb-blurb__image {$image_class}",
                             "style" => "$imageWidth $imageMaxWidth $imageHeight $imageMaxHeight $imageObjectFit $imageObjectPosition" )); @endphp
                     @else
                         <img style="{{ $imageWidth }} {{ $imageMaxWidth }} {{ $imageHeight }} {{ $imageMaxHeight }} {{ $imageObjectFit }} {{ $imageObjectPosition }}"
