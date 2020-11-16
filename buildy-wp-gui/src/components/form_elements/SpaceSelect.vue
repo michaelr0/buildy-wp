@@ -128,7 +128,12 @@ export default {
 
     if (!this.selected && this.path) {
       let value = getDeep(this.component, this.path);
-      this.value = value === 0 || value ? value : "None";
+
+      if (!value) {
+        return (this.value = "None");
+      }
+
+      this.value = value;
     }
 
     this.$emit("change", this.value);
