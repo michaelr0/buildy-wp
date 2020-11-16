@@ -3,8 +3,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import { labelUCFirst } from './functions/helpers'
-import 'prismjs'
-import 'prismjs/themes/prism.css'
+// import 'prismjs'
+// import 'prismjs/themes/prism.css'
 
 Vue.config.productionTip = false
 
