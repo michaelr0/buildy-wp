@@ -90,16 +90,11 @@ export default {
       this.$emit("change", option || null);
       if (this.component && this.path) {
         if (
-          !this.value ||
-          (typeof this.value === "string" &&
-            this.value.toLowerCase() === "none")
+          typeof this.value === "string" &&
+          this.value.toLowerCase() === "none"
         ) {
-          console.log(
-            "None was selected, setting this value to an empty string"
-          );
           setDeep(this.component, this.path, "");
         } else {
-          console.log(`${option} was selected, setting this value to that`);
           setDeep(this.component, this.path, option);
         }
       }
@@ -133,13 +128,11 @@ export default {
     if (!this.selected && this.path) {
       let value = getDeep(this.component, this.path);
 
-      if (!value) {
+      if (!value && value !== 0) {
         return (this.value = "None");
       }
 
       this.value = value;
-
-      console.log(`Initial value is ${this.value}`);
     }
 
     this.$emit("change", this.value);
