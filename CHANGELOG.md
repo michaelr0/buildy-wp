@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.7
+
+- Move conversion of module styles value to blade instead of JS (lowercase and hyphen)
+
 ## 2.6.4 - 2.6.6
 
 - Fixing space select not allowing the value of 0

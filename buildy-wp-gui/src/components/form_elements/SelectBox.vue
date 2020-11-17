@@ -70,9 +70,9 @@ export default {
   },
   methods: {
     handleChange() {
-      this.$emit("change", this.valueClean || null);
+      this.$emit("change", this.value || null);
       if (this.component && this.path) {
-        setDeep(this.component, this.path, this.valueClean);
+        setDeep(this.component, this.path, this.value);
       }
     },
     async fetchOptions() {
@@ -97,7 +97,11 @@ export default {
     }
 
     if (!this.options && this.endpoint) {
-      this.fetchOptions();
+      this.fetchOptions().then(() => {
+        if (!this.value) {
+          this.value = getDeep(this.component, this.path) || this.defaultVal;
+        }
+      });
     }
 
     this.$emit("change", this.value);

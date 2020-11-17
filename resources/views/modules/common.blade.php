@@ -6,7 +6,8 @@ $moduleClasses = $bladeData->attributes->class ?? null;
 $moduleStyle = $bladeData->options->moduleStyle ?? null;
 
 if ($moduleStyle && $moduleStyle !== 'none') {
- $moduleClasses .= " module-style__$moduleStyle";
+  $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
+  $moduleClasses .= " module-style__$moduleStyle";
 }
 
 $dataAtts = $bladeData->attributes->data ?? null;
