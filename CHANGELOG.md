@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.3
+
+- Adding troubleshooting markers for space select boxes to nail down an issue
+
 ## 2.6.2
 
 - Small refactor to space select boxes

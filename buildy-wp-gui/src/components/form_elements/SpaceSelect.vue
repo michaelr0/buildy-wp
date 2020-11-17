@@ -94,8 +94,12 @@ export default {
           (typeof this.value === "string" &&
             this.value.toLowerCase() === "none")
         ) {
+          console.log(
+            "None was selected, setting this value to an empty string"
+          );
           setDeep(this.component, this.path, "");
         } else {
+          console.log(`${option} was selected, setting this value to that`);
           setDeep(this.component, this.path, option);
         }
       }
@@ -134,6 +138,8 @@ export default {
       }
 
       this.value = value;
+
+      console.log(`Initial value is ${this.value}`);
     }
 
     this.$emit("change", this.value);

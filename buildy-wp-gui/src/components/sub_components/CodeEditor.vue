@@ -29,7 +29,6 @@ export default {
   methods: {
     change(e) {
       this.value = e.target.value;
-      console.log(this.value);
       setDeep(this.component, this.path, this.value);
       this.$emit("change", { data: this.value, path: this.path });
     }
