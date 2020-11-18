@@ -1,27 +1,46 @@
 @php
-$moduleID = $bladeData->attributes->id ?? null;
-$moduleClasses = $bladeData->attributes->class ?? null;
 
-$moduleStyle = $bladeData->options->moduleStyle ?? null;
+$atts = $bladeData->attributes ?? null;
+
+if (!empty($atts)) {
+  $moduleID = $bladeData->attributes->id ?? null;
+  $moduleClasses = $bladeData->attributes->class ?? null;
+  $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
+  $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
+  $dataAtts = $bladeData->attributes->data ?? null;
+}
+
+
+$moduleStyle = !empty($bladeData->options) ? $bladeData->options->moduleStyle : null;
 
 if ($moduleStyle && $moduleStyle !== 'none') {
   $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
   $moduleClasses .= " module-style__$moduleStyle";
 }
 
-$spacing = $bladeData->generatedAttributes->spacing ?? null;
-$textAlignxs = (string) ($bladeData->inline->textAlign->xs ?? null);
-$textAlignlg = (string) ($bladeData->inline->textAlign->xl ?? null);
+$spacing = !empty($bladeData->generatedAttributes) ? $bladeData->generatedAttributes->spacing : null;
 $columns = collect($bladeData->content);
 
-$bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? $bladeData->inline->backgroundImage->backgroundSize : "";
-$bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? $bladeData->inline->backgroundImage->backgroundPosition : "";
-$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?: null;
-$bgColor = (!empty($bladeData->inline->backgroundColor)) ? $bladeData->inline->backgroundColor : "";
+$inline = $bladeData->inline ?? null;
 
-$bgImageSize = (!empty($bladeData->inline->backgroundImage->imageSize)) ? $bladeData->inline->backgroundImage->imageSize : "full";
-$bgImageURL = (!empty($bladeData->inline->backgroundImage->url)) ? $bladeData->inline->backgroundImage->url : null;
-$bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+if (!empty($inline)) {
+  $textAlignxs = (string) ($bladeData->inline->textAlign->xs ?? null);
+  $textAlignlg = (string) ($bladeData->inline->textAlign->xl ?? null);
+
+  $bgSize = $bladeData->inline->backgroundImage->backgroundSize ?? "";
+  $bgPosition = $bladeData->inline->backgroundImage->backgroundPosition ?? "";
+  $bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?? null;
+  $bgColor = $bladeData->inline->backgroundColor ?? "";
+
+  $bgImageSize = $bladeData->inline->backgroundImage->imageSize ?? "full";
+  $bgImageURL = $bladeData->inline->backgroundImage->url ?? null;
+  $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+
+  // CSS GRID
+  $enableCSSGrid = $bladeData->inline->cssGrid->enabled ?? null;
+  $cssGridGap = $bladeData->inline->cssGrid->gap ?? null;
+}
+
 
 if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );
@@ -32,10 +51,7 @@ if ($bgImageID) {
   $bgImage = $bgImageURL;
 }
 
-$internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
-$internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
 $internalLinkTarget = $internalLinkText ? preg_replace("/\W|_/",'',$internalLinkText) : null;
-$dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
 // Add data atts to a string
@@ -47,9 +63,6 @@ if (isset($dataAtts)) {
   }
 }
 
-// CSS GRID
-$enableCSSGrid = $bladeData->inline->cssGrid->enabled ?? null;
-$cssGridGap = $bladeData->inline->cssGrid->gap ?? null;
 
 if ($enableCSSGrid) {
     $gridPrefix = "grid";
@@ -80,7 +93,6 @@ if ($textAlignxs) {
 if ($textAlignlg) {
     $moduleClasses ? $moduleClasses .= " xl:text-$textAlignlg" : $moduleClasses = "xl:text-$textAlignlg";
 }
-
 /* Add responsive margin/padding classes if they're set */
 if ($spacing) {
     $moduleClasses ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;

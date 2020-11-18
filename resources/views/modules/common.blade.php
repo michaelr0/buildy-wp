@@ -1,16 +1,24 @@
  @php
-$moduleID = $bladeData->attributes->id ?? null;
 
-$moduleClasses = $bladeData->attributes->class ?? null;
+$atts = $bladeData->attributes ?? null;
 
-$moduleStyle = $bladeData->options->moduleStyle ?? null;
+if (!empty($atts)) {
+  $moduleID = $bladeData->attributes->id ?? null;
+  $moduleClasses = $bladeData->attributes->class ?? null;
+  $dataAtts = $bladeData->attributes->data ?? null;
+  $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
+  $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
+}
+
+$options = $bladeData->options ?? null;
+
+$moduleStyle = $options ? $bladeData->options->moduleStyle : null;
 
 if ($moduleStyle && $moduleStyle !== 'none') {
   $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
   $moduleClasses .= " module-style__$moduleStyle";
 }
 
-$dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
 // Add data atts to a string
@@ -22,9 +30,13 @@ if (isset($dataAtts)) {
   }
 }
 
-$colors = $bladeData->inline->color ?? null;
+$inline = $bladeData->inline ?? null;
 
-$textAlign = $bladeData->inline->textAlign ?? null;
+if (!empty($inline)) {
+  $colors = $bladeData->inline->color ?? null;
+  $textAlign = $bladeData->inline->textAlign ?? null;
+}
+
 
 // Temporary large/small version of text align, I'll loop this eventually
 if ($textAlign) {
@@ -40,8 +52,6 @@ if ($textAlign) {
 }
 
 $moduleType = str_replace("-module", '', $bladeData->type);
-$internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
-$internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
 $internalLinkTarget = $internalLinkText ? preg_replace("/\W|_/",'',$internalLinkText) : null;
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 
@@ -76,7 +86,7 @@ if ($colors) {
         @endif
     @endif
 
-    @if($bladeData->options->isToggle)
+    @if($options ? $bladeData->options->isToggle : null)
     data-isToggle
     @endif
 
