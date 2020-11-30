@@ -19,6 +19,7 @@ if ($buttonOneEnabled) {
     $buttonOneOutlined = $bladeData->content->button->outlined ?? null;
     $buttonOneUnStyled = $bladeData->content->button->unStyled ?? null;
     $buttonOneTarget = $bladeData->content->button->target ?? null;
+    $buttonOneClass = $bladeData->content->button->class ?? null;
     $buttonOneSize = $bladeData->content->button->size && $bladeData->content->button->size !== 'Initial' ? $bladeData->content->button->size : false;
     if (preg_match("/^\d+$/", $buttonOneURL)) {
         $buttonOneURL = get_permalink($buttonOneURL);
@@ -35,6 +36,7 @@ if ($buttonTwoEnabled) {
     $buttonTwoOutlined = $bladeData->content->buttontwo->outlined ?? null;
     $buttonTwoUnStyled = $bladeData->content->buttontwo->unStyled ?? null;
     $buttonTwoTarget = $bladeData->content->buttontwo->target ?? null;
+    $buttonTwoClass = $bladeData->content->buttontwo->class ?? null;
     $buttonTwoSize = $bladeData->content->buttontwo->size && $bladeData->content->buttontwo->size !== 'Initial' ? $bladeData->content->buttontwo->size : false;
     if (preg_match("/^\d+$/", $buttonTwoURL)) {
         $buttonTwoURL = get_permalink($buttonTwoURL);
@@ -130,6 +132,9 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
                             @if($buttonOneSize)
                                 btn--{{ $buttonOneSize }}
                             @endif
+                            @if($buttonOneClass)
+                              {{ $buttonOneClass }}
+                            @endif
                             "
                         @if($buttonOneTarget)
                             target="{{ $buttonOneTarget }}"
@@ -159,6 +164,9 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
                             @endif
                             @if($buttonTwoSize)
                                 btn--{{ $buttonTwoSize }}
+                            @endif
+                            @if($buttonTwoClass)
+                              {{ $buttonTwoClass }}
                             @endif
                             "
                         @if($buttonTwoTarget)

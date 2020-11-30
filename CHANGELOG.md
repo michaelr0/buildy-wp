@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.8
+
+- Add "Button Class" to blurb buttons.
+
 ## 2.6.7
 
 - Move conversion of module styles value to blade instead of JS (lowercase and hyphen)

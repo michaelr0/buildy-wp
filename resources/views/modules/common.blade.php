@@ -11,7 +11,6 @@ if (!empty($atts)) {
 }
 
 $options = $bladeData->options ?? null;
-
 $moduleStyle = $options ? $bladeData->options->moduleStyle : null;
 
 if ($moduleStyle && $moduleStyle !== 'none') {
