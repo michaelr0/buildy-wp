@@ -2,7 +2,7 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.8
+## 2.6.8 - 2.6.9
 
 - Add "Button Class" to blurb buttons.
 
