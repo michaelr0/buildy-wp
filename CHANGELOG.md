@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.10
+
+- Swap col-gap to css variables -- We now have fine-grain control over column-gaps. Both globally and individually.
+
 ## 2.6.8 - 2.6.9
 
 - Add "Button Class" to blurb buttons.
