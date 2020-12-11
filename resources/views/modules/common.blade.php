@@ -34,6 +34,22 @@ $inline = $bladeData->inline ?? null;
 if (!empty($inline)) {
   $colors = $bladeData->inline->color ?? null;
   $textAlign = $bladeData->inline->textAlign ?? null;
+  $bgSize = $bladeData->inline->backgroundImage->backgroundSize ?? "";
+  $bgPosition = $bladeData->inline->backgroundImage->backgroundPosition ?? "";
+  $bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?? null;
+  $bgColor = $bladeData->inline->backgroundColor ?? "";
+  $bgImageSize = $bladeData->inline->backgroundImage->imageSize ?? "full";
+  $bgImageURL = $bladeData->inline->backgroundImage->url ?? null;
+  $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+}
+
+if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
+  $bgImageID = attachment_url_to_postid( $bgImageURL );
+}
+
+if ($bgImageID) {
+  $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize);
+  $bgImage = $bgImageURL;
 }
 
 
@@ -92,6 +108,13 @@ if ($colors) {
     {{-- Classes --}}
     class="bmcb-{{ $moduleType }} bmcb-module {{ $moduleClasses ? $moduleClasses : '' }}
     @yield('class')"
+
+    style="
+    @if($bgColor) {{ "background-color: $bgColor;" }} @endif
+    @if($bgImage) {{ "background-image: url($bgImage);" }} @endif
+    @if($bgSize) {{ "background-size: $bgSize;" }} @endif
+    @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
+    @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
 
     {{-- Data Attributes --}}
     @if($dataAttString)
