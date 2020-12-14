@@ -3,6 +3,14 @@
 namespace Michaelr0\BuildyWp\Traits;
 
 trait WordpressInit {
+	public function wordpress_wp_default_editor($r){
+		if($this->isPageBuilderEnabled()){
+			return 'html'; // HTML / Text tab in TinyMCE
+		}
+
+		return $r;
+	}
+
     public function wordpress_add_filter_the_content($content)
     {
         /**
@@ -227,6 +235,8 @@ trait WordpressInit {
 
     public function wordpress_init()
     {
+		add_filter( 'wp_default_editor', [$this, 'wordpress_wp_default_editor']);
+
         // Enables the rich text/media stuff to work
         wp_enqueue_editor();
 
