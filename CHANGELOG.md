@@ -2,6 +2,14 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.12 - ## 2.6.25
+
+- Add slider module
+- Improve UX of accordions (sliders, accordions, tabs)
+- Add JS for slider
+- Add basic styles for slider
+- Add blade output for slider
+
 ## 2.6.11
 
 - Add inline style attributes to common.blade so modules can use bg-image and options
