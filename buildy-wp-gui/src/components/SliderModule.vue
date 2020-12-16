@@ -1,14 +1,15 @@
 <template>
   <settings-modal>
     <title-editor label="Title" path="content.title" />
+    <accordion path="content.slider.items" isSlider />
   </settings-modal>
 </template>
 <script>
 export default {
-  name: "heading-module",
+  name: "slider-module",
   data: function () {
     return {
-      icon: "BoldIcon",
+      icon: "SlidersIcon",
     };
   },
 };

@@ -51,14 +51,14 @@
 
     <div class="flex -mx-2">
       <select-box
-        v-if="path === 'content.image'"
+        v-if="path === 'content.image' || imageType === 'img'"
         class="px-2 flex-1"
         label="Object Fit"
         :path="`${path}.objectFit`"
         options="auto, contain, cover, 100%"
       />
       <select-box
-        v-if="path === 'content.image'"
+        v-if="path === 'content.image' || imageType === 'img'"
         class="px-2 flex-1"
         label="Object Position"
         :path="`${path}.objectPosition`"
@@ -73,20 +73,21 @@
       />
 
       <select-box
-        v-if="path === 'inline.backgroundImage'"
+        v-if="path === 'inline.backgroundImage' || imageType === 'bg'"
         class="px-2 flex-1"
         label="Background Size"
         :path="`${path}.backgroundSize`"
         options="auto, contain, cover, 100%"
       />
       <select-box
-        v-if="path === 'inline.backgroundImage'"
+        v-if="path === 'inline.backgroundImage' || imageType === 'bg'"
         class="px-2 flex-1"
         label="Background Position"
         :path="`${path}.backgroundPosition`"
         options="center, center top, center bottom, center left, center right, top right, top left, bottom left, bottom right"
       />
       <select-box
+        v-if="path === 'content.image' || imageType === 'img'"
         class="px-2 flex-1"
         label="Image Size"
         :path="`${path}.imageSize`"
@@ -107,30 +108,31 @@ export default {
     ...mapGetters(["imageSizes"]),
     imageSrc() {
       return getDeep(this.component, `${this.path}.url`);
-    }
+    },
   },
   mixins: [mediaLibrary],
   methods: {
     removeImage() {
       setDeep(this.component, `${this.path}.url`, "");
-    }
+    },
   },
   props: {
     bgImage: Boolean,
     path: {
       type: String || Array,
-      default: "content.image"
+      default: "content.image",
     },
-    label: String
+    imageType: String,
+    label: String,
   },
   components: {
-    Trash2Icon
+    Trash2Icon,
   },
   mounted() {
     if (this.customMediaLibrary) {
       this.customMediaLibrary.on("select", () => {
         var selectedImages = this.customMediaLibrary.state().get("selection");
-        selectedImages.map(attachment => {
+        selectedImages.map((attachment) => {
           attachment = attachment.toJSON();
           setDeep(this.component, `${this.path}.url`, attachment.url);
           setDeep(this.component, `${this.path}.imageID`, attachment.id);
@@ -141,9 +143,9 @@ export default {
   inject: ["component"],
   provide() {
     return {
-      component: this.component
+      component: this.component,
     };
-  }
+  },
 };
 </script>
 
