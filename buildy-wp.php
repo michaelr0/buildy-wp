@@ -5,7 +5,7 @@
  * Plugin Name: Buildy for WP
  * Plugin URI:
  * Description: Before you judge a man, walk a mile in his shoes. After that who cares?... He’s a mile away and you’ve got his shoes!
- * Version:     2.6.22
+ * Version:     2.6.23
  * Author:
  * Author URI:
  * Text Domain: buildy-wp
@@ -13,7 +13,7 @@
  */
 
 if (!defined('ABSPATH')) {
-    die('Invalid request.');
+  die('Invalid request.');
 }
 
 // Load Composer
