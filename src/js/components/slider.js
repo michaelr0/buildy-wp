@@ -12,6 +12,8 @@ if (sliders.length) {
       let slides = el.querySelector('.bmcb-slider__slides');
       let dataAtts = slides.dataset
 
+      console.log(dataAtts)
+
       const prev = el.querySelector('.bmcb-slider__arrow-prev');
       const next = el.querySelector('.bmcb-slider__arrow-next');
 
@@ -19,8 +21,8 @@ if (sliders.length) {
         selector: slides,
         duration: Number(dataAtts?.duration) || 200,
         easing: dataAtts?.easing || 'ease-out',
-        perPage: Number(dataAtts?.perPage) || 1,
-        startIndex: Number(dataAtts?.startIndex) || 0,
+        perPage: Number(dataAtts?.perpage) || 1,
+        startIndex: Number(dataAtts?.startindex) || 0,
         draggable: (dataAtts?.draggable === "false") ? false : true,
         multipleDrag: (dataAtts?.draggable === "false") ? false : true,
         threshold: Number(dataAtts?.threshold) || 20,
@@ -77,7 +79,7 @@ if (sliders.length) {
         })
       }
 
-      if ((dataAtts?.paginationDots === "false") ? false : true) {
+      if ((dataAtts?.paginationdots === "false") ? false : true) {
         slider.addPagination();
       }
     })

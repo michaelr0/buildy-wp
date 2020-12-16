@@ -2,6 +2,11 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.28
+
+- Remove camel case for data attributes (in js)
+- Remove attributes from adding if they're '' and showing "false" if they're false
+
 ## 2.6.27
 
 - Fix missing endif

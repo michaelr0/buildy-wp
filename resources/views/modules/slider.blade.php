@@ -13,7 +13,9 @@
     <div class="bmcb-slider__slides"
     @if (isset($options))
       @foreach($options as $key=>$val)
-        data-{{ $key }}="{{ $val }}"
+        @if($val !== '')
+          data-{{ $key }}="{{ $val ? $val : 'false' }}"
+        @endif
       @endforeach
     @endif
 
