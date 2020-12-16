@@ -38,6 +38,7 @@ import {
   CodeIcon,
   SlidersIcon,
   ArrowRightIcon,
+  AlignJustifyIcon,
   BoldIcon,
   GridIcon,
 } from "vue-feather-icons";
@@ -54,6 +55,7 @@ export default {
     CodeIcon,
     SlidersIcon,
     ArrowRightIcon,
+    AlignJustifyIcon,
     BoldIcon,
     GridIcon,
   },

@@ -11,13 +11,13 @@
             >
               <div
                 class="accordion__item"
-                v-for="(item, i) in mappedItems"
+                v-for="(item, i) in items"
                 :key="`accordion-item-${i}`"
               >
                 <div
                   class="accordion__title-text p-3"
                   :class="generateModuleClasses(i)"
-                  @click.prevent="makeActive(i, item)"
+                  @click.prevent="toggleActive(i, item)"
                 >
                   <p class="mb-0">
                     {{
@@ -27,6 +27,7 @@
                     }}
                   </p>
                   <div class="accordion-controls flex items-center">
+                    <copy-icon @click.stop="cloneItem(item)" class="mr-4" />
                     <trash-icon @click.stop="removeItem(item)" class="mr-4" />
                     <chevron-right-icon :class="generateButtonClasses(i)" />
                   </div>
@@ -78,15 +79,15 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { setDeep, getDeep } from "../../functions/objectHelpers";
 import {
   EditIcon,
   XIcon,
   TrashIcon,
+  CopyIcon,
   PlusCircleIcon,
   ChevronRightIcon,
-  PlusIcon,
+  PlusIcon
 } from "vue-feather-icons";
 import { CollapseTransition } from "vue2-transitions";
 import draggable from "vuedraggable";
@@ -102,6 +103,7 @@ export default {
     PlusIcon,
     ChevronRightIcon,
     TrashIcon,
+    CopyIcon
   },
   data() {
     return {
@@ -109,7 +111,7 @@ export default {
       activeItemIndex: null,
       showAccordion: true,
       disableDrag: false,
-      items: [],
+      items: []
     };
   },
   props: {
@@ -120,28 +122,28 @@ export default {
      */
     itemPayload: {
       type: Array,
-      required: false,
+      required: false
     },
     /**
      * Key name of object in items array for specifying title of title
      */
     titleProperty: {
       type: String,
-      default: "title",
+      default: "title"
     },
     /**
      * Path on the component where this module stores the content
      */
     path: {
       type: String,
-      default: "content.accordion.items",
+      default: "content.accordion.items"
     },
     /**
      * Key name of object in items array for specifying content text of open title
      */
     answerProperty: {
       type: String,
-      default: "body",
+      default: "body"
     },
     /**
      * Color for hover and active tab/title
@@ -149,41 +151,34 @@ export default {
      */
     activeColor: {
       type: String,
-      default: "#D50000",
+      default: "#D50000"
     },
     /**
      * Color for borders
      */
     borderColor: {
       type: String,
-      default: "#9E9E9E",
+      default: "#9E9E9E"
     },
     /**
      * Color for fonts
      */
     fontColor: {
       type: String,
-      default: "#000000",
+      default: "#000000"
     },
     /**
      * Enable Image
      */
     isSlider: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   computed: {
     ...mapGetters(["isWP"]),
     editorType() {
       return this.isWP ? "rich-tiny" : "rich-text";
-    },
-    mappedItems() {
-      return this.items.map((item) => {
-        // !item[this.tabName] ? Vue.set(item, item[this.tabName], undefined) : ''
-        Vue.set(item, "editMode", false);
-        return item;
-      });
     },
     htmlTag() {
       if (this.componentType === "input") {
@@ -198,29 +193,44 @@ export default {
       return {
         group: "accordion_items",
         ghostClass: "ghost",
-        disabled: this.disableDrag,
+        disabled: this.disableDrag
       };
-    },
+    }
   },
   methods: {
-    makeActive(itemIndex, item) {
+    toggleActive(itemIndex, item) {
       this.activeItemIndex =
         this.activeItemIndex === itemIndex ? null : itemIndex;
-      this.toggleEditMode(item);
-    },
-    toggleEditMode(item) {
-      item.editMode = !item.editMode;
-      this.disableDrag = !this.disableDrag;
+
+      // Set any previous ones back to false
+      this.items = this.items.map(item => {
+        item.editMode = false;
+        return item;
+      });
+
+      // Set the current index one to true
+      if (this.activeItemIndex === itemIndex) {
+        item.editMode = true;
+      } else {
+        item.editMode = false;
+      }
     },
     addItem() {
-      this.items.push({ title: "", body: "" });
+      let newItem = { title: "", body: "", editMode: false };
+      this.items.push(newItem);
+      this.toggleActive(this.items.length - 1, newItem);
+    },
+    cloneItem(item) {
+      let newItem = JSON.parse(JSON.stringify(item));
+      this.items.push(newItem);
+      this.toggleActive(this.items.length - 1, newItem);
     },
     updateItem(item, index, prop, val) {
       this.items[index][prop] = val.target.value;
       setDeep(this.component, this.path, this.items);
     },
     removeItem(item) {
-      const index = this.items.findIndex((el) => el.title === item.title);
+      const index = this.items.findIndex(el => el.title === item.title);
       let confirm = window.confirm(
         "Are you sure you want to delete this item?"
       );
@@ -233,19 +243,19 @@ export default {
         "accordion__toggle-button",
         this.activeItemIndex === buttonIndex
           ? "accordion__toggle-button_active"
-          : null,
+          : null
       ];
     },
     generateModuleClasses(titleIndex) {
       return [
         "accordion__title",
-        this.activeItemIndex === titleIndex ? "accordion__title_active" : null,
+        this.activeItemIndex === titleIndex ? "accordion__title_active" : null
       ];
     },
     updateListOrder() {
       setDeep(this.component, this.path, this.dragArray);
       // this.updateStoreComponent({ path: 'content.accordion.items', prop: this.dragArray})
-    },
+    }
   },
   mounted() {
     let currentItems = getDeep(this.component, this.path);
@@ -257,9 +267,9 @@ export default {
   inject: ["component"],
   provide() {
     return {
-      component: this.component,
+      component: this.component
     };
-  },
+  }
 };
 </script>
 

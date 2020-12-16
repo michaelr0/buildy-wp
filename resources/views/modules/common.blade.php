@@ -116,6 +116,10 @@ if ($colors) {
     @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
     @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
 
+    @if($moduleType === 'slider' || $moduleType === 'accordion' || $moduleType === 'tab')
+      role="listbox"
+    @endif
+
     {{-- Data Attributes --}}
     @if($dataAttString)
       {!! $dataAttString !!}
