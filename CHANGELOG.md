@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.26
+
+- Clean up slider options with toggles where appropriate
+
 ## 2.6.12 - ## 2.6.25
 
 - Add slider module

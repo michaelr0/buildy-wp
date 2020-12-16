@@ -2,7 +2,8 @@
   <settings-modal>
     <title-editor label="Title" path="content.title" />
     <accordion path="content.slider.items" isSlider />
-    <div slot="options" class="slider-custom-options">
+    <fieldset slot="options" class="field-group slider-custom-options mt-6">
+      <legend class="uppercase text-sm px-4">Slider options</legend>
       <attribute-editor
         label="Interval"
         placeholder="Time between slide changes - Default: 5000"
@@ -29,26 +30,66 @@
         path="options.slider.startIndex"
       />
       <attribute-editor
-        label="Draggable"
-        placeholder="Default: true"
-        path="options.slider.draggable"
-      />
-      <attribute-editor
         label="Threshold"
         placeholder="Default: 20"
         path="options.slider.threshold"
       />
-      <attribute-editor
+      <toggle-switch
+        label="Autoplay"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.autoplay !== 'undefined'
+            ? component.options.slider.autoplay
+            : true
+        "
+        path="options.autoplay"
+      ></toggle-switch>
+      <toggle-switch
+        label="Draggable"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.draggable !== 'undefined'
+            ? component.options.slider.draggable
+            : true
+        "
+        path="options.slider.draggable"
+      ></toggle-switch>
+      <toggle-switch
         label="Loop"
-        placeholder="Default: true"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.loop !== 'undefined'
+            ? component.options.slider.loop
+            : true
+        "
         path="options.slider.loop"
-      />
-      <attribute-editor
-        label="Right to left"
-        placeholder="Default: false"
+      ></toggle-switch>
+      <toggle-switch
+        label="Right to left?"
+        :status="component.options.slider && component.options.slider.rtl"
         path="options.slider.rtl"
-      />
-    </div>
+      ></toggle-switch>
+      <toggle-switch
+        label="Arrow Navigation"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.arrow_nav !== 'undefined'
+            ? component.options.slider.arrow_nav
+            : true
+        "
+        path="options.slider.arrow_nav"
+      ></toggle-switch>
+      <toggle-switch
+        label="Dot Navigation"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.paginationDots !== 'undefined'
+            ? component.options.slider.paginationDots
+            : true
+        "
+        path="options.slider.paginationDots"
+      ></toggle-switch>
+    </fieldset>
   </settings-modal>
 </template>
 <script>
@@ -58,6 +99,12 @@ export default {
     return {
       icon: "SlidersIcon"
     };
+  },
+  mounted() {
+    console.log(typeof this.component.options.auto_play !== "undefined");
+  },
+  props: {
+    component: Object
   }
 };
 </script>

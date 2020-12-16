@@ -59,21 +59,23 @@ if (sliders.length) {
         sliding = setInterval(() => slider.next(), Number(dataAtts?.interval) || 5000)
       }
 
-      startSliding();
+      if ((dataAtts?.autoplay === "false") ? false : true) {
+        startSliding();
 
-      el.addEventListener('mouseenter', () => {
-        clearInterval(sliding)
-      })
-      el.addEventListener('mouseleave', () => startSliding())
-
-      // Start / stop them when the browser tab is hidden/visible
-      document.addEventListener('visibilitychange', function (ev) {
-        if (document.visibilityState === 'hidden') {
+        el.addEventListener('mouseenter', () => {
           clearInterval(sliding)
-        } else {
-          startSliding()
-        }
-      })
+        })
+        el.addEventListener('mouseleave', () => startSliding())
+
+        // Start / stop them when the browser tab is hidden/visible
+        document.addEventListener('visibilitychange', function (ev) {
+          if (document.visibilityState === 'hidden') {
+            clearInterval(sliding)
+          } else {
+            startSliding()
+          }
+        })
+      }
 
       if ((dataAtts?.paginationDots === "false") ? false : true) {
         slider.addPagination();

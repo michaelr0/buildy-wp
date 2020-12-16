@@ -34,6 +34,7 @@
       </div>
       @endforeach
     </div>
+    @if($bladeData->options->slider->arrow_nav)
       <div class="bmcb-slider__navigation-arrows">
         <div class="bmcb-slider__arrow-prev">
           <i class="fa fa-chevron-left"></i>
