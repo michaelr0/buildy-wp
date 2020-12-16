@@ -2,6 +2,11 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.27
+
+- Fix missing endif
+- Fix autoplay setting in wrong spot
+
 ## 2.6.26
 
 - Clean up slider options with toggles where appropriate

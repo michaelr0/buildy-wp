@@ -42,7 +42,7 @@
             ? component.options.slider.autoplay
             : true
         "
-        path="options.autoplay"
+        path="options.slider.autoplay"
       ></toggle-switch>
       <toggle-switch
         label="Draggable"
