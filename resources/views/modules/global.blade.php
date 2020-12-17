@@ -25,7 +25,7 @@ if ($bgImageID) {
 $colors = $bladeData->inline->color ?? null;
 if ($colors) {
     forEach($colors as $key=>$val) {
-        if ($val !== 'None') {
+        if (strtolower($val) !== 'none') {
             if ($key !== 'xs') {
                 $moduleClasses ? $moduleClasses .= " $key:text-$val" : $moduleClasses = "$key:text-$val";
             } else {

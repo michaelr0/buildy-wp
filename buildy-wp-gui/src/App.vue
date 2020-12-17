@@ -16,10 +16,10 @@
 
 <script>
 export default {
-  data: function() {
+  data: function () {
     return {
       pageBuilder: [],
-      output: []
+      output: [],
     };
   },
   computed: {
@@ -36,13 +36,13 @@ export default {
         return configObj.global_api;
       }
       return "";
-    }
+    },
   },
   props: {
     msg: String,
     config: Array,
     content: Array,
-    validComponents: Array
+    validComponents: Array,
   },
   mounted() {
     if (this.validComponents.length) {
@@ -56,6 +56,12 @@ export default {
     if (this.content) {
       this.pageBuilder.push(...this.content);
     }
-  }
+  },
 };
 </script>
+
+<style lang="scss">
+img {
+  border: none;
+}
+</style>

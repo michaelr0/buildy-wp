@@ -60,7 +60,11 @@ export default {
       this.value = this.status;
     }
     if (this.path && this.component) {
-      this.value = getDeep(this.component, this.path);
+      let findVal = getDeep(this.component, this.path);
+
+      if (typeof findVal !== "undefined") {
+        this.value = getDeep(this.component, this.path);
+      }
     }
   },
   inject: ["component"]

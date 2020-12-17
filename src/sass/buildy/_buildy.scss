@@ -78,15 +78,15 @@
   }
 }
 
-@each $name, $breakpoint in $grid-breakpoints {
-  @include media-breakpoint-up($name) {
-    .row:not([class*="gap-"])
-      .col-#{$name}-12:not(:empty)
-      + .bmcb-column:not(:empty) {
-      margin-top: 4rem;
-    }
-  }
-}
+// @each $name, $breakpoint in $grid-breakpoints {
+//   @include media-breakpoint-up($name) {
+//     .row:not([class*="gap-"])
+//       .col-#{$name}-12:not(:empty)
+//       + .bmcb-column:not(:empty) {
+//       margin-top: 4rem;
+//     }
+//   }
+// }
 
 // Anything with col-1 is considered auto. It will attempt to layout
 // a 5-col grid but will also flex to fit whatever.
@@ -148,6 +148,7 @@
 ---------------------- Individual Component Defaults ---------
 --------------------------------------------------------------*/
 @import "components/accordions";
+@import "components/sliders";
 @import "components/blurbs";
 @import "components/image-module";
 @import "components/page-links";

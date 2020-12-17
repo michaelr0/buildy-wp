@@ -89,7 +89,10 @@ export default {
       this.value = option;
       this.$emit("change", option || null);
       if (this.component && this.path) {
-        if (this.value === "None") {
+        if (
+          typeof this.value === "string" &&
+          this.value.toLowerCase() === "none"
+        ) {
           setDeep(this.component, this.path, "");
         } else {
           setDeep(this.component, this.path, option);
@@ -124,7 +127,12 @@ export default {
 
     if (!this.selected && this.path) {
       let value = getDeep(this.component, this.path);
-      this.value = value === 0 || value ? value : "None";
+
+      if (!value && value !== 0) {
+        return (this.value = "None");
+      }
+
+      this.value = value;
     }
 
     this.$emit("change", this.value);

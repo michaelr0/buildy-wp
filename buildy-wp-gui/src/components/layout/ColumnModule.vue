@@ -24,7 +24,7 @@
             @blur="
               editColumnSize({
                 size,
-                val: $event.target.value
+                val: $event.target.value,
               })
             "
           />
@@ -38,7 +38,7 @@
           <module-base
             v-for="(bmcbModule, index) in dragArray"
             :class="[
-              moduleCount > 1 && index !== moduleCount - 1 ? 'mb-2' : 'mb-0'
+              moduleCount > 1 && index !== moduleCount - 1 ? 'mb-2' : 'mb-0',
             ]"
             :column="component"
             :parent_array="component.content"
@@ -132,8 +132,9 @@
           v-for="options in validComponents"
           :key="options.type"
           :value="options.type"
-          >{{ options.name }}</option
         >
+          {{ options.name }}
+        </option>
       </select>
     </modal>
   </div>
@@ -156,7 +157,11 @@ import {
   CoffeeIcon,
   PlayCircleIcon,
   ImageIcon,
-  CodeIcon
+  CodeIcon,
+  SlidersIcon,
+  ArrowRightIcon,
+  BoldIcon,
+  GridIcon,
 } from "vue-feather-icons";
 
 import { setDeep, getDeep } from "../../functions/objectHelpers";
@@ -182,9 +187,13 @@ export default {
     CoffeeIcon,
     PlayCircleIcon,
     ImageIcon,
-    CodeIcon
+    CodeIcon,
+    SlidersIcon,
+    ArrowRightIcon,
+    BoldIcon,
+    GridIcon,
   },
-  data: function() {
+  data: function () {
     return {
       dragArray: this.component.content,
       hovering: false,
@@ -192,7 +201,7 @@ export default {
       windowWidth: Number,
       breakpoints: getDeep(this.component, "options.columns"),
       menuOpen: false,
-      dragging: false
+      dragging: false,
     };
   },
   computed: {
@@ -204,7 +213,7 @@ export default {
       return {
         group: "components",
         ghostClass: "ghost",
-        disabled: this.dragDisabled
+        disabled: this.dragDisabled,
       };
     },
     curBreakpoint() {
@@ -245,7 +254,7 @@ export default {
       }
 
       return classes.join(" ");
-    }
+    },
   },
   methods: {
     openModal() {
@@ -304,21 +313,21 @@ export default {
       this.closeModal();
       this.menuOpen = false;
       return newComponent;
-    }
+    },
   },
   props: {
     columns: Number,
     component: Object,
-    parent_id: String
+    parent_id: String,
   },
   provide() {
     return {
       component: this.component,
-      column: this.component
+      column: this.component,
     };
   },
   async mounted() {
-    EventBus.$on("dragToggle", val => {
+    EventBus.$on("dragToggle", (val) => {
       this.dragging = val;
     });
 
@@ -329,7 +338,7 @@ export default {
 
       window.addEventListener(
         "resize",
-        debounce(function(e) {
+        debounce(function (e) {
           vm.windowWidth = e.target.outerWidth;
         }, 100)
       );
@@ -339,11 +348,11 @@ export default {
     const vm = this;
     window.removeEventListener(
       "resize",
-      debounce(function(e) {
+      debounce(function (e) {
         vm.windowWidth = e.target.outerWidth;
       }, 100)
     );
-  }
+  },
 };
 </script>
 

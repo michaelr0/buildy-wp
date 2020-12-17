@@ -185,6 +185,32 @@ trait ACFInit {
                 'active' => true,
                 'description' => '',
             ));
+
+            acf_add_local_field_group(array(
+                'key' => 'group_bmcb-layout',
+                'title' => 'Layout Defaults',
+                'fields' => array(
+                    array(
+                        'key' => 'field_bmcb-col-gap',
+                        'label' => 'Default Column Gap',
+                        'name' => 'default_column_gap',
+                        'type' => 'text',
+                        'instructions' => 'Set the gap between columns, works with any unit (px, rem, em, etc)',
+                        'required' => 1,
+                        'default_value' => '3rem',
+                    ),
+                ),
+                'location' => array(
+                    array(
+                        array(
+                            'param' => 'options_page',
+                            'operator' => '==',
+                            'value' => 'bmcb-settings',
+                        ),
+                    ),
+                ),
+                'active' => true,
+            ));
         }
     }
 

@@ -8,6 +8,7 @@ export class Module {
       id: (options && options.type) ? generateModuleID(options.type) : '',
       type: (options && options.type) ? options.type : '',
       content: [],
+      icon: options && options.icon,
       options: {
         isEditable: true,
         admin_label: options && options.alias ? options.alias : options && options.name

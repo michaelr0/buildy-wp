@@ -23,6 +23,48 @@
         v-show="component.options.buttonTwoEnabled"
       />
     </transition>
+
+    <div slot="options" class="blurb-custom-options">
+      <div class="flex">
+        <toggle-switch
+          label="Show Title Attributes?"
+          path="options.titleAtts"
+        />
+        <toggle-switch
+          class="ml-10"
+          label="Show Image Attributes?"
+          path="options.imageAtts"
+        />
+      </div>
+      <fieldset
+        v-show="component.options.titleAtts"
+        class="title-atts border p-4 mt-4"
+      >
+        <h3 class="text-xl font-bold text-center">Title Attributes</h3>
+        <attribute-editor
+          label="Title ID"
+          path="content.title.id"
+        ></attribute-editor>
+        <attribute-editor
+          label="Title Class"
+          path="content.title.class"
+        ></attribute-editor>
+      </fieldset>
+      <fieldset
+        v-show="component.options.imageAtts"
+        class="title-atts border p-4 mt-4"
+      >
+        <h3 class="text-xl font-bold text-center">Image Attributes</h3>
+        <attribute-editor
+          label="Image ID"
+          path="content.image.id"
+        ></attribute-editor>
+        <attribute-editor
+          label="Image Class"
+          path="content.image.class"
+        ></attribute-editor>
+      </fieldset>
+    </div>
   </settings-modal>
 </template>
 <script>

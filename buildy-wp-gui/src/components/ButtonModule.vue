@@ -6,10 +6,10 @@
 <script>
 export default {
   name: "button-module",
-  data: function() {
+  data: function () {
     return {
-      icon: "CoffeeIcon"
+      icon: "ArrowRightIcon",
     };
-  }
+  },
 };
 </script>

@@ -35,13 +35,13 @@
 <script>
 export default {
   name: "postgrid-module",
-  data: function() {
+  data: function () {
     return {
-      icon: "BookIcon",
+      icon: "GridIcon",
       keepInBounds: true,
       type: "blurb-module",
-      imageSrc: null
+      imageSrc: null,
     };
-  }
+  },
 };
 </script>

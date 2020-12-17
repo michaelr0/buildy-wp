@@ -1,18 +1,32 @@
 @php
-$moduleID = $bladeData->attributes->id ?? null;
-$moduleClasses = $bladeData->attributes->class ?? null;
+
+$atts = $bladeData->attributes ?? null;
+
+if (!empty($atts)) {
+  $moduleID = $atts->id ?? null;
+  $moduleClasses = $atts->class ?? null;
+  $dataAtts = $atts->data ?? null;
+}
+
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
-$dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
-$bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? $bladeData->inline->backgroundImage->backgroundSize : "";
-$bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? $bladeData->inline->backgroundImage->backgroundPosition : "";
-$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?: null;
-$bgColor = (!empty($bladeData->inline->backgroundColor)) ? $bladeData->inline->backgroundColor : "";
+$inline = $bladeData->inline ?? null;
 
-$bgImageSize = (!empty($bladeData->inline->backgroundImage->imageSize)) ? $bladeData->inline->backgroundImage->imageSize : "full";
-$bgImageURL = (!empty($bladeData->inline->backgroundImage->url)) ? $bladeData->inline->backgroundImage->url : null;
-$bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+if (!empty($inline)) {
+  $bgImage = $bladeData->inline->backgroundImage ?? null;
+  $bgColor = $bladeData->inline->backgroundColor ?? "";
+}
+
+if (isset($bgImage)) {
+  $bgSize = $bgImage->backgroundSize ?? "";
+  $bgPosition = $bgImage->backgroundPosition ?? "";
+  $bgRepeat = $bgImage->backgroundRepeat ?? null;
+  $bgImageSize = $bgImage->imageSize ?? "full";
+  $bgImageURL = $bgImage->url ?? null;
+  $bgImageID = $bgImage->imageID ?? null;
+}
+
 
 if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );

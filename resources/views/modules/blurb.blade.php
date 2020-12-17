@@ -19,6 +19,7 @@ if ($buttonOneEnabled) {
     $buttonOneOutlined = $bladeData->content->button->outlined ?? null;
     $buttonOneUnStyled = $bladeData->content->button->unStyled ?? null;
     $buttonOneTarget = $bladeData->content->button->target ?? null;
+    $buttonOneClass = $bladeData->content->button->class ?? null;
     $buttonOneSize = $bladeData->content->button->size && $bladeData->content->button->size !== 'Initial' ? $bladeData->content->button->size : false;
     if (preg_match("/^\d+$/", $buttonOneURL)) {
         $buttonOneURL = get_permalink($buttonOneURL);
@@ -35,6 +36,7 @@ if ($buttonTwoEnabled) {
     $buttonTwoOutlined = $bladeData->content->buttontwo->outlined ?? null;
     $buttonTwoUnStyled = $bladeData->content->buttontwo->unStyled ?? null;
     $buttonTwoTarget = $bladeData->content->buttontwo->target ?? null;
+    $buttonTwoClass = $bladeData->content->buttontwo->class ?? null;
     $buttonTwoSize = $bladeData->content->buttontwo->size && $bladeData->content->buttontwo->size !== 'Initial' ? $bladeData->content->buttontwo->size : false;
     if (preg_match("/^\d+$/", $buttonTwoURL)) {
         $buttonTwoURL = get_permalink($buttonTwoURL);
@@ -44,6 +46,10 @@ if ($buttonTwoEnabled) {
 $imageURL = (!empty($bladeData->content->image->url)) ? $bladeData->content->image->url : null;
 $imageSize = (!empty($bladeData->content->image->imageSize)) ? $bladeData->content->image->imageSize : "full";
 $imageID = $bladeData->content->image->imageID ?? null;
+
+$image_id = $bladeData->content->image->id ?? null;
+$image_class = $bladeData->content->image->class ?? null;
+
 
 $imageWidth = !empty($bladeData->content->image->width) ? "width: {$bladeData->content->image->width};" : '';
 $imageMaxWidth = !empty($bladeData->content->image->maxWidth) ? "max-width: {$bladeData->content->image->maxWidth};" : '';
@@ -87,7 +93,8 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
                 <div class="bmcb-blurb__image-wrapper">
                     @if(function_exists('wp_get_attachment_image'))
                         @php echo wp_get_attachment_image($imageID, $imageSize, "", array(
-                            "class" => "bmcb-blurb__image",
+                            "id" => $image_id,
+                            "class" => "bmcb-blurb__image {$image_class}",
                             "style" => "$imageWidth $imageMaxWidth $imageHeight $imageMaxHeight $imageObjectFit $imageObjectPosition" )); @endphp
                     @else
                         <img style="{{ $imageWidth }} {{ $imageMaxWidth }} {{ $imageHeight }} {{ $imageMaxHeight }} {{ $imageObjectFit }} {{ $imageObjectPosition }}"
@@ -125,6 +132,9 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
                             @if($buttonOneSize)
                                 btn--{{ $buttonOneSize }}
                             @endif
+                            @if($buttonOneClass)
+                              {{ $buttonOneClass }}
+                            @endif
                             "
                         @if($buttonOneTarget)
                             target="{{ $buttonOneTarget }}"
@@ -154,6 +164,9 @@ if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {
                             @endif
                             @if($buttonTwoSize)
                                 btn--{{ $buttonTwoSize }}
+                            @endif
+                            @if($buttonTwoClass)
+                              {{ $buttonTwoClass }}
                             @endif
                             "
                         @if($buttonTwoTarget)

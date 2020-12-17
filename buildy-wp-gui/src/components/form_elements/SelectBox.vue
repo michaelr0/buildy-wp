@@ -1,5 +1,8 @@
 <template>
-  <div class="select-box-module module-settings mt-0 flex flex-col relative">
+  <div
+    class="select-box-module module-settings mt-0 flex relative"
+    :class="[inline ? 'flex-row' : 'flex-col']"
+  >
     <label class="pr-4 pb-1 setting-label">{{ label }}:</label>
     <select
       class="select-box rounded p-2"
@@ -21,30 +24,48 @@
 <script>
 // import { EventBus } from '../../../EventBus';
 import { getDeep, setDeep } from "../../functions/objectHelpers";
+import { stripTrailingSlash } from "../../functions/helpers";
+
 export default {
   props: {
     label: String,
     range: Number,
     options: String,
+    endpoint: String,
     path: String,
+    inline: Boolean,
     selected: String,
     defaultVal: {
       type: String,
-      default: 'None'
+      default: "None"
     }
   },
   data() {
     return {
-      value: this.defaultVal
+      value: this.defaultVal,
+      api_options: null
     };
   },
   computed: {
     optionsArr() {
-      return this.range
-        ? Array.from(Array(this.range).keys())
-        : this.options
-        ? this.options.split(",").map(el => el.trim())
-        : null;
+      if (this.range) {
+        return Array.from(Array(this.range).keys());
+      }
+
+      if (this.api_options) {
+        if (this.api_options.includes(",")) {
+          return this.api_options.split(",").map(el => el.trim());
+        }
+        return this.api_options.split("\n").map(el => el.trim());
+      }
+
+      return this.options ? this.options.split(",").map(el => el.trim()) : null;
+    },
+    valueClean() {
+      return this.value
+        .toLowerCase()
+        .trim()
+        .replace(/ /g, "-");
     }
   },
   methods: {
@@ -52,6 +73,17 @@ export default {
       this.$emit("change", this.value || null);
       if (this.component && this.path) {
         setDeep(this.component, this.path, this.value);
+      }
+    },
+    async fetchOptions() {
+      if (window.global_vars) {
+        let res = await fetch(
+          `${stripTrailingSlash(window.global_vars.rest_api_base)}/${
+            this.endpoint
+          }`
+        );
+        let data = await res.json();
+        this.api_options = data.body;
       }
     }
   },
@@ -62,6 +94,14 @@ export default {
 
     if (!this.selected && this.path) {
       this.value = getDeep(this.component, this.path) || this.defaultVal;
+    }
+
+    if (!this.options && this.endpoint) {
+      this.fetchOptions().then(() => {
+        if (!this.value) {
+          this.value = getDeep(this.component, this.path) || this.defaultVal;
+        }
+      });
     }
 
     this.$emit("change", this.value);

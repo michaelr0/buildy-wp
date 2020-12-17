@@ -1,8 +1,7 @@
 <template>
-  <section class="faq mt-8" ref="rootEl">
+  <section class="faq mt-4" ref="rootEl">
     <transition name="accordion-fade-slide" mode="out-in">
       <div v-if="items.length" class="faq-wrapper">
-
         <transition name="accordion-fade-slide" mode="out-in">
           <div v-if="showAccordion" class="accordion">
             <draggable
@@ -12,54 +11,58 @@
             >
               <div
                 class="accordion__item"
-                v-for="(item, i) in mappedItems"
+                v-for="(item, i) in items"
                 :key="`accordion-item-${i}`"
               >
                 <div
                   class="accordion__title-text p-3"
-                  :class="generateQuestionClasses(i)"
-                  
+                  :class="generateModuleClasses(i)"
+                  @click.prevent="toggleActive(i, item)"
                 >
-                  <component
-                    :is="item.editMode ? 'input' : 'p'"
-                    @change="updateItem(item, i, 'title', $event)"
-                    @blur="makeEditable(item)"
-                    type="text"
-                    :class="[item.editMode ? 'px-6 py-2 mb-0' : 'mb-0']"
-                    :value="item[questionProperty]"
-                  >
-                    {{ item[questionProperty] }}
-                  </component>
+                  <p class="mb-0">
+                    {{
+                      item.editMode
+                        ? "..."
+                        : item[titleProperty] || "Click to enter content"
+                    }}
+                  </p>
                   <div class="accordion-controls flex items-center">
-                    <component
-                      :is="item.editMode ? 'x-icon' : 'edit-icon'"
-                      class="mr-4"
-                      @click="makeEditable(item)"
-                    />
-                    <trash-icon @click="removeItem(item)" class="mr-4" />
-                    <chevron-right-icon
-                      @click.prevent="makeActive(i)"
-                      :class="generateButtonClasses(i)"
-                    />
+                    <copy-icon @click.stop="cloneItem(item)" class="mr-4" />
+                    <trash-icon @click.stop="removeItem(item)" class="mr-4" />
+                    <chevron-right-icon :class="generateButtonClasses(i)" />
                   </div>
                 </div>
                 <collapse-transition>
                   <div
                     class="accordion__body px-3 pb-3"
-                    v-if="i === activeQuestionIndex"
+                    v-if="i === activeItemIndex"
                   >
+                    <input
+                      @change="updateItem(item, i, 'title', $event)"
+                      type="text"
+                      class="px-4 py-2 w-full mb-2 border"
+                      :value="item[titleProperty]"
+                      placeholder="Enter title content"
+                    />
                     <slot v-bind:item="item">
                       <component
-                        :is="editorType"                        
+                        :is="editorType"
                         :index="i"
                         :path="`${path}.${i}.body`"
                       >
                       </component>
                       <!-- <p class="accordion__value" v-html="item[answerProperty]"></p> -->
-                      <!-- <label class="mt-3 block"> Add to tab: 
+                      <!-- <label class="mt-3 block"> Add to tab:
                                     <input :value="item.category" class="py-2 px-3 w-full" @change="updateItem(item, 'category', $event)" type='text' />
                                 </label> -->
                     </slot>
+                    <image-uploader
+                      v-if="isSlider"
+                      :path="`${path}.${i}.image`"
+                      :key="`image-${i}`"
+                      imageType="img"
+                      label="Slide Image:"
+                    ></image-uploader>
                   </div>
                 </collapse-transition>
               </div>
@@ -69,25 +72,26 @@
       </div>
     </transition>
     <a class="mt-4 flex" @click.prevent="addItem" href="#"
-      ><plus-circle-icon class="mr-2" /> Add Item</a
+      ><plus-circle-icon class="mr-2" /> Add
+      {{ isSlider ? "slide" : "item" }}</a
     >
   </section>
 </template>
 
 <script>
-import Vue from "vue";
 import { setDeep, getDeep } from "../../functions/objectHelpers";
 import {
   EditIcon,
   XIcon,
   TrashIcon,
+  CopyIcon,
   PlusCircleIcon,
   ChevronRightIcon,
   PlusIcon
 } from "vue-feather-icons";
 import { CollapseTransition } from "vue2-transitions";
 import draggable from "vuedraggable";
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   name: "VueFaqAccordion",
   components: {
@@ -98,12 +102,13 @@ export default {
     PlusCircleIcon,
     PlusIcon,
     ChevronRightIcon,
-    TrashIcon
+    TrashIcon,
+    CopyIcon
   },
   data() {
     return {
       activeTab: "",
-      activeQuestionIndex: null,
+      activeItemIndex: null,
       showAccordion: true,
       disableDrag: false,
       items: []
@@ -112,17 +117,17 @@ export default {
   props: {
     /**
      * Array of items
-     * Object style {questionProperty: string, answerProperty: string, tabName: string}
-     * You can change object keys names using other props (questionProperty, answerProperty, tabName)
+     * Object style {titleProperty: string, answerProperty: string, tabName: string}
+     * You can change object keys names using other props (titleProperty, answerProperty, tabName)
      */
     itemPayload: {
       type: Array,
       required: false
     },
     /**
-     * Key name of object in items array for specifying title of question
+     * Key name of object in items array for specifying title of title
      */
-    questionProperty: {
+    titleProperty: {
       type: String,
       default: "title"
     },
@@ -134,14 +139,14 @@ export default {
       default: "content.accordion.items"
     },
     /**
-     * Key name of object in items array for specifying content text of open question
+     * Key name of object in items array for specifying content text of open title
      */
     answerProperty: {
       type: String,
       default: "body"
     },
     /**
-     * Color for hover and active tab/question
+     * Color for hover and active tab/title
      * possible values: 'red', '#F00', 'rgb(255, 0, 0)'
      */
     activeColor: {
@@ -161,19 +166,19 @@ export default {
     fontColor: {
       type: String,
       default: "#000000"
+    },
+    /**
+     * Enable Image
+     */
+    isSlider: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     ...mapGetters(["isWP"]),
     editorType() {
       return this.isWP ? "rich-tiny" : "rich-text";
-    },
-    mappedItems() {
-      return this.items.map(item => {
-          // !item[this.tabName] ? Vue.set(item, item[this.tabName], undefined) : ''
-          Vue.set(item, "editMode", false);
-          return item;
-        });
     },
     htmlTag() {
       if (this.componentType === "input") {
@@ -193,16 +198,32 @@ export default {
     }
   },
   methods: {
-    makeActive(itemIndex) {
-      this.activeQuestionIndex =
-        this.activeQuestionIndex === itemIndex ? null : itemIndex;
-    },
-    makeEditable(item) {
-      item.editMode = !item.editMode;
-      this.disableDrag = !this.disableDrag;
+    toggleActive(itemIndex, item) {
+      this.activeItemIndex =
+        this.activeItemIndex === itemIndex ? null : itemIndex;
+
+      // Set any previous ones back to false
+      this.items = this.items.map(item => {
+        item.editMode = false;
+        return item;
+      });
+
+      // Set the current index one to true
+      if (this.activeItemIndex === itemIndex) {
+        item.editMode = true;
+      } else {
+        item.editMode = false;
+      }
     },
     addItem() {
-      this.items.push({ title: "", body: "" });
+      let newItem = { title: "", body: "", editMode: false };
+      this.items.push(newItem);
+      this.toggleActive(this.items.length - 1, newItem);
+    },
+    cloneItem(item) {
+      let newItem = JSON.parse(JSON.stringify(item));
+      this.items.push(newItem);
+      this.toggleActive(this.items.length - 1, newItem);
     },
     updateItem(item, index, prop, val) {
       this.items[index][prop] = val.target.value;
@@ -210,7 +231,9 @@ export default {
     },
     removeItem(item) {
       const index = this.items.findIndex(el => el.title === item.title);
-      let confirm = window.confirm('Are you sure you want to delete this item?')
+      let confirm = window.confirm(
+        "Are you sure you want to delete this item?"
+      );
       if (confirm) {
         this.items.splice(index, 1);
       }
@@ -218,17 +241,15 @@ export default {
     generateButtonClasses(buttonIndex) {
       return [
         "accordion__toggle-button",
-        this.activeQuestionIndex === buttonIndex
+        this.activeItemIndex === buttonIndex
           ? "accordion__toggle-button_active"
           : null
       ];
     },
-    generateQuestionClasses(questionIndex) {
+    generateModuleClasses(titleIndex) {
       return [
         "accordion__title",
-        this.activeQuestionIndex === questionIndex
-          ? "accordion__title_active"
-          : null
+        this.activeItemIndex === titleIndex ? "accordion__title_active" : null
       ];
     },
     updateListOrder() {
@@ -246,9 +267,9 @@ export default {
   inject: ["component"],
   provide() {
     return {
-      component: this.component,
+      component: this.component
     };
-  },
+  }
 };
 </script>
 
@@ -318,7 +339,6 @@ button {
 .accordion {
   border: 2px solid var(--border-color);
   border-radius: 5px;
-  margin-top: 15px;
   &__item {
     border-bottom: 2px solid var(--border-color);
     &:last-child {

@@ -3,6 +3,14 @@
 namespace Michaelr0\BuildyWp\Traits;
 
 trait WordpressInit {
+	public function wordpress_wp_default_editor($r){
+		if($this->isPageBuilderEnabled()){
+			return 'html'; // HTML / Text tab in TinyMCE
+		}
+
+		return $r;
+	}
+
     public function wordpress_add_filter_the_content($content)
     {
         /**
@@ -137,6 +145,18 @@ trait WordpressInit {
         if ($this->isPageBuilderEnabled()) {
             $url = plugins_url() . "/buildy-wp";
 
+            wp_localize_script( 'hmw-child-frontend-scripts', 'global_vars', array(
+            'admin_ajax_url' => admin_url( 'admin-ajax.php' )
+          ) );
+
+          echo sprintf("
+            <script type='text/javascript'>
+                var global_vars = {
+                  rest_api_base: '%s'
+                }
+            </script>",
+          get_rest_url());
+
             echo "<script src='{$url}/buildy-wp-gui/dist/chunk-vendors.js'></script>";
             echo "<script src='{$url}/buildy-wp-gui/dist/app.js'></script>";
         }
@@ -194,10 +214,41 @@ trait WordpressInit {
         add_action('edit_form_after_editor', [$this, 'wordpress_edit_form_after_editor']);
     }
 
+    public function get_module_styles($request) {
+      if (!is_wp_error($request) ) {
+
+        $module_type = $request['module_styles'];
+
+        $data = get_field("module_styles_{$module_type}", 'option');
+
+        // print_r($request);
+        return new \WP_REST_Response(
+          array(
+            'status' => 200,
+            'response' => 'API hit success',
+            'body' => $data
+        ));
+      } else {
+        return new WP_Error($response_code, $response_message, $response_body);
+      }
+    }
+
     public function wordpress_init()
     {
+		add_filter( 'wp_default_editor', [$this, 'wordpress_wp_default_editor']);
+
         // Enables the rich text/media stuff to work
         wp_enqueue_editor();
+
+        //The Following registers an api route with multiple parameters.
+        add_action( 'rest_api_init', function() {
+            register_rest_route( 'bmcb/v1', '/module_styles=(?P<module_styles>[a-zA-Z0-9-]+)', array(
+                'methods' => 'GET',
+                'callback' => [$this, 'get_module_styles'],
+            ));
+        });
+
+
 
         // Load jQuery in the header rather than footer.
         add_action('wp_enqueue_scripts', function () {
