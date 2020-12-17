@@ -58,9 +58,9 @@ if (isset($textAlign)) {
     foreach($textAlign as $bp=>$val) {
         if (!empty($val)) {
             if ($bp === 'xs') {
-                $moduleClasses ? $moduleClasses .= " text-$val" : $moduleClasses = "text-$val";
+                isset($moduleClasses) ? $moduleClasses .= " text-$val" : $moduleClasses = "text-$val";
             } else {
-                $moduleClasses ? $moduleClasses .= " $bp:text-$val" : $moduleClasses = "$bp:text-$val";
+                isset($moduleClasses) ? $moduleClasses .= " $bp:text-$val" : $moduleClasses = "$bp:text-$val";
             }
         }
     }
@@ -72,16 +72,16 @@ $spacing = $bladeData->generatedAttributes->spacing ?? null;
 
 /* Add responsive margin/padding classes if they're set */
 if ($spacing) {
-    $moduleClasses ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
+    isset($moduleClasses) ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
 }
 
 if (isset($colors)) {
     forEach($colors as $key=>$val) {
         if (strtolower($val) !== 'none') {
             if ($key !== 'xs') {
-                $moduleClasses ? $moduleClasses .= " $key:text-$val" : $moduleClasses = "$key:text-$val";
+                isset($moduleClasses) ? $moduleClasses .= " $key:text-$val" : $moduleClasses = "$key:text-$val";
             } else {
-                $moduleClasses ? $moduleClasses .= " text-$val" : $moduleClasses = "text-$val";
+                isset($moduleClasses) ? $moduleClasses .= " text-$val" : $moduleClasses = "text-$val";
             }
         }
     }
@@ -90,7 +90,7 @@ if (isset($colors)) {
  @endphp
 <div
     {{-- If ID is set --}}
-    @if($moduleID) id="{{ $moduleID }}" @endif
+    @isset($moduleID) id="{{ $moduleID }}" @endisset
 
     {{-- If Internal Link is set (override ID) --}}
     @if(isset($internalLinkEnabled) && $internalLinkEnabled)
@@ -106,15 +106,15 @@ if (isset($colors)) {
     @endif
 
     {{-- Classes --}}
-    class="bmcb-{{ $moduleType }} bmcb-module {{ $moduleClasses ? $moduleClasses : '' }}
+    class="bmcb-{{ $moduleType }} bmcb-module {{ isset($moduleClasses) ? $moduleClasses : '' }}
     @yield('class')"
 
     style="
-    @isset($bgColor) {{ "background-color: $bgColor;" }} @endisset
-    @isset($bgImage) {{ "background-image: url($bgImage);" }} @endisset
-    @isset($bgSize) {{ "background-size: $bgSize;" }} @endisset
-    @isset($bgPosition) {{ "background-position: $bgPosition;" }} @endisset
-    @isset($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endisset"
+    @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
+    @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif
+    @if(!empty($bgSize)) {{ "background-size: $bgSize;" }} @endif
+    @if(!empty($bgPosition)) {{ "background-position: $bgPosition;" }} @endif
+    @if(!empty($bgRepeat)) {{ "background-repeat: $bgRepeat;" }} @endif"
 
     @if($moduleType === 'slider' || $moduleType === 'accordion' || $moduleType === 'tab')
       role="listbox"

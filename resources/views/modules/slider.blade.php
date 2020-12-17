@@ -27,7 +27,7 @@
         @endphp
       <div class="bmcb-slider__slide" role="option" tabindex="-1" aria-selected="false" @if($index === 0) open @endif>
         @php echo wp_get_attachment_image($imageID, $imageSize, "", array('class' => 'bmcb-slider__slide-image')); @endphp
-        @if ($item->title || $item->body)
+        @if (!empty($item->title) || !empty($item->body))
         <div class="bmcb-slider__slide-content">
           <div class="bmcb-slider__slide-title">{{ $item->title }}</div>
           <div class="bmcb-slider__slide-body" role="region">{!! $item->body !!}</div>
@@ -36,7 +36,7 @@
       </div>
       @endforeach
     </div>
-    @if($bladeData->options->slider->arrow_nav)
+    @if(!empty($bladeData->options->slider->arrow_nav))
       <div class="bmcb-slider__navigation-arrows">
         <div class="bmcb-slider__arrow-prev">
           <i class="fa fa-chevron-left"></i>

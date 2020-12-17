@@ -114,6 +114,7 @@ export default {
   methods: {
     removeImage() {
       setDeep(this.component, `${this.path}.url`, "");
+      setDeep(this.component, `${this.path}.imageID`, "");
     },
   },
   props: {

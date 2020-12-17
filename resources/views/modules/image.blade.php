@@ -24,11 +24,11 @@
         <a @if($module_link_new_tab) target="_blank" @endif href="{{ $module_link_url }}">
     @endif
     @component('modules.components.title', ['bladeData'=> $bladeData])@endcomponent
-    @if($imageID && function_exists('wp_get_attachment_image'))
+    @if(!empty($imageID) && function_exists('wp_get_attachment_image'))
         @php echo wp_get_attachment_image($imageID, $imageSize, "", array( "class" => "bmcb-image", "style" => "$width $maxWidth $height $maxHeight $objectFit $objectPosition" )); @endphp
     @else
         <img style="{{ $width }} {{ $maxWidth }} {{ $height }} {{ $objectFit }} {{ $objectPosition }}"
-        @if($imageURL) src="{{ $imageURL }}" @endif />
+        @if(!empty($imageURL)) src="{{ $imageURL }}" @endif />
     @endif
     @if(!empty($module_link_url))
         </a>

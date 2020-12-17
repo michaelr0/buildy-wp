@@ -13,12 +13,12 @@ $dataAttString = null;
 
 $inline = $bladeData->inline ?? null;
 
-if (isset($inline)) {
+if (!empty($inline)) {
   $bgImage = $bladeData->inline->backgroundImage ?? null;
   $bgColor = $bladeData->inline->backgroundColor ?? "";
 }
 
-if (isset($bgImage)) {
+if (!empty($bgImage)) {
   $bgSize = $bgImage->backgroundSize ?? "";
   $bgPosition = $bgImage->backgroundPosition ?? "";
   $bgRepeat = $bgImage->backgroundRepeat ?? null;
@@ -28,16 +28,16 @@ if (isset($bgImage)) {
 }
 
 
-if ((!isset($bgImageID) && isset($bgImageURL)) && function_exists('attachment_url_to_postid')) {
+if ((empty($bgImageID) && !empty($bgImageURL)) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );
 }
 
-if (isset($bgImageID)) {
+if (!empty($bgImageID)) {
   $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize ?? 'full');
   $bgImage = $bgImageURL;
 }
 
-if (isset($dataAtts)) {
+if (!empty($dataAtts)) {
   foreach($dataAtts as $dataAtt) {
     $name = strtolower($dataAtt->name);
     $value = stripslashes($dataAtt->value);
@@ -46,20 +46,20 @@ if (isset($dataAtts)) {
 }
 
 /* Add responsive margin/padding classes if they are set */
-if (isset($spacing)) {
-    isset($moduleClasses) ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
+if (!empty($spacing)) {
+    !empty($moduleClasses) ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
 }
 
 @endphp
 
 <div @isset($moduleID) id="{{ $moduleID }}" @endisset
-    class="bmcb-column col {{ $bladeData->generatedAttributes->columns }} {{ $moduleClasses ? $moduleClasses : null }}"
+    class="bmcb-column col {{ $bladeData->generatedAttributes->columns }} {{ isset($moduleClasses) ? $moduleClasses : null }}"
     style="
-    @isset($bgColor) {{ "background-color: $bgColor;" }} @endisset
-    @isset($bgImage) {{ "background-image: url($bgImage);" }} @endisset
-    @isset($bgSize) {{ "background-size: $bgSize;" }} @endisset
-    @isset($bgPosition) {{ "background-position: $bgPosition;" }} @endisset
-    @isset($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endisset"
-    @isset($dataAttString)
+    @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
+    @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif
+    @if(!empty($bgSize)) {{ "background-size: $bgSize;" }} @endif
+    @if(!empty($bgPosition)) {{ "background-position: $bgPosition;" }} @endif
+    @if(!empty($bgRepeat)) {{ "background-repeat: $bgRepeat;" }} @endif"
+    @if(!empty($dataAttString))
       {!! $dataAttString !!}
-    @endisset>{!!$buildy->renderContent($bladeData->content)!!}</div>
+    @endif>{!!$buildy->renderContent($bladeData->content)!!}</div>

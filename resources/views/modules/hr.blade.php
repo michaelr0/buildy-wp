@@ -8,10 +8,10 @@
 
 @section('content')
     <hr style="
-    @isset($color)
+    @if(!empty($color))
         background-color: {{ $color }};
-    @endisset
-    @isset($height)
+    @endif
+    @if(!empty(height))
         height: {{ $height }};
-    @endisset" class="bmcb-hr {{ $moduleClasses ? $moduleClasses : '' }}" />
+    @endif" class="bmcb-hr {{ !empty(($moduleClasses) ? $moduleClasses : '' }}" />
 @overwrite

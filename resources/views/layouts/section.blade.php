@@ -17,14 +17,14 @@ if (!empty($options)) {
   $boxed = (!empty($bladeData->options->layout_boxed) && $bladeData->options->layout_boxed) ? 'container' : 'container-fluid';
 }
 
-if (isset($moduleStyle) && $moduleStyle !== 'none') {
+if (!empty($moduleStyle) && $moduleStyle !== 'none') {
   $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
   $moduleClasses .= " module-style__$moduleStyle";
 }
 
 $inline = $bladeData->inline ?? null;
 
-if (isset($inline)) {
+if (!empty($inline)) {
   $bgSize = $bladeData->inline->backgroundImage->backgroundSize ?? "";
   $bgPosition = $bladeData->inline->backgroundImage->backgroundPosition ?? "";
   $bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?? null;
@@ -34,21 +34,21 @@ if (isset($inline)) {
   $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
 }
 
-if ((!isset($bgImageID) && isset($bgImageURL)) && function_exists('attachment_url_to_postid')) {
+if ((empty($bgImageID) && !empty($bgImageURL)) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );
 }
 
-if (isset($bgImageID)) {
+if (!empty($bgImageID)) {
   $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize);
   $bgImage = $bgImageURL;
 }
 
-$internalLinkTarget = isset($internalLinkText) ? preg_replace("/\W|_/",'',$internalLinkText) : null;
+$internalLinkTarget = !empty($internalLinkText) ? preg_replace("/\W|_/",'',$internalLinkText) : null;
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAttString = null;
 
 // Add data atts to a string
-if (isset($dataAtts)) {
+if (!empty($dataAtts)) {
   foreach($dataAtts as $dataAtt) {
     $name = strtolower($dataAtt->name);
     $value = stripslashes($dataAtt->value);
@@ -57,8 +57,8 @@ if (isset($dataAtts)) {
 }
 
 /* Add responsive margin/padding classes if they're set */
-if (isset($spacing)) {
-    isset($moduleClasses) ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
+if (!empty($spacing)) {
+    !empty($moduleClasses) ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
 }
 @endphp
 
@@ -66,26 +66,26 @@ if (isset($spacing)) {
 
 <div
     @isset($moduleID) id="{{ $moduleID }}" @endisset
-    @if(isset($internalLinkEnabled) && $internalLinkEnabled)
+    @if(!empty($internalLinkEnabled) && $internalLinkEnabled)
         @isset($internalLinkTarget) id="{{ $internalLinkTarget }}" @endisset
         data-internal_link_enabled="true"
     @endif
     @isset($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endisset
-    class="bmcb-section {{ $boxed ? $boxed : '' }} {{ $moduleClasses ? $moduleClasses : '' }}"
+    class="bmcb-section {{ $boxed ? $boxed : '' }} {{ isset($moduleClasses) ? $moduleClasses : '' }}"
     style="
-    @isset($bgColor) {{ "background-color: $bgColor;" }} @endisset
-    @isset($bgImage) {{ "background-image: url($bgImage);" }} @endisset
-    @isset($bgSize) {{ "background-size: $bgSize;" }} @endisset
-    @isset($bgPosition) {{ "background-position: $bgPosition;" }} @endisset
-    @isset($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endisset"
-    @isset($dataAttString)
+    @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
+    @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif
+    @if(!empty($bgSize)) {{ "background-size: $bgSize;" }} @endif
+    @if(!empty($bgPosition)) {{ "background-position: $bgPosition;" }} @endif
+    @if(!empty($bgRepeat)) {{ "background-repeat: $bgRepeat;" }} @endif"
+    @if(!empty($dataAttString))
       {!! $dataAttString !!}
-    @endisset>
-    @if (isset($options) ? $options->inner_container ?? false : false)
+    @endif>
+    @if (!empty($options) ? $options->inner_container ?? false : false)
         <div class="container">
     @endif
         {!! $buildy->renderContent($bladeData->content) !!}
-    @if (isset($options) ? $options->inner_container ?? false : false)
+    @if (!empty($options) ? $options->inner_container ?? false : false)
         </div>
     @endif
 </div>

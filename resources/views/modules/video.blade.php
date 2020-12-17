@@ -23,13 +23,15 @@
 @endphp
 
 @section('content')
+  @if(!empty($youtube_video_ID))
     <iframe
-        width="{{ $youtube_width }}"
-        height="{{ $youtube_height }}"
-        src="https://www.youtube.com/embed/{{ $youtube_video_ID }}"
-        frameborder="0"
-        allow="{{ $youtube_allowParams }}"
-        {{-- @if($youtube_allowFullscreen) allowfullscreen @endif --}}
-        allowfullscreen>
+      width="{{ $youtube_width }}"
+      height="{{ $youtube_height }}"
+      src="https://www.youtube.com/embed/{{ $youtube_video_ID }}"
+      frameborder="0"
+      allow="{{ $youtube_allowParams }}"
+      {{-- @if($youtube_allowFullscreen) allowfullscreen @endif --}}
+      allowfullscreen>
     </iframe>
+  @endif
 @overwrite
