@@ -2,6 +2,8 @@
 
 $atts = $bladeData->attributes ?? null;
 
+$moduleClasses = '';
+
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
   $moduleClasses = $bladeData->attributes->class ?? null;
@@ -11,9 +13,9 @@ if (!empty($atts)) {
 }
 
 
-$moduleStyle = !empty($bladeData->options) ? $bladeData->options->moduleStyle : null;
+$moduleStyle = !empty($bladeData->options) ? $bladeData->options->moduleStyle ?? null : null;
 
-if ($moduleStyle && $moduleStyle !== 'none') {
+if (isset($moduleStyle) && $moduleStyle !== 'none') {
   $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
   $moduleClasses .= " module-style__$moduleStyle";
 }
@@ -23,7 +25,7 @@ $columns = collect($bladeData->content);
 
 $inline = $bladeData->inline ?? null;
 
-if (!empty($inline)) {
+if (isset($inline)) {
   $textAlignxs = (string) ($bladeData->inline->textAlign->xs ?? null);
   $textAlignlg = (string) ($bladeData->inline->textAlign->xl ?? null);
 
@@ -42,16 +44,16 @@ if (!empty($inline)) {
 }
 
 
-if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
+if ((!isset($bgImageID) && isset($bgImageURL)) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );
 }
 
-if ($bgImageID) {
+if (isset($bgImageID)) {
   $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize);
   $bgImage = $bgImageURL;
 }
 
-$internalLinkTarget = $internalLinkText ? preg_replace("/\W|_/",'',$internalLinkText) : null;
+$internalLinkTarget = isset($internalLinkText) ? preg_replace("/\W|_/",'',$internalLinkText) : null;
 $dataAttString = null;
 
 // Add data atts to a string
@@ -64,7 +66,7 @@ if (isset($dataAtts)) {
 }
 
 
-if ($enableCSSGrid) {
+if (isset($enableCSSGrid) && $enableCSSGrid) {
     $gridPrefix = "grid";
     $moduleClasses ? $moduleClasses .= " $gridPrefix" : $moduleClasses = $gridPrefix;
 
@@ -78,43 +80,39 @@ if ($enableCSSGrid) {
     $moduleClasses .= " $colClass";
 }
 
-if ($enableCSSGrid && $cssGridGap) {
-    $moduleClasses .= " gap-$cssGridGap";
-}
-
-if (!$enableCSSGrid && $cssGridGap) {
+if (isset($cssGridGap)) {
     $moduleClasses .= " col-gap-$cssGridGap";
 }
 
 // Temporary large/small version of text align, I'll loop this eventually
-if ($textAlignxs) {
-    $moduleClasses ? $moduleClasses .= " text-$textAlignxs" : $moduleClasses = "text-$textAlignxs";
+if (isset($textAlignxs)) {
+    isset($moduleClasses) ? $moduleClasses .= " text-$textAlignxs" : $moduleClasses = "text-$textAlignxs";
 }
-if ($textAlignlg) {
-    $moduleClasses ? $moduleClasses .= " xl:text-$textAlignlg" : $moduleClasses = "xl:text-$textAlignlg";
+if (isset($textAlignlg)) {
+    isset($moduleClasses) ? $moduleClasses .= " xl:text-$textAlignlg" : $moduleClasses = "xl:text-$textAlignlg";
 }
 /* Add responsive margin/padding classes if they're set */
-if ($spacing) {
-    $moduleClasses ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
+if (isset($spacing)) {
+    isset($moduleClasses) ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
 }
 
 @endphp
 
 <div
-    @if($moduleID) id="{{ $moduleID }}" @endif
-    @if($internalLinkEnabled)
-        id="{{ $internalLinkTarget }}"
+    @isset($moduleID) id="{{ $moduleID }}" @endisset
+    @if(isset($internalLinkEnabled))
+        @isset($internalLinkTarget) id="{{ $internalLinkTarget }}" @endisset
         data-internal_link_enabled="true" @endif
-    @if($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endif
+    @isset($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endisset
     class="bmcb-row row {{ $moduleClasses ? $moduleClasses : '' }}"
     style="
-    @if($bgColor) {{ "background-color: $bgColor;" }} @endif
-    @if($bgImage) {{ "background-image: url($bgImage);" }} @endif
-    @if($bgSize) {{ "background-size: $bgSize;" }} @endif
-    @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
-    @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
-    @if($dataAttString)
+    @isset($bgColor) {{ "background-color: $bgColor;" }} @endisset
+    @isset($bgImage) {{ "background-image: url($bgImage);" }} @endisset
+    @isset($bgSize) {{ "background-size: $bgSize;" }} @endisset
+    @isset($bgPosition) {{ "background-position: $bgPosition;" }} @endisset
+    @isset($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endisset"
+    @isset($dataAttString)
       {!! $dataAttString !!}
-    @endif>
+    @endisset>
     {!! $buildy->renderContent($bladeData->content) !!}
 </div>

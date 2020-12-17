@@ -4,26 +4,26 @@ $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;
 
-$bgSize = (!empty($bladeData->inline->backgroundImage->backgroundSize)) ? $bladeData->inline->backgroundImage->backgroundSize : "";
-$bgPosition = (!empty($bladeData->inline->backgroundImage->backgroundPosition)) ? $bladeData->inline->backgroundImage->backgroundPosition : "";
-$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?: null;
-$bgColor = (!empty($bladeData->inline->backgroundColor)) ? $bladeData->inline->backgroundColor : "";
-$bgImageSize = $bladeData->inline->backgroundImage->imageSize ? $bladeData->inline->backgroundImage->imageSize : "full";
-$bgImageURL = (!empty($bladeData->inline->backgroundImage->url)) ? $bladeData->inline->backgroundImage->url : null;
+$bgSize = $bladeData->inline->backgroundImage->backgroundSize ?? "";
+$bgPosition = $bladeData->inline->backgroundImage->backgroundPosition ?? "";
+$bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?? null;
+$bgColor = $bladeData->inline->backgroundColor ?? "";
+$bgImageSize = $bladeData->inline->backgroundImage->imageSize ?? "full";
+$bgImageURL = $bladeData->inline->backgroundImage->url ?? null;
 $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
 
-if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
+if ((!isset($bgImageID) && isset($bgImageURL)) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );
 }
 
-if ($bgImageID) {
+if (isset($bgImageID)) {
   $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize);
   $bgImage = $bgImageURL;
 }
 
 // Text colours
 $colors = $bladeData->inline->color ?? null;
-if ($colors) {
+if (isset($colors)) {
     forEach($colors as $key=>$val) {
         if (strtolower($val) !== 'none') {
             if ($key !== 'xs') {
@@ -51,15 +51,15 @@ if ($spacing) {
 @if(!empty($bladeData->content->id))
     <div
     style="
-    @if($bgColor) {{ "background-color: $bgColor;" }} @endif
-    @if($bgImage) {{ "background-image: url($bgImage);" }} @endif
-    @if($bgSize) {{ "background-size: $bgSize;" }} @endif
-    @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
-    @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
+    @isset($bgColor) {{ "background-color: $bgColor;" }} @endisset
+    @isset($bgImage) {{ "background-image: url($bgImage);" }} @endisset
+    @isset($bgSize) {{ "background-size: $bgSize;" }} @endisset
+    @isset($bgPosition) {{ "background-position: $bgPosition;" }} @endisset
+    @isset($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endisset"
     class="bmcb-global-wrapper {{ $moduleClasses ? $moduleClasses : '' }}"
-    @if($dataAttString)
+    @isset($dataAttString)
       {!! $dataAttString !!}
-    @endif>
+    @endisset>
       {!! $buildy->renderFrontend($bladeData->content->id) !!}
     </div>
 @endif

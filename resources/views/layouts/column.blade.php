@@ -13,7 +13,7 @@ $dataAttString = null;
 
 $inline = $bladeData->inline ?? null;
 
-if (!empty($inline)) {
+if (isset($inline)) {
   $bgImage = $bladeData->inline->backgroundImage ?? null;
   $bgColor = $bladeData->inline->backgroundColor ?? "";
 }
@@ -28,12 +28,12 @@ if (isset($bgImage)) {
 }
 
 
-if ((!$bgImageID && $bgImageURL) && function_exists('attachment_url_to_postid')) {
+if ((!isset($bgImageID) && isset($bgImageURL)) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );
 }
 
-if ($bgImageID) {
-  $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize);
+if (isset($bgImageID)) {
+  $bgImageURL = wp_get_attachment_image_url( $bgImageID, $bgImageSize ?? 'full');
   $bgImage = $bgImageURL;
 }
 
@@ -46,20 +46,20 @@ if (isset($dataAtts)) {
 }
 
 /* Add responsive margin/padding classes if they are set */
-if ($spacing) {
-    $moduleClasses ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
+if (isset($spacing)) {
+    isset($moduleClasses) ? $moduleClasses .= " $spacing" : $moduleClasses = $spacing;
 }
 
 @endphp
 
-<div id="{{ $moduleID }}"
+<div @isset($moduleID) id="{{ $moduleID }}" @endisset
     class="bmcb-column col {{ $bladeData->generatedAttributes->columns }} {{ $moduleClasses ? $moduleClasses : null }}"
     style="
-    @if($bgColor) {{ "background-color: $bgColor;" }} @endif
-    @if($bgImage) {{ "background-image: url($bgImage);" }} @endif
-    @if($bgSize) {{ "background-size: $bgSize;" }} @endif
-    @if($bgPosition) {{ "background-position: $bgPosition;" }} @endif
-    @if($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endif"
-    @if($dataAttString)
+    @isset($bgColor) {{ "background-color: $bgColor;" }} @endisset
+    @isset($bgImage) {{ "background-image: url($bgImage);" }} @endisset
+    @isset($bgSize) {{ "background-size: $bgSize;" }} @endisset
+    @isset($bgPosition) {{ "background-position: $bgPosition;" }} @endisset
+    @isset($bgRepeat) {{ "background-repeat: $bgRepeat;" }} @endisset"
+    @isset($dataAttString)
       {!! $dataAttString !!}
-    @endif>{!!$buildy->renderContent($bladeData->content)!!}</div>
+    @endisset>{!!$buildy->renderContent($bladeData->content)!!}</div>

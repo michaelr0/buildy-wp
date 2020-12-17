@@ -1,57 +1,47 @@
 @extends('modules.common')
 
 @php
-    // $map = [
-    //     "primary" => "primary",
-    //     "success" => "green",
-    //     "info" => "lightgray",
-    //     "warning" => "orange",
-    //     "danger" => "red",
-    //     "light" => "lightgray",
-    //     "dark" => "gray",
-    //     "link" => "link"
-    // ];
-    $buttonURL = (string) $bladeData->content->button->url;
-    if (preg_match("/^\d+$/", $buttonURL)) {
+    $buttonURL = (string) $bladeData->content->button->url ?? null;
+    if (isset($buttonURL) preg_match("/^\d+$/", $buttonURL)) {
         $buttonURL = get_permalink($buttonURL);
     }
-    $color = $bladeData->content->button->colour;
-    $bgColor = $bladeData->content->button->backgroundColor;
-    $borderColor = $bladeData->content->button->borderColor;
-    $showBG = $bladeData->content->button->showBackground;
-    $outlined = $bladeData->content->button->outlined;
-    $unStyled = $bladeData->content->button->unStyled;
-    $target = $bladeData->content->button->target;
-    $size = $bladeData->content->button->size && $bladeData->content->button->size !== 'Initial' ? $bladeData->content->button->size : false;
+    $color = $bladeData->content->button->colour ?? null;
+    $bgColor = $bladeData->content->button->backgroundColor ?? null;
+    $borderColor = $bladeData->content->button->borderColor ?? null;
+    $showBG = $bladeData->content->button->showBackground ?? false;
+    $outlined = $bladeData->content->button->outlined ?? false;
+    $unStyled = $bladeData->content->button->unStyled ?? false;
+    $target = $bladeData->content->button->target ?? null;
+    $size = ($bladeData->content->button->size && $bladeData->content->button->size !== 'Initial') ? $bladeData->content->button->size ?? false : false;
 @endphp
 
 @section('content')
     <a
     class="btn
     @if(!$unStyled)
-        @if($showBG)
+        @if($showBG && isset($bgColor))
             bg-{{ $bgColor }}
         @endif
-        @if(!$outlined)
+        @if(!$outlined && isset($bgColor))
             bg-{{ $bgColor }}
         @else
             is-outlined
         @endif
-        @if($outlined && $borderColor)
+        @if($outlined && isset($borderColor))
             border-{{ $borderColor }}
         @endif
     @else
         btn-unstyled
     @endif
-    @if($color)
+    @isset($color)
         text-{{ $color }}
-    @endif
-    @if($size)
+    @endisset
+    @isset($size)
         btn--{{ $size }}
-    @endif
+    @endisset
     "
-    @if($target)
+    @isset($target)
         target="{{ $target }}"
-    @endif
-    href="{{ $buttonURL ? $buttonURL : '#' }}">{{ $bladeData->content->button->text }}</a>
+    @endisset
+    href="{{ isset($buttonURL) ? $buttonURL : '#' }}">{{ $bladeData->content->button->text }}</a>
 @overwrite

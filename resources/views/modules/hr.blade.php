@@ -1,9 +1,9 @@
 @extends('modules.common')
 
 @php
-    $moduleClasses = $bladeData->attributes->class ? $bladeData->attributes->class : null;
-    $color = $bladeData->inline->backgroundColor ? $bladeData->inline->backgroundColor : null;
-    $height = $bladeData->inline->height ? $bladeData->inline->height : null;
+    $moduleClasses = $bladeData->attributes->class ?? null;
+    $color = $bladeData->inline->backgroundColor ?? null;
+    $height = $bladeData->inline->height ?? null;
 @endphp
 
 @section('content')
