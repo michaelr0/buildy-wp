@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.30
+
+- Add col-gap option to bmcb-settings
+
 ## 2.6.29
 
 - Add col-gap root var by default bundled with buildy
