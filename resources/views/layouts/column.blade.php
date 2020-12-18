@@ -53,7 +53,7 @@ if (!empty($spacing)) {
 @endphp
 
 <div @isset($moduleID) id="{{ $moduleID }}" @endisset
-    class="bmcb-column col {{ $bladeData->generatedAttributes->columns }} {{ isset($moduleClasses) ? $moduleClasses : null }}"
+    class="bmcb-column col {{ $bladeData->generatedAttributes->columns }} {{ !empty($moduleClasses) ? $moduleClasses : null }}"
     style="
     @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
     @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif

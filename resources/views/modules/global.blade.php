@@ -1,5 +1,5 @@
 @php
-$moduleClasses = $bladeData->attributes->class ?? null;
+$moduleClasses = $bladeData->attributes->class ?? "";
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAtts = $bladeData->attributes->data ?? null;
 $dataAttString = null;

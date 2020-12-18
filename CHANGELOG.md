@@ -2,6 +2,12 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.34
+
+- Add templating functionality
+- Add repeater to accordion
+- Fix a few more properties
+
 ## 2.6.33
 
 - Few more property checks/fixes

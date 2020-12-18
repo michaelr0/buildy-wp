@@ -1,6 +1,8 @@
  @php
 
 $atts = $bladeData->attributes ?? null;
+$template = $bladeData->options->template ?? null;
+$moduleClasses = "";
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
@@ -67,6 +69,13 @@ if (isset($textAlign)) {
 }
 
 $moduleType = str_replace("-module", '', $bladeData->type);
+if (!empty($moduleType)) {
+  if (!empty($template)) {
+    $moduleClasses .= " bmcb-{$moduleType} bmcb-{$moduleType}--{$template}";
+  } else {
+    $moduleClasses .= " bmcb-{$moduleType}";
+  }
+}
 $internalLinkTarget = isset($internalLinkText) ? preg_replace("/\W|_/",'',$internalLinkText) : null;
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 
@@ -106,7 +115,7 @@ if (isset($colors)) {
     @endif
 
     {{-- Classes --}}
-    class="bmcb-{{ $moduleType }} bmcb-module {{ isset($moduleClasses) ? $moduleClasses : '' }}
+    class="bmcb-module {{ isset($moduleClasses) ? $moduleClasses : '' }}
     @yield('class')"
 
     style="

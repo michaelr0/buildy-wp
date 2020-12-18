@@ -38,7 +38,8 @@
       align-items: center;
       i {
         padding: 3rem 1.6rem;
-        background: white;
+        background: var(--color-white);
+        color: var(--color-black);
         display: block;
         cursor: pointer;
         @include media-breakpoint-up(xl) {

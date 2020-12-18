@@ -65,6 +65,10 @@
         <vue-tab name="Options" :selected="!hasDefaultSlot">
           <!-- Global Options -->
           <attribute-editor
+            label="Template"
+            path="options.template"
+          ></attribute-editor>
+          <attribute-editor
             label="ID"
             path="attributes.id"
             attribute="id"
@@ -177,6 +181,7 @@ export default {
       EventBus.$emit("modalClick");
     },
     saveAll() {
+      EventBus.$emit("saveAll");
       this.$modal.hide(this.component.id);
     },
     UCFirst

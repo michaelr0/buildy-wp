@@ -63,6 +63,11 @@
                       imageType="img"
                       label="Slide Image:"
                     ></image-uploader>
+
+                    <field-repeater
+                      label="Custom Fields"
+                      path="`${path}.${i}.customFields`"
+                    ></field-repeater>
                   </div>
                 </collapse-transition>
               </div>

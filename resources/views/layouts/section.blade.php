@@ -2,6 +2,8 @@
 
 $atts = $bladeData->attributes ?? null;
 
+$moduleClasses = "";
+
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
   $moduleClasses = $bladeData->attributes->class ?? null;

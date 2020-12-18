@@ -18,7 +18,7 @@
     $youtube_width = $bladeData->content->youtube->video_width ?? "100%";
     $youtube_height = $bladeData->content->youtube->video_height ?? 300;
     $youtube_allowParams = $bladeData->content->youtube->allow_params ?? false;
-    $youtube_allowFullscreen = $bladeData->content->youtube->allow_fullscreen;
+    $youtube_allowFullscreen = $bladeData->content->youtube->allow_fullscreen ?? false;
 
 @endphp
 
