@@ -12,12 +12,12 @@
     //     "link" => "link"
     // ];
 
-    $youtube_url = $bladeData->content->youtube->video_url;
+    $youtube_url = $bladeData->content->youtube->video_url ?? null;
     parse_str(parse_url($youtube_url)['query'], $params);
     $youtube_video_ID = $params['v'];
-    $youtube_width = $bladeData->content->youtube->video_width;
-    $youtube_height = $bladeData->content->youtube->video_height;
-    $youtube_allowParams = $bladeData->content->youtube->allow_params;
+    $youtube_width = $bladeData->content->youtube->video_width ?? "100%";
+    $youtube_height = $bladeData->content->youtube->video_height ?? 300;
+    $youtube_allowParams = $bladeData->content->youtube->allow_params ?? false;
     $youtube_allowFullscreen = $bladeData->content->youtube->allow_fullscreen;
 
 @endphp

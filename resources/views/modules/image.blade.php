@@ -1,17 +1,41 @@
 @extends('modules.common')
 
 @php
-    $width = $bladeData->content->image->width ? "width: {$bladeData->content->image->width};" : '';
-    $maxWidth = $bladeData->content->image->maxWidth ? "max-width: {$bladeData->content->image->maxWidth};" : '';
-    $height = $bladeData->content->image->height ? "height: {$bladeData->content->image->height};" : '';
-    $maxHeight = $bladeData->content->image->maxHeight ? "max-height: {$bladeData->content->image->maxHeight};" : '';
     $module_link_url = $bladeData->options->module_link->url ?? null;
     $module_link_new_tab = $bladeData->options->module_link->new_tab ?? null;
 
-    $objectFit = $bladeData->content->image->objectFit ? "object-fit: {$bladeData->content->image->objectFit};" : '';
-    $objectPosition = $bladeData->content->image->objectPosition ? "object-position: {$bladeData->content->image->objectPosition};" : '';
-    $imageURL = (!empty($bladeData->content->image->url)) ? $bladeData->content->image->url : null;
-    $imageSize = (!empty($bladeData->content->image->imageSize)) ? $bladeData->content->image->imageSize : "full";
+    $width = $bladeData->content->image->width ?? null;
+    if (!empty($width)) {
+      $width = "width: $width";
+    }
+
+    $maxWidth = $bladeData->content->image->maxWidth ?? null;
+    if (!empty($maxWidth)) {
+      $maxWidth = "max-width: $maxWidth";
+    }
+
+    $height = $bladeData->content->image->height ?? null;
+    if (!empty($height)) {
+      $height = "height: $height";
+    }
+
+    $maxHeight = $bladeData->content->image->maxHeight ?? null;
+    if (!empty($maxHeight)) {
+      $maxHeight = "max-height: $maxHeight";
+    }
+
+    $objectFit = $bladeData->content->image->objectFit ?? null;
+    if (!empty($objectFit)) {
+      $objectFit = "object-fit: $objectFit";
+    }
+
+    $objectPosition = $bladeData->content->image->objectPosition ?? null;
+    if (!empty($objectPosition)) {
+      $objectPosition = "object-position: $objectPosition";
+    }
+
+    $imageURL = $bladeData->content->image->url ?? null;
+    $imageSize = $bladeData->content->image->imageSize ?? "full";
     $imageID = $bladeData->content->image->imageID ?? null;
 
     if ((!$imageID && $imageURL) && function_exists('attachment_url_to_postid')) {

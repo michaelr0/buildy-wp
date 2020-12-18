@@ -20,7 +20,10 @@ if ($buttonOneEnabled) {
     $buttonOneUnStyled = $bladeData->content->button->unStyled ?? null;
     $buttonOneTarget = $bladeData->content->button->target ?? null;
     $buttonOneClass = $bladeData->content->button->class ?? "";
-    $buttonOneSize = $bladeData->content->button->size && $bladeData->content->button->size !== 'Initial' ? $bladeData->content->button->size : false;
+    $buttonOneSize = $bladeData->content->button->size ?? false;
+    if($buttonOneSize === 'Initial') {
+      $buttonOneSize = false;
+    }
 
     if(isset($buttonOneUnStyled) && !$buttonOneUnStyled) :
       if(!empty($buttonOneBgColor)) :

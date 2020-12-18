@@ -2,6 +2,15 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.33
+
+- Few more property checks/fixes
+
+## 2.6.32
+
+- Fix imageID not being removed from JSON (only image URL was)
+- Went through everything and made sure there were no exceptions being thrown in WP_DEBUG anymore
+
 ## 2.6.30 - ## 2.6.31
 
 - Add col-gap option to bmcb-settings
