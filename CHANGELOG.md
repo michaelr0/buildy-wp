@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.35
+
+- Fix image style attributes not closing off
+
 ## 2.6.34
 
 - Add templating functionality

@@ -2,7 +2,7 @@
 
 @php
     $buttonURL = (string) $bladeData->content->button->url ?? null;
-    if (isset($buttonURL) preg_match("/^\d+$/", $buttonURL)) {
+    if (isset($buttonURL) && preg_match("/^\d+$/", $buttonURL)) {
         $buttonURL = get_permalink($buttonURL);
     }
     $color = $bladeData->content->button->colour ?? null;

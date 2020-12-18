@@ -6,32 +6,32 @@
 
     $width = $bladeData->content->image->width ?? null;
     if (!empty($width)) {
-      $width = "width: $width";
+      $width = "width: $width;";
     }
 
     $maxWidth = $bladeData->content->image->maxWidth ?? null;
     if (!empty($maxWidth)) {
-      $maxWidth = "max-width: $maxWidth";
+      $maxWidth = "max-width: $maxWidth;";
     }
 
     $height = $bladeData->content->image->height ?? null;
     if (!empty($height)) {
-      $height = "height: $height";
+      $height = "height: $height;";
     }
 
     $maxHeight = $bladeData->content->image->maxHeight ?? null;
     if (!empty($maxHeight)) {
-      $maxHeight = "max-height: $maxHeight";
+      $maxHeight = "max-height: $maxHeight;";
     }
 
     $objectFit = $bladeData->content->image->objectFit ?? null;
     if (!empty($objectFit)) {
-      $objectFit = "object-fit: $objectFit";
+      $objectFit = "object-fit: $objectFit;";
     }
 
     $objectPosition = $bladeData->content->image->objectPosition ?? null;
     if (!empty($objectPosition)) {
-      $objectPosition = "object-position: $objectPosition";
+      $objectPosition = "object-position: $objectPosition;";
     }
 
     $imageURL = $bladeData->content->image->url ?? null;
