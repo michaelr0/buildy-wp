@@ -47,6 +47,10 @@ class Buildy {
                  * Otherwise it is located in the modules folder.
                  */
                 $type = str_replace('-module', '', $data->type);
+                $template = $data->options->template ?? null;
+                if($template) {
+                  $template = strtolower(trim($template));
+                }
                 $location = 'modules';
 
                 if (in_array($type, ['section', 'row', 'column'])) {
@@ -125,7 +129,7 @@ class Buildy {
                     'spacing' => $spacingClasses,
                 ];
 
-                $html .= $this->blade()->render("{$location}.{$type}", ['buildy' => $this, 'bladeData' => $data]);
+                $html .= $this->blade()->first(["{$location}.{$type}-{$template}", "{$location}.{$type}"], ['buildy' => $this, 'bladeData' => $data]);
             }
         }
         return $html;

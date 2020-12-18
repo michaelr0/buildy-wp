@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.36
+
+- Fix small typo in path for slide fields
+
 ## 2.6.35
 
 - Fix image style attributes not closing off

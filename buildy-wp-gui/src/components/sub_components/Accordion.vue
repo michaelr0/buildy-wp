@@ -66,7 +66,7 @@
 
                     <field-repeater
                       label="Custom Fields"
-                      path="`${path}.${i}.customFields`"
+                      :path="`${path}.${i}.customFields`"
                     ></field-repeater>
                   </div>
                 </collapse-transition>
