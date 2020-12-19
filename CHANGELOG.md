@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.37
+
+- Fix small issue when adding accordion items but leave everything blank -- Bricking the accordion.
+
 ## 2.6.36
 
 - Fix small typo in path for slide fields

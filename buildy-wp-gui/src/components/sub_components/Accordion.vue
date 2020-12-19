@@ -264,7 +264,7 @@ export default {
   },
   mounted() {
     let currentItems = getDeep(this.component, this.path);
-    currentItems ? (this.items = currentItems) : false;
+    this.items = currentItems || [];
     this.$refs.rootEl.style.setProperty("--active-color", this.activeColor);
     this.$refs.rootEl.style.setProperty("--border-color", this.borderColor);
     this.$refs.rootEl.style.setProperty("--font-color", this.fontColor);
