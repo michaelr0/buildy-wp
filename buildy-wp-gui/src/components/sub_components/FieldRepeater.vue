@@ -17,7 +17,17 @@
             placeholder="Name"
           />
         </div>
-        <div class="w-1/2 px-2">
+        <div class="w-1/2 px-2" v-if="value[index].value.includes(',')">
+          <select-box
+            class="px-2 flex-1"
+            label="Test"
+            :defaultVal="value[index].selected"
+            @change="handleChange"
+            :path="`${value[index]}.selected`"
+            :options="value[index].value"
+          />
+        </div>
+        <div class="w-1/2 px-2" v-else>
           <input
             class="bg-gray-300 p-2 w-full"
             @blur="handleChange"
@@ -39,6 +49,8 @@
 <script>
 import { EventBus } from "../../EventBus";
 import { setDeep, getDeep } from "../../functions/objectHelpers";
+import { stripTrailingSlash } from "../../functions/helpers";
+
 export default {
   name: "field-repeater",
   data: function() {
@@ -69,19 +81,51 @@ export default {
         label = this.label;
       }
       return label;
+    },
+    async fetchOptions() {
+      if (window.global_vars) {
+        let res = await fetch(
+          `${stripTrailingSlash(window.global_vars.rest_api_base)}/${
+            this.endpoint
+          }`
+        );
+        let data = await res.json();
+
+        console.log({ data });
+
+        if (data.body && typeof data.body === "object") {
+          let res = data.body.find(el => el.style_name === this.moduleStyle);
+          this.value = res.fields;
+        }
+      }
     }
   },
   computed: {
     sibblingLink() {
       return this.component.sibblingLink || false;
+    },
+    moduleStyle() {
+      return this.component.options.moduleStyle;
     }
   },
   mounted() {
     EventBus.$on("saveAll", () => {
       this.handleChange();
     });
+
+    console.log("path", this.path);
+
     // Get any current results
     this.value = getDeep(this.component, this.path) || this.value;
+
+    console.log("Value", this.value);
+
+    console.log("Style", this.moduleStyle);
+
+    if (this.endpoint && !this.value.length) {
+      this.fetchOptions();
+    }
+
     // If we do have more than one, make sure none are empty
     if (this.value.length) {
       // Filter out any completely empty ones
@@ -92,7 +136,8 @@ export default {
   },
   props: {
     label: String,
-    path: String
+    path: String,
+    endpoint: String
   },
   inject: ["component"]
 };

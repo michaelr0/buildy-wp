@@ -34,6 +34,18 @@ class Buildy {
         return do_shortcode($this->renderContent($content));
     }
 
+    public function seoUrl($string): string {
+      //Lower case everything
+      $string = strtolower($string);
+      //Make alphanumeric (removes all other characters)
+      $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+      //Clean up multiple dashes or whitespaces
+      $string = preg_replace("/[\s-]+/", " ", $string);
+      //Convert whitespaces and underscore to dash
+      $string = preg_replace("/[\s_]/", "-", $string);
+      return $string;
+    }
+
     public function renderContent($content): string
     {
         $html = "";
@@ -47,10 +59,12 @@ class Buildy {
                  * Otherwise it is located in the modules folder.
                  */
                 $type = str_replace('-module', '', $data->type);
-                $template = $data->options->template ?? null;
-                if($template) {
-                  $template = strtolower(trim($template));
+                $template = $data->options->moduleStyle ?? null;
+
+                if(!empty($template)) {
+                  $template = $this->seoUrl($template);
                 }
+
                 $location = 'modules';
 
                 if (in_array($type, ['section', 'row', 'column'])) {

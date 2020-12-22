@@ -65,7 +65,7 @@
         <vue-tab name="Options" :selected="!hasDefaultSlot">
           <!-- Global Options -->
           <attribute-editor
-            label="Template"
+            label="Template (Enables custom fields)"
             path="options.template"
           ></attribute-editor>
           <attribute-editor
@@ -196,6 +196,10 @@ export default {
 </script>
 
 <style>
+.settings-modal.v--modal-overlay {
+  padding-top: 40px;
+}
+
 .settings-modal.v--modal-overlay .v--modal-box {
   overflow: visible;
 }

@@ -5,8 +5,8 @@
         <div class="flex flex-col mb-2">
           <label
             :for="label + '-button-text-' + index"
-            class="pr-4 setting-label flex-shrink-0"
-            >Button Text:</label
+            class="pr-4 capitalize setting-label flex-shrink-0"
+            >{{ name || "Button" }} Text:</label
           >
           <input
             :id="label + '-button-text-' + index"
@@ -34,8 +34,8 @@
         >
           <label
             :for="label + '-button-class-' + index"
-            class="pr-4 setting-label flex-shrink-0"
-            >Button Class:</label
+            class="pr-4 capitalize setting-label flex-shrink-0"
+            >{{ name || "Button" }} Class:</label
           >
           <input
             :id="label + '-button-class-' + index"
@@ -56,7 +56,7 @@
             payload.colour ? `text-${payload.colour}` : '',
             payload.outlined && payload.borderColor
               ? `border-${payload.borderColor} border-2`
-              : '',
+              : ''
           ]"
           contenteditable="true"
         >
@@ -175,7 +175,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "cta-button",
-  data: function () {
+  data: function() {
     return {
       sizes: ["Initial", "sm", "lg"],
       payload: {
@@ -189,8 +189,8 @@ export default {
         unStyled: false,
         showBackground: false,
         size: "",
-        class: "",
-      },
+        class: ""
+      }
     };
   },
   computed: {
@@ -203,25 +203,26 @@ export default {
         return true;
       }
       return false;
-    },
+    }
   },
   props: {
     label: {
       type: String,
-      default: "button",
+      default: "button"
     },
     enabled: {
       type: Boolean,
-      default: true,
+      default: true
     },
     index: {
       type: Number,
-      default: 0,
+      default: 0
     },
     path: {
       type: String,
-      default: "content.button",
+      default: "content.button"
     },
+    name: String
   },
   methods: {
     handleToggle() {
@@ -229,13 +230,13 @@ export default {
     },
     change() {
       setDeep(this.component, this.path, this.payload);
-    },
+    }
   },
   mounted() {
     console.log(this.component);
     this.payload = getDeep(this.component, this.path) || this.payload;
   },
-  inject: ["component"],
+  inject: ["component"]
 };
 </script>
 

@@ -219,7 +219,7 @@ trait WordpressInit {
 
         $module_type = $request['module_styles'];
 
-        $data = get_field("module_styles_{$module_type}", 'option');
+        $data = get_field("module_styles_{$module_type}", 'option') ?? '';
 
         // print_r($request);
         return new \WP_REST_Response(

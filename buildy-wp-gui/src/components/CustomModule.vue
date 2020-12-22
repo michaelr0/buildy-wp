@@ -32,7 +32,7 @@ import { mapGetters } from "vuex";
 import { moduleName } from "../functions/helpers";
 
 export default {
-  name: "text-module",
+  name: "custom-module",
   props: {
     component: Object
   },

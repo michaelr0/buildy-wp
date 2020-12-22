@@ -53,10 +53,14 @@ export default {
       }
 
       if (this.api_options) {
-        if (this.api_options.includes(",")) {
-          return this.api_options.split(",").map(el => el.trim());
+        if (typeof this.api_options === "object") {
+          return this.api_options.map(el => el.style_name.trim());
+        } else {
+          if (this.api_options.includes(",")) {
+            return this.api_options.split(",").map(el => el.trim());
+          }
+          return this.api_options.split("\n").map(el => el.trim());
         }
-        return this.api_options.split("\n").map(el => el.trim());
       }
 
       return this.options ? this.options.split(",").map(el => el.trim()) : null;
