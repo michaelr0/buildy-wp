@@ -2,7 +2,7 @@
 
 $atts = $bladeData->attributes ?? null;
 $template = $bladeData->options->template ?? null;
-$moduleClasses = "";
+$moduleClasses = $customClasses ?? "";
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;

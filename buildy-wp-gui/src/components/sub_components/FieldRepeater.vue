@@ -23,7 +23,7 @@
             label="Test"
             :defaultVal="value[index].selected"
             @change="handleChange"
-            :path="`${value[index]}.selected`"
+            :path="`${path}.${index}.selected`"
             :options="value[index].value"
           />
         </div>

@@ -65,10 +65,6 @@
         <vue-tab name="Options" :selected="!hasDefaultSlot">
           <!-- Global Options -->
           <attribute-editor
-            label="Template (Enables custom fields)"
-            path="options.template"
-          ></attribute-editor>
-          <attribute-editor
             label="ID"
             path="attributes.id"
             attribute="id"
