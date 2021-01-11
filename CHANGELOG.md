@@ -2,6 +2,14 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.40
+
+- Small fix with blade files, body content needing to be null checked.
+
+## 2.6.38 - 2.6.39
+
+- Convert module styles into the template system
+
 ## 2.6.37
 
 - Fix small issue when adding accordion items but leave everything blank -- Bricking the accordion.
