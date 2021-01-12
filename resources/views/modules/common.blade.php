@@ -97,7 +97,7 @@ if (isset($colors)) {
 }
 
 if (isset($customClasses)) {
-  $moduleClasses .= $customClasses;
+  $moduleClasses .= " " . trim($customClasses);
 }
 
  @endphp

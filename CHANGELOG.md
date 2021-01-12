@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.42
+
+- Make XS the default breakpoint for the breakpoint switcher in GUI.
+
 ## 2.6.41
 
 - Fix customClasses being overwritten in common.blade.
