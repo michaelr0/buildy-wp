@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.43
+
+- Add description wrapper to custom and text modules.
+
 ## 2.6.42
 
 - Make XS the default breakpoint for the breakpoint switcher in GUI.

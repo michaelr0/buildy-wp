@@ -9,5 +9,5 @@
 
 @section('content')
     @component('modules.components.title', ['bladeData'=> $bladeData])@endcomponent
-    {!! $bodyContent !!}
+    <div class="bmcb-text__description">{!! $bodyContent !!}</div>
 @overwrite
