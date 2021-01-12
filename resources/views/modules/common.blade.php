@@ -2,7 +2,7 @@
 
 $atts = $bladeData->attributes ?? null;
 $template = $bladeData->options->template ?? null;
-$moduleClasses = $customClasses ?? "";
+$moduleClasses = "";
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
@@ -94,6 +94,10 @@ if (isset($colors)) {
             }
         }
     }
+}
+
+if (isset($customClasses)) {
+  $moduleClasses .= $customClasses;
 }
 
  @endphp

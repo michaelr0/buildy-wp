@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.41
+
+- Fix customClasses being overwritten in common.blade.
+
 ## 2.6.40
 
 - Small fix with blade files, body content needing to be null checked.
