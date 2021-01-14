@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.44
+
+- Fix HR blade module --- Totally dickered
+
 ## 2.6.43
 
 - Add description wrapper to custom and text modules.

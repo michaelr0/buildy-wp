@@ -17,7 +17,7 @@
             placeholder="Name"
           />
         </div>
-        <div class="w-1/2 px-2" v-if="value[index].value.includes(',')">
+        <div class="w-1/2 px-2" v-if="isInBrackets(value[index].value)">
           <select-box
             class="px-2 flex-1"
             label="Test"
@@ -53,9 +53,9 @@ import { stripTrailingSlash } from "../../functions/helpers";
 
 export default {
   name: "field-repeater",
-  data: function() {
+  data: function () {
     return {
-      value: []
+      value: [],
     };
   },
   methods: {
@@ -69,7 +69,7 @@ export default {
     addDataAtt() {
       let obj = {
         name: "",
-        value: ""
+        value: "",
       };
       this.value.push(obj);
     },
@@ -94,11 +94,14 @@ export default {
         console.log({ data });
 
         if (data.body && typeof data.body === "object") {
-          let res = data.body.find(el => el.style_name === this.moduleStyle);
+          let res = data.body.find((el) => el.style_name === this.moduleStyle);
           this.value = res.fields;
         }
       }
-    }
+    },
+    isInBrackets(str) {
+      return /\[(.*?)\]/g.test(str);
+    },
   },
   computed: {
     sibblingLink() {
@@ -106,7 +109,7 @@ export default {
     },
     moduleStyle() {
       return this.component.options.moduleStyle;
-    }
+    },
   },
   mounted() {
     EventBus.$on("saveAll", () => {
@@ -129,7 +132,7 @@ export default {
     // If we do have more than one, make sure none are empty
     if (this.value.length) {
       // Filter out any completely empty ones
-      this.value = this.value.filter(value => value.name || value.value);
+      this.value = this.value.filter((value) => value.name || value.value);
       // Save / Cleanup the JSON (removing any empties)
       setDeep(this.component, this.path, this.value, true);
     }
@@ -137,9 +140,9 @@ export default {
   props: {
     label: String,
     path: String,
-    endpoint: String
+    endpoint: String,
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>
 

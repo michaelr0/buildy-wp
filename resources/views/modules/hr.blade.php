@@ -9,9 +9,9 @@
 @section('content')
     <hr style="
     @if(!empty($color))
-        background-color: {{ $color }};
+        background-color: {{ $color }}
     @endif
-    @if(!empty(height))
-        height: {{ $height }};
-    @endif" class="bmcb-hr {{ !empty(($moduleClasses) ? $moduleClasses : '' }}" />
+    @if(!empty($height))
+        height: {{ $height }}
+    @endif" class="bmcb-hr {{ !empty(($moduleClasses)) ? $moduleClasses : '' }}" />
 @overwrite
