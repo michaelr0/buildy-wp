@@ -12,6 +12,13 @@ $bgImageSize = $bladeData->inline->backgroundImage->imageSize ?? "full";
 $bgImageURL = $bladeData->inline->backgroundImage->url ?? null;
 $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
 
+$moduleStyle = !empty($bladeData->options) ? $bladeData->options->moduleStyle ?? null : null;
+
+if (!empty($moduleStyle) && $moduleStyle !== 'none') {
+  $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
+  $moduleClasses .= " module-style__$moduleStyle";
+}
+
 if ((!empty($bgImageID) && empty($bgImageURL)) && function_exists('attachment_url_to_postid')) {
   $bgImageID = attachment_url_to_postid( $bgImageURL );
 }
