@@ -13,6 +13,13 @@ $dataAttString = null;
 
 $inline = $bladeData->inline ?? null;
 
+$moduleStyle = !empty($bladeData->options) ? $bladeData->options->moduleStyle ?? null : null;
+
+if (!empty($moduleStyle) && $moduleStyle !== 'none') {
+  $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
+  $moduleClasses .= " module-style__$moduleStyle";
+}
+
 if (!empty($inline)) {
   $bgImage = $bladeData->inline->backgroundImage ?? null;
   $bgColor = $bladeData->inline->backgroundColor ?? "";

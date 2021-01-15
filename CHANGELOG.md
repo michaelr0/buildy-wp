@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.45
+
+- Add module_style output to columns
+
 ## 2.6.44
 
 - Fix HR blade module --- Totally dickered
