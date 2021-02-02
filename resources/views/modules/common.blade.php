@@ -3,6 +3,7 @@
 $atts = $bladeData->attributes ?? null;
 $template = $bladeData->options->template ?? null;
 $moduleClasses = "";
+$moduleID = "";
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
@@ -77,6 +78,10 @@ if (!empty($moduleType)) {
   }
 }
 $internalLinkTarget = isset($internalLinkText) ? preg_replace("/\W|_/",'',$internalLinkText) : null;
+if (isset($internalLinkTarget)) {
+  $moduleID = $internalLinkTarget;
+}
+
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 
 /* Add responsive margin/padding classes if they're set */
@@ -107,7 +112,6 @@ if (isset($customClasses)) {
 
     {{-- If Internal Link is set (override ID) --}}
     @if(isset($internalLinkEnabled) && $internalLinkEnabled)
-        id="{{ $internalLinkTarget }}"
         data-internal_link_enabled="true"
         @isset($internalLinkText)
             data-internal_link_text="{{ $internalLinkText }}"

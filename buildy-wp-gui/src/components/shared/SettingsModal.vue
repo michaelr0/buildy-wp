@@ -30,6 +30,10 @@
         >
           <!-- Custom Content Tab Slot -->
           <slot />
+
+          <!-- Accordion Modules Need Different Paths -->
+          <!-- <custom-fields v-if="component.type !== 'accordion-module'" /> -->
+          <custom-fields />
         </vue-tab>
         <vue-tab class="design-tab" name="Design">
           <!-- Design Options -->
@@ -80,7 +84,7 @@
           <attribute-editor
             v-if="
               !component.attributes ||
-                !component.attributes.in_page_link_enabled
+              !component.attributes.in_page_link_enabled
             "
             label="External Link"
             path="options.module_link.url"
@@ -100,7 +104,7 @@
               label="In-page Link instead?"
               :status="
                 component.attributes &&
-                  component.attributes.in_page_link_enabled
+                component.attributes.in_page_link_enabled
               "
               path="attributes.in_page_link_enabled"
             ></toggle-switch>
@@ -110,12 +114,12 @@
               label="Open link in new tab?"
               v-if="
                 !component.attributes ||
-                  !component.attributes.in_page_link_enabled
+                !component.attributes.in_page_link_enabled
               "
               :status="
                 component.options &&
-                  component.options.module_link &&
-                  component.options.module_link.new_tab
+                component.options.module_link &&
+                component.options.module_link.new_tab
               "
               path="options.module_link.new_tab"
             ></toggle-switch>
@@ -152,19 +156,19 @@ import { XIcon } from "vue-feather-icons";
 export default {
   name: "settings-modal",
   components: {
-    XIcon
+    XIcon,
   },
   props: {
     header: String,
     component: Object,
     customSlots: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   computed: {
     hasDefaultSlot() {
       return !!this.$slots.default;
-    }
+    },
   },
   methods: {
     modalOpened() {
@@ -180,14 +184,14 @@ export default {
       EventBus.$emit("saveAll");
       this.$modal.hide(this.component.id);
     },
-    UCFirst
+    UCFirst,
   },
   inject: ["component"],
   provide() {
     return {
-      component: this.component
+      component: this.component,
     };
-  }
+  },
 };
 </script>
 

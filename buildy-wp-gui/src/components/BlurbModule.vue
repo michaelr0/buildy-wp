@@ -34,8 +34,6 @@
       />
     </transition>
 
-    <custom-fields />
-
     <div slot="options" class="blurb-custom-options">
       <div class="flex">
         <toggle-switch
@@ -84,22 +82,22 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blurb-module",
-  data: function() {
+  data: function () {
     return {
       icon: "CoffeeIcon",
       keepInBounds: true,
-      type: "blurb-module"
+      type: "blurb-module",
     };
   },
   computed: {
     ...mapGetters(["isWP"]),
     editorType() {
       return this.isWP ? "rich-tiny" : "rich-text";
-    }
+    },
   },
   props: {
     hidecontrols: Boolean,
-    component: Object
-  }
+    component: Object,
+  },
 };
 </script>
