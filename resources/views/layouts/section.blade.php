@@ -5,6 +5,8 @@ $atts = $bladeData->attributes ?? null;
 $moduleClasses = "";
 $moduleID = "";
 
+$internalLinkEnabled = false;
+
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
   $moduleClasses = $bladeData->attributes->class ?? null;

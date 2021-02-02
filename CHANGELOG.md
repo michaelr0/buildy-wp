@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.48
+
+- Fix internalLinkEnabled variable
+
 ## 2.6.47
 
 - Fix page content links not automatically adding ID target
