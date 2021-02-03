@@ -2,7 +2,10 @@
   <transition name="fadeHeight">
     <div
       class="module component-module rounded text-module relative flex flex-wrap items-center text-gray-400 p-1"
-      :class="[isValidComponent ? 'bg-gray-800' : 'bg-gray-600']"
+      :class="[
+        isValidComponent ? 'bg-gray-800' : 'bg-gray-600',
+        renderDisabled ? 'border-8 border-b-0 border-gray-500' : ''
+      ]"
       :id="component.id"
     >
       <module-settings-bar :parent_array="parent_array"></module-settings-bar>
@@ -21,6 +24,12 @@
       </span>
 
       <component :component="component" :is="moduleType"> </component>
+
+      <span
+        v-if="renderDisabled"
+        class="w-full text-center py-1 text-sm italic bg-gray-500"
+        >Frontend Output Disabled
+      </span>
     </div>
   </transition>
 </template>
@@ -40,7 +49,7 @@ import {
   ArrowRightIcon,
   AlignJustifyIcon,
   BoldIcon,
-  GridIcon,
+  GridIcon
 } from "vue-feather-icons";
 
 export default {
@@ -57,11 +66,11 @@ export default {
     ArrowRightIcon,
     AlignJustifyIcon,
     BoldIcon,
-    GridIcon,
+    GridIcon
   },
   props: {
     component: Object,
-    parent_array: Array,
+    parent_array: Array
   },
   computed: {
     ...mapGetters(["validComponents"]),
@@ -80,19 +89,22 @@ export default {
     moduleType() {
       return this.isValidComponent ? this.component.type : "ShellModule";
     },
+    renderDisabled() {
+      return this.component.attributes?.renderDisabled || false;
+    }
   },
   methods: {
     componentMap(type) {
-      return !!this.validComponents.find((el) => el.type === type);
+      return !!this.validComponents.find(el => el.type === type);
     },
-    setDeep,
+    setDeep
   },
   provide() {
     return {
       component: this.component,
-      parent_array: this.parent_array,
+      parent_array: this.parent_array
     };
-  },
+  }
 };
 </script>
 <style>

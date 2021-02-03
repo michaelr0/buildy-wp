@@ -2,6 +2,10 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.49
+
+- Ability to disable frontend output for sections/rows/modules
+
 ## 2.6.48
 
 - Fix internalLinkEnabled variable

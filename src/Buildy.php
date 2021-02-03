@@ -52,6 +52,11 @@ class Buildy {
 
         if (!empty($content)) {
             foreach ($content as $data) {
+
+              if ($data->attributes->renderDisabled ?? false) {
+                continue;
+              }
+
                 /**
                  * str_replace text-module to text.
                  * Check if returned module type is section, row or column.

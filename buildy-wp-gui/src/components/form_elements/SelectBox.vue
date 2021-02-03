@@ -38,13 +38,13 @@ export default {
     selected: String,
     defaultVal: {
       type: String,
-      default: "None",
-    },
+      default: "None"
+    }
   },
   data() {
     return {
       value: this.defaultVal,
-      api_options: null,
+      api_options: null
     };
   },
   computed: {
@@ -55,25 +55,28 @@ export default {
 
       if (this.api_options) {
         if (typeof this.api_options === "object") {
-          return this.api_options.map((el) => el.style_name.trim());
+          return this.api_options.map(el => el.style_name.trim());
         } else {
           if (this.api_options.includes(",")) {
-            return this.api_options.split(",").map((el) => el.trim());
+            return this.api_options.split(",").map(el => el.trim());
           }
-          return this.api_options.split("\n").map((el) => el.trim());
+          return this.api_options.split("\n").map(el => el.trim());
         }
       }
 
       return this.options
         ? this.options
-            .replace(/[\[\]']+/g, "")
+            .replace(/[[\]']+/g, "")
             .split(",")
-            .map((el) => el.trim())
+            .map(el => el.trim())
         : null;
     },
     valueClean() {
-      return this.value.toLowerCase().trim().replace(/ /g, "-");
-    },
+      return this.value
+        .toLowerCase()
+        .trim()
+        .replace(/ /g, "-");
+    }
   },
   methods: {
     handleChange() {
@@ -92,7 +95,7 @@ export default {
         let data = await res.json();
         this.api_options = data.body;
       }
-    },
+    }
   },
   mounted() {
     if (this.selected) {
@@ -113,7 +116,7 @@ export default {
 
     this.$emit("change", this.value);
   },
-  inject: ["component"],
+  inject: ["component"]
 };
 </script>
 

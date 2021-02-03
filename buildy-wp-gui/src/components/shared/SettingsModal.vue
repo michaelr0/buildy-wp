@@ -125,6 +125,14 @@
             ></toggle-switch>
           </div>
 
+          <toggle-switch
+            label="Disable on front end"
+            :status="
+              component.attributes && component.attributes.renderDisabled
+            "
+            path="attributes.renderDisabled"
+          ></toggle-switch>
+
           <!-- Custom Options Tab Slot -->
           <slot name="options"></slot>
         </vue-tab>
