@@ -53,7 +53,7 @@ class Buildy {
         if (!empty($content)) {
             foreach ($content as $data) {
 
-              if ($data->attributes->renderDisabled ?? false) {
+              if ($data->attributes->renderDisabled ?? false && !empty($_GET['preview'])) {
                 continue;
               }
 

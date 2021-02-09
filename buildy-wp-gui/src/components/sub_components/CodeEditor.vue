@@ -19,7 +19,7 @@ export default {
   name: "code-editor",
   data: function() {
     return {
-      value: getDeep(this.component, this.path) || ""
+      value: ""
     };
   },
   props: {
@@ -29,12 +29,19 @@ export default {
   methods: {
     change(e) {
       this.value = e.target.value;
-      setDeep(this.component, this.path, this.value);
+      setDeep(this.component, this.path, JSON.stringify(this.value));
       this.$emit("change", { data: this.value, path: this.path });
     }
   },
   components: {
     // PrismEditor
+  },
+  mounted() {
+    let data = getDeep(this.component, this.path);
+
+    console.log(data);
+
+    this.value = data;
   },
   inject: ["component"]
 };

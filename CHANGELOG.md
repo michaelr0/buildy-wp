@@ -2,80 +2,36 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.49
+## 2.6.50
 
+- Fix code module not stringifying input
+
+## 2.6.40 - ## 2.6.49
+
+- Small fix with blade files, body content needing to be null checked
 - Ability to disable frontend output for sections/rows/modules
-
-## 2.6.48
-
 - Fix internalLinkEnabled variable
-
-## 2.6.47
-
 - Fix page content links not automatically adding ID target
-
-## 2.6.46
-
 - Add module_style output to global module wrapper (greyed-out bar)
-
-## 2.6.45
-
 - Add module_style output to columns
-
-## 2.6.44
-
 - Fix HR blade module --- Totally dickered
-
-## 2.6.43
-
 - Add description wrapper to custom and text modules.
-
-## 2.6.42
-
 - Make XS the default breakpoint for the breakpoint switcher in GUI.
-
-## 2.6.41
-
 - Fix customClasses being overwritten in common.blade.
 
-## 2.6.40
+## 2.6.30 - ## 2.6.39
 
-- Small fix with blade files, body content needing to be null checked.
-
-## 2.6.38 - 2.6.39
-
-- Convert module styles into the template system
-
-## 2.6.37
-
-- Fix small issue when adding accordion items but leave everything blank -- Bricking the accordion.
-
-## 2.6.36
-
-- Fix small typo in path for slide fields
-
-## 2.6.35
-
-- Fix image style attributes not closing off
-
-## 2.6.34
-
+- Add col-gap option to bmcb-settings
+- Fix imageID not being removed from JSON (only image URL was)
+- Went through everything and made sure there were no exceptions being thrown in WP_DEBUG anymore
+- Few more property checks/fixes
 - Add templating functionality
 - Add repeater to accordion
 - Fix a few more properties
-
-## 2.6.33
-
-- Few more property checks/fixes
-
-## 2.6.32
-
-- Fix imageID not being removed from JSON (only image URL was)
-- Went through everything and made sure there were no exceptions being thrown in WP_DEBUG anymore
-
-## 2.6.30 - ## 2.6.31
-
-- Add col-gap option to bmcb-settings
+- Fix image style attributes not closing off
+- Fix small typo in path for slide fields
+- Fix small issue when adding accordion items but leave everything blank -- Bricking the accordion.
+- Convert module styles into the template system
 
 ## 2.6.29
 
