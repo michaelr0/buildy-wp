@@ -16,13 +16,13 @@ export default {
   props: {
     breakpoint: {
       type: String,
-      default: "xl"
+      default: "xs",
     },
     path: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>

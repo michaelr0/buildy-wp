@@ -114,6 +114,7 @@ export default {
   methods: {
     removeImage() {
       setDeep(this.component, `${this.path}.url`, "");
+      setDeep(this.component, `${this.path}.imageID`, "");
     },
   },
   props: {
@@ -172,6 +173,7 @@ export default {
   width: 30px;
   opacity: 0;
   transition: opacity 0.2s;
+  z-index: 10;
 }
 
 .image-selector:hover .delete-image-icon {

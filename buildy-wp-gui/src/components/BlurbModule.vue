@@ -3,26 +3,38 @@
     <title-editor label="Title" path="content.title" />
     <image-uploader label="Blurb Image:" path="content.image"></image-uploader>
     <component :is="editorType" path="content.body"></component>
-    <toggle-switch label="Enable Button 1" path="options.buttonOneEnabled" />
+    <div class="flex -mx-8">
+      <toggle-switch
+        class="px-8"
+        label="Enable Button 1"
+        path="options.buttonOneEnabled"
+      />
+      <toggle-switch
+        class="px-2"
+        label="Enable Button 2"
+        path="options.buttonTwoEnabled"
+      />
+    </div>
     <transition name="fade">
       <Button
         :label="`${component.id}-1`"
-        name="button"
+        name="button one"
         path="content.button"
         :key="component.id + component.options.buttonOneEnabled"
         v-show="component.options.buttonOneEnabled"
       />
     </transition>
-    <toggle-switch label="Enable Button 2" path="options.buttonTwoEnabled" />
     <transition name="fade">
       <Button
         :label="`${component.id}-2`"
-        name="button"
+        name="button two"
         path="content.buttontwo"
         :key="component.id + component.options.buttonTwoEnabled"
         v-show="component.options.buttonTwoEnabled"
       />
     </transition>
+
+    <custom-fields />
 
     <div slot="options" class="blurb-custom-options">
       <div class="flex">

@@ -177,6 +177,7 @@ export default {
       EventBus.$emit("modalClick");
     },
     saveAll() {
+      EventBus.$emit("saveAll");
       this.$modal.hide(this.component.id);
     },
     UCFirst
@@ -191,6 +192,10 @@ export default {
 </script>
 
 <style>
+.settings-modal.v--modal-overlay {
+  padding-top: 40px;
+}
+
 .settings-modal.v--modal-overlay .v--modal-box {
   overflow: visible;
 }

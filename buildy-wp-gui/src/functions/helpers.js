@@ -57,4 +57,6 @@ const stripTrailingSlash = (str) => {
     str;
 };
 
-export { debounce, labelUCFirst, UCFirst, spaceToDash, copyToClipboard, tryParseJSON, stripTrailingSlash }
+const moduleName = (str) => str.substring(0, str.indexOf("-"))
+
+export { debounce, labelUCFirst, UCFirst, spaceToDash, copyToClipboard, tryParseJSON, stripTrailingSlash, moduleName }

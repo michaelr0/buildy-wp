@@ -1,9 +1,3 @@
-{{--
-/**
- * @version 1.0.0
- * @since   1.0.0
- */
- --}}
 @extends('modules.common')
 
 @php
@@ -13,5 +7,5 @@ $bodyContent = $bladeData->content->body ?? null;
 
 @section('content')
     @component('modules.components.title', ['bladeData'=> $bladeData])@endcomponent
-    {!! $bodyContent !!}
+    <div class="bmcb-custom__description">{!! $bodyContent !!}</div>
 @overwrite

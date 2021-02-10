@@ -7,7 +7,7 @@
       <attribute-editor
         label="Interval"
         placeholder="Time between slide changes - Default: 5000"
-        path="options.slider.duration"
+        path="options.slider.interval"
       />
       <attribute-editor
         label="Duration"
