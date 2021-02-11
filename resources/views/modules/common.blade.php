@@ -9,7 +9,7 @@ $internalLinkEnabled = false;
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
-  $moduleClasses = $bladeData->attributes->class ?? null;
+  $moduleClasses .= $bladeData->attributes->class ?? null;
   $dataAtts = $bladeData->attributes->data ?? null;
   $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
   $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
