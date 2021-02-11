@@ -12,6 +12,7 @@
 </template>
 <script>
 import { setDeep, getDeep } from "../../functions/objectHelpers";
+import { tryParseJSON } from "../../functions/helpers";
 // import PrismEditor from "vue-prism-editor";
 
 // @ts-ignore
@@ -19,7 +20,7 @@ export default {
   name: "code-editor",
   data: function() {
     return {
-      value: getDeep(this.component, this.path) || ""
+      value: ""
     };
   },
   props: {
@@ -35,6 +36,13 @@ export default {
   },
   components: {
     // PrismEditor
+  },
+  mounted() {
+    let data = getDeep(this.component, this.path);
+
+    if (data) {
+      return (this.value = data);
+    }
   },
   inject: ["component"]
 };

@@ -4,9 +4,7 @@
     v-if="moduleStyle && moduleStyle !== 'None'"
     class="field-group"
   >
-    <legend class="uppercase text-sm px-4">
-      Custom fields:
-    </legend>
+    <legend class="uppercase text-sm px-4">Custom fields:</legend>
     <span class="text-xs italic -mt-3 mb-3 block lowercase"
       >add
       {{ `${moduleName}-${moduleStyle}.blade.php` }}
@@ -14,7 +12,7 @@
     </span>
     <field-repeater
       label="Custom Fields"
-      :path="path || `content.customFields.${moduleStyle}`"
+      :path="path || customFieldsPath"
       :endpoint="`bmcb/v1/module_styles=${moduleName}`"
     ></field-repeater>
   </fieldset>
@@ -24,9 +22,9 @@
 export default {
   name: "custom-fields",
   props: {
-    path: String
+    path: String,
   },
-  data: function() {
+  data: function () {
     return {};
   },
   computed: {
@@ -34,13 +32,28 @@ export default {
       return this.component.type.split("-")[0];
     },
     moduleStyle() {
-      return (
-        this.component.options.moduleStyle &&
-        this.component.options.moduleStyle.replace(/\s+/g, "-").toLowerCase()
-      );
-    }
+      if (this.component.options.moduleStyle) {
+        if (this.component.options.moduleStyle.toLowerCase() === "none") {
+          return false;
+        } else {
+          return this.component.options.moduleStyle
+            .replace(/\s+/g, "-")
+            .toLowerCase();
+        }
+      }
+    },
+    customFieldsPath() {
+      if (
+        this.component.type === "section-module" ||
+        this.component.type === "row-module" ||
+        this.component.type === "column-module"
+      ) {
+        return `attributes.customFields.${this.moduleStyle}`;
+      }
+      return `content.customFields.${this.moduleStyle}`;
+    },
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>
 

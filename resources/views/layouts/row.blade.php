@@ -3,15 +3,17 @@
 $atts = $bladeData->attributes ?? null;
 
 $moduleClasses = '';
+$moduleID = '';
+
+$internalLinkEnabled = false;
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
   $moduleClasses = $bladeData->attributes->class ?? null;
-  $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
+  $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? false;
   $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
   $dataAtts = $bladeData->attributes->data ?? null;
 }
-
 
 $moduleStyle = !empty($bladeData->options) ? $bladeData->options->moduleStyle ?? null : null;
 
@@ -54,6 +56,11 @@ if (!empty($bgImageID)) {
 }
 
 $internalLinkTarget = !empty($internalLinkText) ? preg_replace("/\W|_/",'',$internalLinkText) : null;
+
+if (isset($internalLinkTarget)) {
+  $moduleID = $internalLinkTarget;
+}
+
 $dataAttString = null;
 
 // Add data atts to a string
@@ -100,9 +107,8 @@ if (!empty($spacing)) {
 
 <div
     @isset($moduleID) id="{{ $moduleID }}" @endisset
-    @if(!empty($internalLinkEnabled))
-        @isset($internalLinkTarget) id="{{ $internalLinkTarget }}" @endisset
-        data-internal_link_enabled="true" @endif
+    @if($internalLinkEnabled)
+      data-internal_link_enabled="true" @endif
     @isset($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endisset
     class="bmcb-row row {{ isset($moduleClasses) ? $moduleClasses : '' }}"
     style="

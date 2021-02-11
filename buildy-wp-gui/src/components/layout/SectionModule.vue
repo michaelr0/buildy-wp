@@ -2,7 +2,10 @@
   <div
     :id="component.id"
     class="section bg-gray-400 mb-5 flex flex-wrap"
-    :class="[settingsOpen ? 'highlight-section' : '']"
+    :class="[
+      settingsOpen ? 'highlight-section' : '',
+      renderDisabled ? 'border-8 border-b-0 border-gray-500' : ''
+    ]"
   >
     <module-settings-bar
       :parent_array="parent_array"
@@ -23,7 +26,13 @@
       ></toggle-switch>
     </settings-modal>
 
-    <div class="flex-1 flex-col">
+    <div
+      class="flex-1 flex-col"
+      :class="[
+        settingsOpen ? 'highlight-section' : '',
+        renderDisabled ? 'opacity-50' : ''
+      ]"
+    >
       <draggable :list="dragArray" v-bind="dragOptions">
         <transition-group
           name="fadeHeight"
@@ -68,6 +77,11 @@
         >
       </div>
     </div>
+    <span
+      v-if="renderDisabled"
+      class="w-full text-center py-1 text-sm italic bg-gray-500"
+      >Frontend Output Disabled
+    </span>
   </div>
 </template>
 <script>
@@ -103,6 +117,9 @@ export default {
         ghostClass: "ghost",
         disabled: this.dragDisabled
       };
+    },
+    renderDisabled() {
+      return this.component.attributes?.renderDisabled || false;
     },
     rowCount() {
       return this.dragArray.length;

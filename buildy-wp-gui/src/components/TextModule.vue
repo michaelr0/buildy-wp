@@ -34,21 +34,21 @@ import { moduleName } from "../functions/helpers";
 export default {
   name: "text-module",
   props: {
-    component: Object
+    component: Object,
   },
-  data: function() {
+  data: function () {
     return {
-      icon: "AlignJustifyIcon"
+      icon: "AlignJustifyIcon",
     };
   },
   computed: {
     ...mapGetters(["isWP"]),
     editorType() {
       return this.isWP ? "rich-tiny" : "rich-text";
-    }
+    },
   },
   methods: {
-    moduleName
-  }
+    moduleName,
+  },
 };
 </script>

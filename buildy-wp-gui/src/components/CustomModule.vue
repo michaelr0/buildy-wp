@@ -2,7 +2,6 @@
   <settings-modal>
     <title-editor label="Title" path="content.title" />
     <component :is="editorType" path="content.body"></component>
-    <custom-fields />
     <div slot="options" class="text-custom-options">
       <div class="flex">
         <toggle-switch
@@ -34,21 +33,21 @@ import { moduleName } from "../functions/helpers";
 export default {
   name: "custom-module",
   props: {
-    component: Object
+    component: Object,
   },
-  data: function() {
+  data: function () {
     return {
-      icon: "AlignJustifyIcon"
+      icon: "AlignJustifyIcon",
     };
   },
   computed: {
     ...mapGetters(["isWP"]),
     editorType() {
       return this.isWP ? "rich-tiny" : "rich-text";
-    }
+    },
   },
   methods: {
-    moduleName
-  }
+    moduleName,
+  },
 };
 </script>

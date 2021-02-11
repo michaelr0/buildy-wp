@@ -20,7 +20,7 @@
         <div class="w-1/2 px-2" v-if="isInBrackets(value[index].value)">
           <select-box
             class="px-2 flex-1"
-            label="Test"
+            label="Choose"
             :defaultVal="value[index].selected"
             @change="handleChange"
             :path="`${path}.${index}.selected`"
@@ -95,7 +95,9 @@ export default {
 
         if (data.body && typeof data.body === "object") {
           let res = data.body.find((el) => el.style_name === this.moduleStyle);
-          this.value = res.fields;
+          if (res) {
+            this.value = res.fields;
+          }
         }
       }
     },

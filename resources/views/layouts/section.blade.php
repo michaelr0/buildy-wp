@@ -3,6 +3,9 @@
 $atts = $bladeData->attributes ?? null;
 
 $moduleClasses = "";
+$moduleID = "";
+
+$internalLinkEnabled = false;
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
@@ -46,6 +49,10 @@ if (!empty($bgImageID)) {
 }
 
 $internalLinkTarget = !empty($internalLinkText) ? preg_replace("/\W|_/",'',$internalLinkText) : null;
+if (isset($internalLinkTarget)) {
+  $moduleID = $internalLinkTarget;
+}
+
 $spacing = $bladeData->generatedAttributes->spacing ?? null;
 $dataAttString = null;
 
@@ -69,7 +76,6 @@ if (!empty($spacing)) {
 <div
     @isset($moduleID) id="{{ $moduleID }}" @endisset
     @if(!empty($internalLinkEnabled) && $internalLinkEnabled)
-        @isset($internalLinkTarget) id="{{ $internalLinkTarget }}" @endisset
         data-internal_link_enabled="true"
     @endif
     @isset($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endisset
