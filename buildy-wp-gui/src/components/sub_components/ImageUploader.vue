@@ -112,6 +112,10 @@ export default {
   },
   mixins: [mediaLibrary],
   methods: {
+    addImages(image) {
+      setDeep(this.component, `${this.path}.url`, image[0].url);
+      setDeep(this.component, `${this.path}.imageID`, image[0].id);
+    },
     removeImage() {
       setDeep(this.component, `${this.path}.url`, "");
       setDeep(this.component, `${this.path}.imageID`, "");
@@ -128,18 +132,6 @@ export default {
   },
   components: {
     Trash2Icon,
-  },
-  mounted() {
-    if (this.customMediaLibrary) {
-      this.customMediaLibrary.on("select", () => {
-        var selectedImages = this.customMediaLibrary.state().get("selection");
-        selectedImages.map((attachment) => {
-          attachment = attachment.toJSON();
-          setDeep(this.component, `${this.path}.url`, attachment.url);
-          setDeep(this.component, `${this.path}.imageID`, attachment.id);
-        });
-      });
-    }
   },
   inject: ["component"],
   provide() {

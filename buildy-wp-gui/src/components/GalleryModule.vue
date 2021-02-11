@@ -1,10 +1,11 @@
 <template>
-  <settings-modal>
+  <settings-modal @open="">
     <attribute-editor label="Title" path="content.title"></attribute-editor>
     <div class="gallery-wrapper">
       <ul class="gallery-module">
         <draggable :list="images" v-bind="dragOptions">
           <li
+            @click.prevent="openMediaLibrary"
             v-for="image in images"
             :key="image.id"
             class="gallery-module__item"
@@ -17,11 +18,20 @@
             <img :src="image.url" />
           </li>
           <li class="gallery-module__item">
-            <image-uploader-multi
-              label="Add more"
-              path="content.image"
-              @imageSelection="addImages"
-            ></image-uploader-multi>
+            <div class="image-uploader h-full module module-settings">
+              <div
+                @click.prevent="openMediaLibrary"
+                class="flex w-full h-full border-2 border-dashed border-gray-600 relative cursor-pointer items-center justify-center image-selector"
+              >
+                <span
+                  ><label
+                    class="pb-2"
+                    v-text="images.length ? 'Add More' : 'Add Images'"
+                  />
+                  +</span
+                >
+              </div>
+            </div>
           </li>
         </draggable>
       </ul>
@@ -30,76 +40,23 @@
     <div class="flex -mx-2">
       <attribute-editor
         class="px-2 flex-1"
-        v-if="path === 'content.gallery.columnCount'"
         label="Gallery Columns"
         :path="`${path}.columnCount`"
       />
       <attribute-editor
         class="px-2 flex-1"
-        v-if="path === 'content.gallery.columnGap'"
         label="Column Gap"
         :path="`${path}.columnGap`"
       />
     </div>
 
-    <div v-if="path === 'content.image'" class="flex -mx-2">
-      <attribute-editor
-        class="px-2 flex-1"
-        label="Height"
-        :path="`${path}.height`"
-      />
-      <attribute-editor
-        class="px-2 flex-1"
-        label="Max Height"
-        :path="`${path}.maxHeight`"
-      />
-    </div>
-
-    <div class="flex -mx-2">
-      <select-box
-        v-if="path === 'content.image' || imageType === 'img'"
-        class="px-2 flex-1"
-        label="Object Fit"
-        :path="`${path}.objectFit`"
-        options="auto, contain, cover, 100%"
-      />
-      <select-box
-        v-if="path === 'content.image' || imageType === 'img'"
-        class="px-2 flex-1"
-        label="Object Position"
-        :path="`${path}.objectPosition`"
-        options="top, bottom, left, right"
-      />
-      <select-box
-        v-if="path === 'content.image'"
-        class="px-2 flex-1"
-        label="Image / Title Position"
-        :path="`${path}.imageTitlePosition`"
-        options="Image Above, Image Below"
-      />
-
-      <select-box
-        v-if="path === 'inline.backgroundImage' || imageType === 'bg'"
-        class="px-2 flex-1"
-        label="Background Size"
-        :path="`${path}.backgroundSize`"
-        options="auto, contain, cover, 100%"
-      />
-      <select-box
-        v-if="path === 'inline.backgroundImage' || imageType === 'bg'"
-        class="px-2 flex-1"
-        label="Background Position"
-        :path="`${path}.backgroundPosition`"
-        options="center, center top, center bottom, center left, center right, top right, top left, bottom left, bottom right"
-      />
-      <select-box
-        v-if="path === 'content.image' || imageType === 'img'"
-        class="px-2 flex-1"
-        label="Image Size"
-        :path="`${path}.imageSize`"
-        defaultVal="full"
-        :options="imageSizes"
-      />
+    <div class="flex">
+      <div class="flex">
+        <toggle-switch
+          label="Convert to slider?"
+          path="content.gallery.isSlider"
+        />
+      </div>
     </div>
 
     <div slot="options" class="image-custom-options">
@@ -129,6 +86,7 @@
 <script>
 import { mapGetters } from "vuex";
 import draggable from "vuedraggable";
+import mediaLibrary from "../mixins/mediaLibrary";
 import { Trash2Icon } from "vue-feather-icons";
 import { setDeep, getDeep } from "../functions/objectHelpers";
 
@@ -146,7 +104,8 @@ export default {
       };
     },
   },
-  data: function () {
+  mixins: [mediaLibrary],
+  data: function() {
     return {
       icon: "ImageIcon",
       images: [],
@@ -159,7 +118,7 @@ export default {
   methods: {
     addImages(images) {
       if (images) {
-        this.images.push(...images);
+        this.images = images;
         setDeep(this.component, "content.gallery.images", this.images);
       }
     },
@@ -169,7 +128,6 @@ export default {
     },
   },
   mounted() {
-    console.log(getDeep(this.component, "content.gallery.images"));
     this.images = getDeep(this.component, "content.gallery.images") || [];
   },
 };
@@ -177,7 +135,7 @@ export default {
 <style scoped lang="scss">
 .gallery-module {
   padding: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   background: #e2e8f0;
   > div {
     display: grid;
@@ -187,11 +145,15 @@ export default {
   }
   &__item {
     position: relative;
+    cursor: pointer;
     img {
       object-fit: cover;
       width: 100%;
       height: 100%;
     }
+  }
+  .delete-image-icon {
+    opacity: 1;
   }
 }
 </style>

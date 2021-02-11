@@ -7,7 +7,7 @@ export default {
   },
   methods: {
     initUploader() {
-      if (this.isWordpress) {
+      if (this.isWordpress && window.wp.media) {
         this.customMediaLibrary = window.wp.media({
           // Accepts [ 'select', 'post', 'image', 'audio', 'video' ]
           // Determines what kind of library should be rendered.
@@ -35,25 +35,46 @@ export default {
 
         this.$emit('mediaSelect');
       }
+      if (this.customMediaLibrary) {
+        this.customMediaLibrary.on("select", () => {
+          var selectedImages = this.customMediaLibrary.state().get("selection");
+          let selection = selectedImages.map((attachment) => {
+            attachment = attachment.toJSON();
+            let imageData = {
+              url: attachment.url,
+              id: attachment.id,
+            };
+
+            return imageData;
+          });
+          this.addImages(selection);
+        });
+
+        this.customMediaLibrary.on("open", () => {
+          let selection = this.customMediaLibrary.state().get("selection");
+          let images = this.component.content.gallery?.images || [this.component.content.image];
+          if (images) {
+            images.forEach((image) => {
+              let id = image.id || image.imageID
+              let attachment = window.wp.media.attachment(id);
+              attachment.fetch();
+              console.log(attachment);
+              selection.add(attachment ? [attachment] : []);
+            });
+          }
+        });
+      }
     },
     openMediaLibrary() {
       if (this.customMediaLibrary) {
+        this.customMediaLibrary.open()
+      } else {
+        this.initUploader();
         this.customMediaLibrary.open()
       }
     }
   },
   mounted() {
-    if (this.customMediaLibrary) {
-      this.customMediaLibrary.on('open', () => {
-        let selection = this.customMediaLibrary.state().get('selection');
-        this.component.gallery.images.filter(el => el.id).forEach(id => {
-          console.log(id)
-          let attachment = this.customMediaLibrary.attachment(id);
-          attachment.fetch();
-          selection.add(attachment ? [attachment] : []);
-        })
-      });
-    }
     this.initUploader();
   },
 };
