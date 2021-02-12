@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
+    "baguettebox.js": "^1.11.1",
     "extract-svg-sprite-webpack-plugin": "^0.4.2",
     "siema": "^1.5.1",
     "yarn": "^1.22.4"

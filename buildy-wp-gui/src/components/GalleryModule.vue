@@ -41,12 +41,12 @@
       <attribute-editor
         class="px-2 flex-1"
         label="Gallery Columns"
-        :path="`${path}.columnCount`"
+        path="content.gallery.columnCount"
       />
       <attribute-editor
         class="px-2 flex-1"
         label="Column Gap"
-        :path="`${path}.columnGap`"
+        path="content.gallery.columnGap"
       />
     </div>
 
@@ -57,6 +57,101 @@
           path="content.gallery.isSlider"
         />
       </div>
+    </div>
+
+    <div class="flex flex-col" v-if="isSlider">
+      <select-box
+        class="mb-2 flex-1"
+        label="Image Size"
+        path="content.gallery.imageSize"
+        defaultVal="full"
+        :options="imageSizes"
+      />
+      <attribute-editor
+        label="Interval"
+        placeholder="Time between slide changes - Default: 5000"
+        path="options.slider.interval"
+      />
+      <attribute-editor
+        label="Duration"
+        placeholder="Duration of the slide animation - Default: 200"
+        path="options.slider.duration"
+      />
+      <attribute-editor
+        label="Easing"
+        placeholder="Default: ease-out"
+        path="options.slider.easing"
+      />
+      <attribute-editor
+        label="Per Page"
+        placeholder="Default: 1"
+        path="options.slider.perPage"
+      />
+      <attribute-editor
+        label="Start Index"
+        placeholder="Default: 0"
+        path="options.slider.startIndex"
+      />
+      <attribute-editor
+        label="Threshold"
+        placeholder="Default: 20"
+        path="options.slider.threshold"
+      />
+      <toggle-switch
+        label="Autoplay"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.autoplay !== 'undefined'
+            ? component.options.slider.autoplay
+            : true
+        "
+        path="options.slider.autoplay"
+      ></toggle-switch>
+      <toggle-switch
+        label="Draggable"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.draggable !== 'undefined'
+            ? component.options.slider.draggable
+            : true
+        "
+        path="options.slider.draggable"
+      ></toggle-switch>
+      <toggle-switch
+        label="Loop"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.loop !== 'undefined'
+            ? component.options.slider.loop
+            : true
+        "
+        path="options.slider.loop"
+      ></toggle-switch>
+      <toggle-switch
+        label="Right to left?"
+        :status="component.options.slider && component.options.slider.rtl"
+        path="options.slider.rtl"
+      ></toggle-switch>
+      <toggle-switch
+        label="Arrow Navigation"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.arrow_nav !== 'undefined'
+            ? component.options.slider.arrow_nav
+            : true
+        "
+        path="options.slider.arrow_nav"
+      ></toggle-switch>
+      <toggle-switch
+        label="Dot Navigation"
+        :status="
+          component.options.slider &&
+          typeof component.options.slider.paginationDots !== 'undefined'
+            ? component.options.slider.paginationDots
+            : true
+        "
+        path="options.slider.paginationDots"
+      ></toggle-switch>
     </div>
 
     <div slot="options" class="image-custom-options">
@@ -96,12 +191,15 @@ export default {
     component: Object,
   },
   computed: {
-    ...mapGetters(["dragDisabled"]),
+    ...mapGetters(["dragDisabled", "imageSizes"]),
     dragOptions() {
       return {
         group: "gallery-images",
         ghostClass: "ghost",
       };
+    },
+    isSlider() {
+      return this.component.content.gallery.isSlider;
     },
   },
   mixins: [mediaLibrary],

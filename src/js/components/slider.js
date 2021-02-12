@@ -9,10 +9,8 @@ if (sliders.length) {
 
     sliders.forEach(el => {
       let currentIndex;
-      let slides = el.querySelector('.bmcb-slider__slides');
-      let dataAtts = slides.dataset
-
-      console.log(dataAtts)
+      let slides = el.querySelector('.bmcb-slider__slides') || el.querySelector('.bmcb-gallery__items');
+      let dataAtts = slides.dataset || {}
 
       const prev = el.querySelector('.bmcb-slider__arrow-prev');
       const next = el.querySelector('.bmcb-slider__arrow-next');
