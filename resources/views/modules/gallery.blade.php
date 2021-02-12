@@ -3,10 +3,27 @@
   $module_link_url = $bladeData->options->module_link->url ?? null;
   $images = $bladeData->content->gallery->images ?? null;
   $gap = isset($bladeData->content->gallery->columnGap) ? "gap: {$bladeData->content->gallery->columnGap};" : "gap: 2rem";
-  $is_slider = !empty($bladeData->content->gallery->isSlider) ? "bmcb-slider" : false;
-  $options = $bladeData->options->slider ?? null;
   $cols = !empty($bladeData->content->gallery->columnCount) ? "grid-{$bladeData->content->gallery->columnCount}" : 'grid-3';
   $imageSize = $bladeData->content->gallery->imageSize ?? 'full';
+  
+  $is_slider = !empty($bladeData->content->gallery->isSlider) ? "bmcb-slider" : false;
+  $options = $bladeData->options->slider ?? null;
+  
+  $is_masonry = $bladeData->content->gallery->isMasonry ?: false;
+
+  $masonry_marginX = $bladeData->options->masonry->marginX ?: false;
+  $masonry_marginY = $bladeData->options->masonry->marginY ?: false;
+
+  $gallery_items_class = "";  
+
+  if ($is_masonry) {
+    $gallery_items_class = "is-masonry";
+  }
+
+  elseif (!$is_slider) {
+    $gallery_items_class = "grid";
+  }
+ 
 @endphp
 
 @extends('modules.common', ["customClasses" => "{$is_slider}"])
@@ -19,11 +36,18 @@
     @component('modules.components.title', ['bladeData'=> $bladeData])@endcomponent
 
     @if(!empty($images))
+    <div class="grid-sizer"></div>
       <div 
-        class="bmcb-gallery__items {{ !$is_slider ? 'grid' : '' }} {{ $cols }}" 
+        class="bmcb-gallery__items {{ $gallery_items_class }} {{ $cols }}" 
         @if(!empty($gap) && !$is_slider) 
           style="{{ $gap }}" 
         @endif
+
+        @if($is_masonry) 
+        @if($masonry_marginX) data-marginx="{{ $masonry_marginX }}" @endif
+        @if($masonry_marginY) data-marginy="{{ $masonry_marginY }}" @endif
+        @endif
+
         @if (isset($options) && $is_slider)
           @foreach($options as $key=>$val)
             @if($val !== '')
@@ -31,6 +55,7 @@
             @endif
           @endforeach
         @endif
+
       >
         @foreach($images as $image)
           @if(!$is_slider)
