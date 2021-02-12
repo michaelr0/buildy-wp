@@ -6,6 +6,7 @@
   $is_slider = !empty($bladeData->content->gallery->isSlider) ? "bmcb-slider" : false;
   $options = $bladeData->options->slider ?? null;
   $cols = !empty($bladeData->content->gallery->columnCount) ? "grid-{$bladeData->content->gallery->columnCount}" : 'grid-3';
+  $imageSize = $bladeData->content->gallery->imageSize ?? 'full';
 @endphp
 
 @extends('modules.common', ["customClasses" => "{$is_slider}"])
@@ -34,10 +35,10 @@
         @foreach($images as $image)
           @if(!$is_slider)
             <a class="bmcb-gallery__item" href="<?= wp_get_attachment_url($image->id); ?>">
-              <?= wp_get_attachment_image($image->id, 'large', "", array( "class" => "bmcb-image"  )); ?>
+              <?= wp_get_attachment_image($image->id, $imageSize, "", array( "class" => "bmcb-image"  )); ?>
             </a>
           @else
-            <?= wp_get_attachment_image($image->id, 'full', "", array( "class" => "bmcb-image bmcb-gallery__item bmcb-gallery__item--slide"  )); ?>
+            <?= wp_get_attachment_image($image->id, $imageSize, "", array( "class" => "bmcb-image bmcb-gallery__item bmcb-gallery__item--slide"  )); ?>
           @endif
         @endforeach
       </div>
