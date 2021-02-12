@@ -1,6 +1,6 @@
 <template>
-  <settings-modal @open="">
-    <attribute-editor label="Title" path="content.title"></attribute-editor>
+  <settings-modal>
+    <title-editor label="Title" path="content.title"></title-editor>
     <div class="gallery-wrapper">
       <ul class="gallery-module">
         <draggable :list="images" v-bind="dragOptions">
@@ -199,7 +199,7 @@ export default {
       };
     },
     isSlider() {
-      return this.component.content.gallery.isSlider;
+      return this.component.content.gallery?.isSlider;
     },
   },
   mixins: [mediaLibrary],
