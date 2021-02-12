@@ -38,13 +38,13 @@ export default {
     selected: String,
     defaultVal: {
       type: String,
-      default: "None"
-    }
+      default: "None",
+    },
   },
   data() {
     return {
       value: this.defaultVal,
-      api_options: null
+      api_options: null,
     };
   },
   computed: {
@@ -72,11 +72,8 @@ export default {
         : null;
     },
     valueClean() {
-      return this.value
-        .toLowerCase()
-        .trim()
-        .replace(/ /g, "-");
-    }
+      return this.value.toLowerCase().trim().replace(/ /g, "-");
+    },
   },
   methods: {
     handleChange() {
@@ -95,7 +92,7 @@ export default {
         let data = await res.json();
         this.api_options = data.body;
       }
-    }
+    },
   },
   mounted() {
     if (this.selected) {
@@ -116,7 +113,7 @@ export default {
 
     this.$emit("change", this.value);
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>
 

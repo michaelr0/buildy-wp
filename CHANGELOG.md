@@ -2,9 +2,13 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.50
+## 2.6.50 - ## 2.6.52
 
 - Fix code module not stringifying input
+- Added gallery module to GUI
+- Added blade for gallery module front-end
+- Added styles for gallery module
+- Added logic to convert gallery to a slider
 
 ## 2.6.40 - ## 2.6.49
 

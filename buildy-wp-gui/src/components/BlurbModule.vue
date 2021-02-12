@@ -34,6 +34,8 @@
       />
     </transition>
 
+    <custom-fields />
+
     <div slot="options" class="blurb-custom-options">
       <div class="flex">
         <toggle-switch
