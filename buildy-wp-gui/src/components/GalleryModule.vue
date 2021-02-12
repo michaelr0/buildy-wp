@@ -231,6 +231,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+// Gallery module styles
 .gallery-module {
   padding: 1rem;
   margin-bottom: 1rem;
