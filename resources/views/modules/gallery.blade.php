@@ -2,10 +2,10 @@
 @php
   $module_link_url = $bladeData->options->module_link->url ?? null;
   $images = $bladeData->content->gallery->images ?? null;
-  $gap = isset($bladeData->content->gallery->columnGap) ? "gap: {$bladeData->content->gallery->columnGap};" : null;
+  $gap = isset($bladeData->content->gallery->columnGap) ? "gap: {$bladeData->content->gallery->columnGap};" : "gap: 2rem";
   $is_slider = !empty($bladeData->content->gallery->isSlider) ? "bmcb-slider" : false;
   $options = $bladeData->options->slider ?? null;
-  $cols = !isset($bladeData->content->gallery->columnCount) ? "grid-{$bladeData->content->gallery->columnCount}" : 'grid-3';
+  $cols = !empty($bladeData->content->gallery->columnCount) ? "grid-{$bladeData->content->gallery->columnCount}" : 'grid-3';
 @endphp
 
 @extends('modules.common', ["customClasses" => "{$is_slider}"])
