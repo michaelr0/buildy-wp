@@ -3293,5 +3293,6 @@ The theme options page also generates utility classes for each colour you add. R
     text-decoration: underline; }
 
 .bmcb-gallery img {
-  width: 100%; }
+  width: 100%;
+  height: fit-content; }
 
