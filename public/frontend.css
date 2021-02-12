@@ -3292,6 +3292,9 @@ The theme options page also generates utility classes for each colour you add. R
   .page-links-box a {
     text-decoration: underline; }
 
+.bmcb-gallery__item {
+  width: fit-content; }
+
 .bmcb-gallery img {
   width: 100%;
   height: fit-content; }

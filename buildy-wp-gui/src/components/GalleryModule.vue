@@ -50,16 +50,7 @@
       />
     </div>
 
-    <div class="flex">
-      <div class="flex">
-        <toggle-switch
-          label="Convert to slider?"
-          path="content.gallery.isSlider"
-        />
-      </div>
-    </div>
-
-    <div class="flex flex-col" v-if="isSlider">
+    <div class="flex mb-3">
       <select-box
         class="mb-2 flex-1"
         label="Image Size"
@@ -67,6 +58,26 @@
         defaultVal="full"
         :options="imageSizes"
       />
+    </div>
+
+    <div class="flex flex-col">
+      <div class="flex-1">
+        <toggle-switch
+          v-if="!isMasonry"
+          label="Convert to slider?"
+          path="content.gallery.isSlider"
+        />
+      </div>
+      <div class="flex-1">
+        <toggle-switch
+          v-if="!isSlider"
+          label="Enable Masonry Layout?"
+          path="content.gallery.isMasonry"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col" v-if="isSlider">
       <attribute-editor
         label="Interval"
         placeholder="Time between slide changes - Default: 5000"
@@ -154,6 +165,23 @@
       ></toggle-switch>
     </div>
 
+    <div class="flex flex-col" v-if="isMasonry">
+      <div class="flex -px-2">
+        <attribute-editor
+          class="mx-2"
+          label="Margin X"
+          placeholder="Spacing X"
+          path="options.masonry.marginX"
+        />
+        <attribute-editor
+          class="mx-2"
+          label="Margin Y"
+          placeholder="Spacing Y"
+          path="options.masonry.marginY"
+        />
+      </div>
+    </div>
+
     <div slot="options" class="image-custom-options">
       <div class="flex">
         <toggle-switch
@@ -200,6 +228,9 @@ export default {
     },
     isSlider() {
       return this.component.content.gallery?.isSlider;
+    },
+    isMasonry() {
+      return this.component.content.gallery?.isMasonry;
     },
   },
   mixins: [mediaLibrary],
