@@ -2,7 +2,7 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.50 - ## 2.6.54
+## 2.6.50 - ## 2.6.57
 
 - Fix code module not stringifying input
 - Added gallery module to GUI
@@ -11,6 +11,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Added logic to convert gallery to a slider
 - Fix gallery title, now using title component
 - Fix bug where tiny MCE wouldn't save TEXT tab changes unless switching back to visual first
+- Add Masonry to grid layout
 
 ## 2.6.40 - ## 2.6.49
 
