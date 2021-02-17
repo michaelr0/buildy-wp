@@ -34,8 +34,6 @@
       />
     </transition>
 
-    <custom-fields />
-
     <div slot="options" class="blurb-custom-options">
       <div class="flex">
         <toggle-switch
@@ -84,7 +82,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blurb-module",
-  data: function () {
+  data: function() {
     return {
       icon: "CoffeeIcon",
       keepInBounds: true,
