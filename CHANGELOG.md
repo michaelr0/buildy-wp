@@ -13,6 +13,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Fix bug where tiny MCE wouldn't save TEXT tab changes unless switching back to visual first
 - Add Masonry to grid layout
 - Fix duplicate custom fields
+- Fix galleries / lightbox intiiating even if no galleries are on the page
 
 ## 2.6.40 - ## 2.6.49
 
