@@ -2,7 +2,6 @@
   <settings-modal>
     <title-editor label="Title" path="content.title" />
     <component :is="editorType" path="content.body"></component>
-    <custom-fields />
     <div slot="options" class="text-custom-options">
       <div class="flex">
         <toggle-switch
@@ -36,7 +35,7 @@ export default {
   props: {
     component: Object,
   },
-  data: function () {
+  data: function() {
     return {
       icon: "AlignJustifyIcon",
     };

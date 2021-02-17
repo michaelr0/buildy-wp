@@ -32,8 +32,7 @@
           <slot />
 
           <!-- Accordion Modules Need Different Paths -->
-          <!-- <custom-fields v-if="component.type !== 'accordion-module'" /> -->
-          <custom-fields />
+          <custom-fields v-if="component.type !== 'accordion-module'" />
         </vue-tab>
         <vue-tab class="design-tab" name="Design">
           <!-- Design Options -->
@@ -84,7 +83,7 @@
           <attribute-editor
             v-if="
               !component.attributes ||
-              !component.attributes.in_page_link_enabled
+                !component.attributes.in_page_link_enabled
             "
             label="External Link"
             path="options.module_link.url"
@@ -104,7 +103,7 @@
               label="In-page Link instead?"
               :status="
                 component.attributes &&
-                component.attributes.in_page_link_enabled
+                  component.attributes.in_page_link_enabled
               "
               path="attributes.in_page_link_enabled"
             ></toggle-switch>
@@ -114,12 +113,12 @@
               label="Open link in new tab?"
               v-if="
                 !component.attributes ||
-                !component.attributes.in_page_link_enabled
+                  !component.attributes.in_page_link_enabled
               "
               :status="
                 component.options &&
-                component.options.module_link &&
-                component.options.module_link.new_tab
+                  component.options.module_link &&
+                  component.options.module_link.new_tab
               "
               path="options.module_link.new_tab"
             ></toggle-switch>
