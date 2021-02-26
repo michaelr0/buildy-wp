@@ -63,5 +63,6 @@ export default {
 <style lang="scss">
 img {
   border: none;
+  border-style: none;
 }
 </style>
