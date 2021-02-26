@@ -112,6 +112,7 @@ if (!empty($spacing)) {
     @isset($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endisset
     class="bmcb-row row {{ isset($moduleClasses) ? $moduleClasses : '' }}"
     style="
+    @if(!empty($cssGridGap)) {{ "--col-gap: $cssGridGap;" }} @endif
     @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
     @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif
     @if(!empty($bgSize)) {{ "background-size: $bgSize;" }} @endif
