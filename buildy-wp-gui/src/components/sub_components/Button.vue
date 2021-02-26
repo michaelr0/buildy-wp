@@ -38,9 +38,9 @@
               v-model="payload.buttonStyle"
             >
               <option
-                v-for="style in buttonStyles"
+                v-for="(style, i) in buttonStyles"
                 :value="style.val"
-                :key="component.id + label + '-buttonStyle-' + style"
+                :key="component.id + label + i + '-buttonStyle-' + style"
               >
                 {{ style.key }}
               </option>

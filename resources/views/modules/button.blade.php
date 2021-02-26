@@ -25,8 +25,7 @@
       @endisset
     @elseif(isset($buttonStyle)) 
       btn--{{ $buttonStyle }}      
-    @endif
-    
+    @endif    
     @isset($size)
         btn--{{ $size }}
     @endisset
