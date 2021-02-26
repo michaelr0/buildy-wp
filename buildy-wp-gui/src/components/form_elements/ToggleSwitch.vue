@@ -27,6 +27,7 @@
 <script>
 import { setDeep, getDeep } from "../../functions/objectHelpers";
 import { spaceToDash } from "../../functions/helpers";
+import { generateID } from "../../functions/idHelpers";
 
 export default {
   name: "toggle-switch",
@@ -34,18 +35,17 @@ export default {
     status: Boolean,
     label: String,
     path: String,
-    attribute: String
+    attribute: String,
   },
   data() {
     return {
-      value: false
+      value: false,
     };
   },
   computed: {
     labelID() {
-      return `${(this.component && this.component.id) ||
-        "toggle"}-${spaceToDash(this.label)}`;
-    }
+      return `toggle-${spaceToDash(this.label)}-${generateID()}`;
+    },
   },
   methods: {
     handleChange() {
@@ -53,7 +53,7 @@ export default {
       if (this.path && this.component) {
         setDeep(this.component, this.path, this.value, true);
       }
-    }
+    },
   },
   mounted() {
     if (this.status) {
@@ -67,7 +67,7 @@ export default {
       }
     }
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>
 
