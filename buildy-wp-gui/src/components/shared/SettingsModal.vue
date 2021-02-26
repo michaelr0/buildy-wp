@@ -83,7 +83,7 @@
           <attribute-editor
             v-if="
               !component.attributes ||
-                !component.attributes.in_page_link_enabled
+              !component.attributes.in_page_link_enabled
             "
             label="External Link"
             path="options.module_link.url"
@@ -103,7 +103,7 @@
               label="In-page Link instead?"
               :status="
                 component.attributes &&
-                  component.attributes.in_page_link_enabled
+                component.attributes.in_page_link_enabled
               "
               path="attributes.in_page_link_enabled"
             ></toggle-switch>
@@ -113,12 +113,12 @@
               label="Open link in new tab?"
               v-if="
                 !component.attributes ||
-                  !component.attributes.in_page_link_enabled
+                !component.attributes.in_page_link_enabled
               "
               :status="
                 component.options &&
-                  component.options.module_link &&
-                  component.options.module_link.new_tab
+                component.options.module_link &&
+                component.options.module_link.new_tab
               "
               path="options.module_link.new_tab"
             ></toggle-switch>
@@ -148,7 +148,7 @@
       </vue-tabs>
       <a
         @click.prevent="saveAll"
-        class="btn py-2 uppercase text-sm block bg-blue-800 text-white rounded-none w-full text-center font-bold"
+        class="py-2 uppercase text-sm block bg-blue-800 text-white rounded-none w-full text-center font-bold"
         href="#"
         >Save</a
       >
