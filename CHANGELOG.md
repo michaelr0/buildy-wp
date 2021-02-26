@@ -2,7 +2,7 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.50 - ## 2.6.57
+## 2.6.50 - ## 2.6.60
 
 - Fix code module not stringifying input
 - Added gallery module to GUI
@@ -14,6 +14,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Add Masonry to grid layout
 - Fix duplicate custom fields
 - Fix galleries / lightbox intiiating even if no galleries are on the page
+- Add button style dropdown that match theme styles.
 
 ## 2.6.40 - ## 2.6.49
 

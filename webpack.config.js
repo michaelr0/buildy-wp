@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -15,7 +14,7 @@ module.exports = {
     filename: '[name]-bundle.js'
   },
   mode: 'development',
-  devtool: 'cheap-eval-source-map',
+  devtool: 'eval-nosources-cheap-module-source-map',
   module: {
     rules: [
       {
@@ -30,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', "postcss-loader"]
+        use: ['css-loader', 'sass-loader', "postcss-loader"]
       },
       {
         test: /\.(jpe?g|png|gif)\$/,

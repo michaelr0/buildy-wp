@@ -15,7 +15,7 @@
             v-model="payload.text"
           />
         </div>
-        <div class="flex flex-col mb-2">
+        <div class="flex flex-col mb-4">
           <label
             :for="label + '-button-url-' + index"
             class="pr-4 setting-label flex-shrink-0"
@@ -27,6 +27,42 @@
             @blur="change"
             v-model="payload.url"
           />
+        </div>
+
+        <div class="flex -mx-2 mb-4">
+          <div v-if="!payload.manualStyle" class="px-2 flex-grow">
+            <select
+              class="w-full p-2"
+              :id="label + '-button-style-' + index"
+              @blur="change"
+              v-model="payload.buttonStyle"
+            >
+              <option
+                v-for="style in buttonStyles"
+                :value="style.val"
+                :key="component.id + label + '-buttonStyle-' + style"
+              >
+                {{ style.key }}
+              </option>
+            </select>
+          </div>
+          <div class="px-2 flex-grow">
+            <div class="flex mr-6 flex-col items-center justify-center">
+              <select
+                class="w-full p-2"
+                :id="label + '-button-size-' + index"
+                @change="change"
+                v-model="payload.size"
+              >
+                <option
+                  v-for="size in sizes"
+                  :key="component.id + label + '-border-' + size"
+                >
+                  {{ size }}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
         <div
           v-if="component.type === 'blurb-module'"
@@ -49,22 +85,14 @@
         <p
           ref="buttonText"
           class="button-text btn mx-auto rounded mb-0"
-          :class="[
-            showBackground
-              ? `bg-${payload.backgroundColor} border-${payload.backgroundColor}`
-              : '',
-            payload.colour ? `text-${payload.colour}` : '',
-            payload.outlined && payload.borderColor
-              ? `border-${payload.borderColor} border-2`
-              : ''
-          ]"
+          :class="[manualStyle, styleClass, `btn--${payload.size}`]"
           contenteditable="true"
         >
           {{ payload.text }}
         </p>
       </div>
     </div>
-    <div class="flex items-center mb-4">
+    <div v-if="payload.manualStyle" class="flex items-center mb-4">
       <div class="flex flex-col items-center justify-center mr-6">
         <label :for="label + '-button-colour-' + index" class="pb-1"
           >Text Color</label
@@ -83,31 +111,7 @@
           </option>
         </select>
       </div>
-      <div
-        v-if="payload.outlined"
-        class="flex mr-6 flex-col items-center justify-center"
-      >
-        <label :for="label + '-button-borderColor-' + index" class="pb-1"
-          >Border Color</label
-        >
-        <select
-          class="w-full p-2"
-          :id="label + '-button-borderColor-' + index"
-          @change="change"
-          v-model="payload.borderColor"
-        >
-          <option
-            v-for="colour in colours"
-            :key="component.id + label + '-border-' + colour"
-          >
-            {{ colour }}
-          </option>
-        </select>
-      </div>
-      <div
-        v-if="showBackground"
-        class="flex mr-6 flex-col items-center justify-center"
-      >
+      <div class="flex mr-6 flex-col items-center justify-center">
         <label :for="label + '-button-bg-' + index" class="pb-1"
           >Background Color</label
         >
@@ -125,38 +129,15 @@
           </option>
         </select>
       </div>
-      <div class="flex mr-6 flex-col items-center justify-center">
-        <label :for="label + '-button-size-' + index" class="pb-1">Size</label>
-        <select
-          class="w-full p-2"
-          :id="label + '-button-size-' + index"
-          @change="change"
-          v-model="payload.size"
-        >
-          <option
-            v-for="size in sizes"
-            :key="component.id + label + '-border-' + size"
-          >
-            {{ size }}
-          </option>
-        </select>
-      </div>
     </div>
+
     <div class="flex">
       <toggle-switch
         class="flex-col items-baseline"
-        label="Outlined"
-        :status="payload.outlined"
-        :path="`${path}.outlined`"
-        @toggle="handleToggle('outlined', $event)"
-      ></toggle-switch>
-      <toggle-switch
-        class="flex-col items-baseline"
-        v-if="payload.outlined"
-        label="Background"
-        :path="`${path}.showBackground`"
-        :status="payload.showBackground"
-        @toggle="handleToggle('showBackground', $event)"
+        label="Manual Styles"
+        :status="payload.manualStyle"
+        :path="`${path}.manualStyle`"
+        @toggle="handleToggle('manualStyle', $event)"
       ></toggle-switch>
       <toggle-switch
         class="flex-col items-baseline"
@@ -175,54 +156,99 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "cta-button",
-  data: function() {
+  data: function () {
     return {
-      sizes: ["Initial", "sm", "lg"],
+      sizes: ["Size", "Initial", "sm", "lg"],
+      buttonStyles: [
+        {
+          key: "Primary",
+          val: "primary",
+        },
+        {
+          key: "Secondary",
+          val: "secondary",
+        },
+        {
+          key: "Outlined",
+          val: "outlined",
+        },
+        {
+          key: "Unstyled",
+          val: "unstyled",
+        },
+        {
+          key: "Style 1",
+          val: "style-1",
+        },
+        {
+          key: "Style 2",
+          val: "style-2",
+        },
+        {
+          key: "Style 3",
+          val: "style-3",
+        },
+      ],
       payload: {
         text: "",
         url: "",
         colour: "",
         borderColor: "",
         backgroundColor: "",
+        buttonStyle: "primary",
         target: false,
-        outlined: false,
         unStyled: false,
         showBackground: false,
-        size: "",
-        class: ""
-      }
+        size: "Size (auto)",
+        class: "",
+        manualStyle: false,
+      },
     };
   },
   computed: {
     ...mapGetters(["colours", "sizeModifiers"]),
-    showBackground() {
-      if (this.payload.showBackground) {
-        return true;
+    manualStyle() {
+      if (!this.payload.manualStyle) {
+        return "";
       }
-      if (!this.payload.outlined && !this.payload.unStyled) {
-        return true;
+
+      let cls = "";
+
+      if (this.payload.backgroundColor) {
+        cls += ` bg-${this.payload.backgroundColor} border-${this.payload.backgroundColor}`;
       }
-      return false;
-    }
+
+      if (this.payload.colour) {
+        cls += ` text-${this.payload.colour}`;
+      }
+
+      return cls;
+    },
+    styleClass() {
+      if (this.payload.manualStyle) {
+        return "";
+      }
+      return `btn--${this.payload.buttonStyle}`;
+    },
   },
   props: {
     label: {
       type: String,
-      default: "button"
+      default: "button",
     },
     enabled: {
       type: Boolean,
-      default: true
+      default: true,
     },
     index: {
       type: Number,
-      default: 0
+      default: 0,
     },
     path: {
       type: String,
-      default: "content.button"
+      default: "content.button",
     },
-    name: String
+    name: String,
   },
   methods: {
     handleToggle() {
@@ -230,17 +256,23 @@ export default {
     },
     change() {
       setDeep(this.component, this.path, this.payload);
-    }
+    },
   },
   mounted() {
     console.log(this.component);
     this.payload = getDeep(this.component, this.path) || this.payload;
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>
 
 <style scoped>
+.btn {
+  max-width: 165px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 select.w-full {
   max-width: none;
 }
