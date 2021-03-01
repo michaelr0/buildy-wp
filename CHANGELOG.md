@@ -2,7 +2,7 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.50 - ## 2.6.64
+## 2.6.50 - ## 2.6.66
 
 - Fix code module not stringifying input
 - Added gallery module to GUI
@@ -17,6 +17,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Add button style dropdown that match theme styles.
 - Remove btn class on buildy buttons (gui) to avoid conflicts in styles
 - Fix up CSS grid system defaults in buildy.
+- Adjust GUI button preview
 
 ## 2.6.40 - ## 2.6.49
 
