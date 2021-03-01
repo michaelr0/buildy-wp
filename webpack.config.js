@@ -29,7 +29,12 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: ['css-loader', 'sass-loader', "postcss-loader"]
+        use: [{
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            publicPath: ''
+          }
+        }, 'css-loader', 'sass-loader', "postcss-loader"]
       },
       {
         test: /\.(jpe?g|png|gif)\$/,
