@@ -49,50 +49,57 @@
       />
     </div>
 
-    <div class="flex -mx-2">
+    <div
+      v-if="path === 'content.image' || imageType === 'img'"
+      class="flex -mx-2"
+    >
       <select-box
-        v-if="path === 'content.image' || imageType === 'img'"
         class="px-2 flex-1"
         label="Object Fit"
         :path="`${path}.objectFit`"
         options="auto, contain, cover, 100%"
       />
       <select-box
-        v-if="path === 'content.image' || imageType === 'img'"
         class="px-2 flex-1"
         label="Object Position"
         :path="`${path}.objectPosition`"
         options="top, bottom, left, right"
       />
       <select-box
-        v-if="path === 'content.image'"
         class="px-2 flex-1"
         label="Image / Title Position"
         :path="`${path}.imageTitlePosition`"
         options="Image Above, Image Below"
       />
-
       <select-box
-        v-if="path === 'inline.backgroundImage' || imageType === 'bg'"
-        class="px-2 flex-1"
-        label="Background Size"
-        :path="`${path}.backgroundSize`"
-        options="auto, contain, cover, 100%"
-      />
-      <select-box
-        v-if="path === 'inline.backgroundImage' || imageType === 'bg'"
-        class="px-2 flex-1"
-        label="Background Position"
-        :path="`${path}.backgroundPosition`"
-        options="center, center top, center bottom, center left, center right, top right, top left, bottom left, bottom right"
-      />
-      <select-box
-        v-if="path === 'content.image' || imageType === 'img'"
         class="px-2 flex-1"
         label="Image Size"
         :path="`${path}.imageSize`"
         defaultVal="full"
         :options="imageSizes"
+      />
+    </div>
+    <div
+      v-if="path === 'inline.backgroundImage' || imageType === 'bg'"
+      class="flex -mx-2"
+    >
+      <select-box
+        class="px-2 flex-1"
+        label="BG Size"
+        :path="`${path}.backgroundSize`"
+        options="auto, contain, cover, 100%"
+      />
+      <select-box
+        class="px-2 flex-1"
+        label="BG Position"
+        :path="`${path}.backgroundPosition`"
+        options="center, center top, center bottom, center left, center right, top right, top left, bottom left, bottom right"
+      />
+      <select-box
+        class="px-2 flex-1"
+        label="BG Blend Mode"
+        :path="`${path}.BlendMode`"
+        options="normal, multiply, screen, overlay, darken, lighten, color-dodge, saturation, color, luminosity"
       />
     </div>
   </div>

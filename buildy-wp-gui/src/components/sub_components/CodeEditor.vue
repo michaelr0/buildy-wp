@@ -12,27 +12,26 @@
 </template>
 <script>
 import { setDeep, getDeep } from "../../functions/objectHelpers";
-import { tryParseJSON } from "../../functions/helpers";
 // import PrismEditor from "vue-prism-editor";
 
 // @ts-ignore
 export default {
   name: "code-editor",
-  data: function() {
+  data: function () {
     return {
-      value: ""
+      value: "",
     };
   },
   props: {
     path: String,
-    header: String
+    header: String,
   },
   methods: {
     change(e) {
       this.value = e.target.value;
       setDeep(this.component, this.path, this.value);
       this.$emit("change", { data: this.value, path: this.path });
-    }
+    },
   },
   components: {
     // PrismEditor
@@ -44,6 +43,6 @@ export default {
       return (this.value = data);
     }
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>

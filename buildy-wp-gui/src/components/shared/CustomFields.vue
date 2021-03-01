@@ -35,12 +35,12 @@ export default {
       if (this.component.options.moduleStyle) {
         if (this.component.options.moduleStyle.toLowerCase() === "none") {
           return false;
-        } else {
-          return this.component.options.moduleStyle
-            .replace(/\s+/g, "-")
-            .toLowerCase();
         }
+        return this.component.options.moduleStyle
+          .replace(/\s+/g, "-")
+          .toLowerCase();
       }
+      return false;
     },
     customFieldsPath() {
       if (

@@ -35,6 +35,7 @@ if (!empty($inline)) {
   $bgRepeat = $bladeData->inline->backgroundImage->backgroundRepeat ?? null;
   $bgColor = $bladeData->inline->backgroundColor ?? "";
   $bgImageSize = $bladeData->inline->backgroundImage->imageSize ?? "full";
+  $bgBlendMode = $bladeData->inline->backgroundImage->BlendMode ?? null;
   $bgImageURL = $bladeData->inline->backgroundImage->url ?? null;
   $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
 }
@@ -84,6 +85,7 @@ if (!empty($spacing)) {
     @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
     @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif
     @if(!empty($bgSize)) {{ "background-size: $bgSize;" }} @endif
+    @if(!empty($bgBlendMode)) {{ "background-blend-mode: $bgBlendMode;" }} @endif
     @if(!empty($bgPosition)) {{ "background-position: $bgPosition;" }} @endif
     @if(!empty($bgRepeat)) {{ "background-repeat: $bgRepeat;" }} @endif"
     @if(!empty($dataAttString))

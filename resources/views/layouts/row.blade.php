@@ -39,6 +39,7 @@ if (!empty($inline)) {
   $bgImageSize = $bladeData->inline->backgroundImage->imageSize ?? "full";
   $bgImageURL = $bladeData->inline->backgroundImage->url ?? null;
   $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+  $bgBlendMode = $bladeData->inline->backgroundImage->BlendMode ?? null;
 
   // CSS GRID
   $enableCSSGrid = $bladeData->inline->cssGrid->enabled ?? null;
@@ -116,6 +117,7 @@ if (!empty($spacing)) {
     @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
     @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif
     @if(!empty($bgSize)) {{ "background-size: $bgSize;" }} @endif
+    @if(!empty($bgBlendMode)) {{ "background-blend-mode: $bgBlendMode;" }} @endif
     @if(!empty($bgPosition)) {{ "background-position: $bgPosition;" }} @endif
     @if(!empty($bgRepeat)) {{ "background-repeat: $bgRepeat;" }} @endif"
     @if(!empty($dataAttString))
