@@ -2,7 +2,7 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.50 - ## 2.6.67
+## 2.6.50 - ## 2.6.68
 
 - Fix code module not stringifying input
 - Added gallery module to GUI
@@ -19,6 +19,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Fix up CSS grid system defaults in buildy.
 - Adjust GUI button preview
 - Fix issue where image ID is not found on opening media library
+- Add background image blend mode to background settings
 
 ## 2.6.40 - ## 2.6.49
 
