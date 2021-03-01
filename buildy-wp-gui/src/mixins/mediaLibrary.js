@@ -52,14 +52,17 @@ export default {
 
         this.customMediaLibrary.on("open", () => {
           let selection = this.customMediaLibrary.state().get("selection");
-          let images = this.component.content.gallery?.images || [this.component.content.image];
+          let images = this.component.content.gallery?.images || [this.component.content.image] || null;
           if (images) {
             images.forEach((image) => {
-              let id = image.id || image.imageID
-              let attachment = window.wp.media.attachment(id);
-              attachment.fetch();
-              console.log(attachment);
-              selection.add(attachment ? [attachment] : []);
+              if (image && typeof image === 'object') {
+                let id = image.id || image.imageID
+                let attachment = id && window.wp.media.attachment(id);
+                if (attachment) {
+                  attachment.fetch();
+                  selection.add(attachment ? [attachment] : []);
+                }
+              }
             });
           }
         });
