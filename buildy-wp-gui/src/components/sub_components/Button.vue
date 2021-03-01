@@ -81,7 +81,7 @@
           />
         </div>
       </div>
-      <div v-if="payload.text" class="preview max-w-xs pl-10">
+      <div v-if="payload.text" class="preview py-4 max-w-xs pl-10">
         <p
           ref="buttonText"
           class="button-text btn mx-auto rounded mb-0"
@@ -267,11 +267,13 @@ export default {
 </script>
 
 <style scoped>
+.preview {
+  overflow: hidden;
+}
 .btn {
   max-width: 165px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
 }
 select.w-full {
   max-width: none;
