@@ -104,7 +104,7 @@
         }
       }
       @for $i from 0 through 6 {
-        .grid-lg-#{$i} {
+        .grid-#{$name}-#{$i} {
           @include grid-cols(#{$i});
         }
       }
