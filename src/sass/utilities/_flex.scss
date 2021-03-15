@@ -10,23 +10,23 @@ $utilities: map-merge(
       property: display,
       class: flex,
       values: (
-        null: flex
-      )
+        null: flex,
+      ),
     ),
     "inline-flex": (
       responsive: true,
       print: false,
       property: display,
       values: (
-        null: inline-flex
-      )
+        null: inline-flex,
+      ),
     ),
     "flex-1": (
       responsive: true,
       property: flex,
       values: (
-        fill: 1 1 auto
-      )
+        fill: 1 1 auto,
+      ),
     ),
     "flex-direction": (
       responsive: true,
@@ -36,8 +36,8 @@ $utilities: map-merge(
         row: row,
         col: column,
         row-reverse: row-reverse,
-        column-reverse: column-reverse
-      )
+        column-reverse: column-reverse,
+      ),
     ),
     "flex-grow": (
       responsive: true,
@@ -45,8 +45,8 @@ $utilities: map-merge(
       class: flex,
       values: (
         grow-0: 0,
-        grow-1: 1
-      )
+        grow-1: 1,
+      ),
     ),
     "flex-shrink": (
       responsive: true,
@@ -54,14 +54,14 @@ $utilities: map-merge(
       class: flex,
       values: (
         shrink-0: 0,
-        shrink-1: 1
-      )
+        shrink-1: 1,
+      ),
     ),
     "flex-wrap": (
       responsive: true,
       property: flex-wrap,
       class: flex,
-      values: wrap nowrap wrap-reverse
+      values: wrap nowrap wrap-reverse,
     ),
     "justify-content": (
       responsive: true,
@@ -73,8 +73,8 @@ $utilities: map-merge(
         center: center,
         between: space-between,
         around: space-around,
-        evenly: space-evenly
-      )
+        evenly: space-evenly,
+      ),
     ),
     "align-items": (
       responsive: true,
@@ -85,8 +85,8 @@ $utilities: map-merge(
         end: flex-end,
         center: center,
         baseline: baseline,
-        stretch: stretch
-      )
+        stretch: stretch,
+      ),
     ),
     "align-content": (
       responsive: true,
@@ -98,8 +98,8 @@ $utilities: map-merge(
         center: center,
         between: space-between,
         around: space-around,
-        stretch: stretch
-      )
+        stretch: stretch,
+      ),
     ),
     "align-self": (
       responsive: true,
@@ -111,8 +111,8 @@ $utilities: map-merge(
         end: flex-end,
         center: center,
         baseline: baseline,
-        stretch: stretch
-      )
+        stretch: stretch,
+      ),
     ),
     "order": (
       responsive: true,
@@ -125,9 +125,9 @@ $utilities: map-merge(
         3: 3,
         4: 4,
         5: 5,
-        last: 6
-      )
-    )
+        last: 6,
+      ),
+    ),
   ),
   $utilities
 );

@@ -88,10 +88,6 @@ if (!empty($enableCSSGrid) && $enableCSSGrid) {
     $moduleClasses .= " $colClass";
 }
 
-if (!empty($cssGridGap)) {
-    $moduleClasses .= " col-gap-$cssGridGap";
-}
-
 // Temporary large/small version of text align, I'll loop this eventually
 if (!empty($textAlignxs)) {
     !empty($moduleClasses) ? $moduleClasses .= " text-$textAlignxs" : $moduleClasses = "text-$textAlignxs";

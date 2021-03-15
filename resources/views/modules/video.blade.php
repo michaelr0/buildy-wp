@@ -25,9 +25,10 @@
 @section('content')
   @if(!empty($youtube_video_ID))
     <iframe
+      class="youtube-iframe"
+      data-src="https://www.youtube.com/embed/{{ $youtube_video_ID }}"
       width="{{ $youtube_width }}"
       height="{{ $youtube_height }}"
-      src="https://www.youtube.com/embed/{{ $youtube_video_ID }}"
       frameborder="0"
       allow="{{ $youtube_allowParams }}"
       {{-- @if($youtube_allowFullscreen) allowfullscreen @endif --}}

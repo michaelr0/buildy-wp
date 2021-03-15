@@ -70,7 +70,7 @@ module.exports = {
     }),
     new BrowserSyncPlugin({
       files: '**/*.php',
-      proxy: 'http://webpack-starter.local',
+      proxy: 'http://buildy-fresh.local',
     })
   ],
   resolve: {
