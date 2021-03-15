@@ -2,6 +2,13 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
+## 2.6.70
+
+- Replace stickybody with stickyheader (it's all it was used for anyway)
+- Add lazy load to youtube iframes
+- Add sitewide message bar in site options
+- Various cleanups
+
 ## 2.6.50 - ## 2.6.68
 
 - Fix code module not stringifying input

@@ -8,15 +8,16 @@
     $color = $bladeData->content->button->colour ?? null;
     $bgColor = $bladeData->content->button->backgroundColor ?? null;
     $target = $bladeData->content->button->target ?? null;
-    $size = ($bladeData->content->button->size && $bladeData->content->button->size !== 'Initial') ? $bladeData->content->button->size ?? false : false;
-    $manualStyle = $bladeData->content->button->manualStyle ?? false;
-    $buttonStyle = $bladeData->content->button->buttonStyle ?? false;
+    $size = ($bladeData->content->button->size && $bladeData->content->button->size !== 'Initial') ? $bladeData->content->button->size ?? null : null;
+    $manualStyle = $bladeData->content->button->manualStyle ?? null;
+    $buttonStyle = $bladeData->content->button->buttonStyle ?? null;
+    $manualStylesSet = $manualStyle || isset($bgColor) || isset($buttonStyle);
 @endphp
 
 @section('content')
     <a
     class="btn
-    @if($manualStyle)
+    @if($manualStylesSet)
       @if(isset($bgColor))
           bg-{{ $bgColor }}
       @endif

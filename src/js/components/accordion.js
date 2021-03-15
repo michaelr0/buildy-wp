@@ -53,15 +53,16 @@ class Accordion {
       const toggle = this.toggles[i];
       const content = this.contents[i];
 
-      // Set transition-duration to match JS setting
-      item.style.transitionDuration = this.settings.speed + "ms";
+      const toggle_height = this.getTargetHeight(toggle);
+      const content_height = this.getTargetHeight(content);
 
       // Set initial height to transition from
       if (!item.hasAttribute("open")) {
-        item.style.height = toggle.clientHeight + "px";
-      } else {
-        item.style.height = toggle.clientHeight + content.clientHeight + "px";
+        item.style.height = toggle_height + "px";
       }
+
+      // Set transition-duration to match JS setting
+      item.style.transitionDuration = this.settings.speed + "ms";
     }
   }
 
@@ -81,20 +82,15 @@ class Accordion {
     item.classList.remove("is-closing");
 
     // Get height of toggle
-    const toggle_height = toggle.clientHeight;
-
-    // Momentarily show the contents just to get the height
-    item.setAttribute("open", true);
-    toggle.setAttribute("aria-expanded", true);
-
-    const content_height = content.clientHeight;
-    item.removeAttribute("open");
+    const toggle_height = this.getTargetHeight(toggle);
+    const content_height = this.getTargetHeight(content);
 
     // Set the correct height and let CSS transition it
     item.style.height = toggle_height + content_height + "px";
 
     // Finally set the open attr
     item.setAttribute("open", true);
+    toggle.setAttribute("aria-expanded", true);
   }
 
   close(i) {
@@ -111,6 +107,23 @@ class Accordion {
     item.style.height = toggle_height + "px";
 
     item.removeAttribute("open");
+  }
+  /**
+     * Get Elemet Height
+     * @param targetEl - target Element
+     * @return Height(px)
+     */
+  getTargetHeight(targetEl) {
+    if (!targetEl) return;
+    const cloneEl = targetEl.cloneNode(true);
+    const parentEl = targetEl.parentNode;
+    if (!parentEl) return;
+    cloneEl.style.maxHeight = "none";
+    cloneEl.style.opacity = "0";
+    parentEl.appendChild(cloneEl);
+    const clientHeight = cloneEl.clientHeight;
+    parentEl.removeChild(cloneEl);
+    return clientHeight;
   }
 }
 

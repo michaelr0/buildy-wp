@@ -1,5 +1,6 @@
 import accordions from './components/accordion'
 import { initSliders } from './components/slider'
+import youtubeVideos from './components/youtube'
 import baguetteBox from 'baguettebox.js';
 import Macy from 'macy';
 
@@ -34,6 +35,11 @@ import Macy from 'macy';
   }
 })()
 
+// Enable Accordions
 accordions();
 
+// Enable Siema Sliders
 initSliders();
+
+// Enable YoutubeVideos
+youtubeVideos();

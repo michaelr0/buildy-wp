@@ -197,7 +197,6 @@ trait WordpressInit {
 
         if (/*$this->isPageBuilderEnabled() && */!get_field('disable_frontend_enqueue', 'option')) {
             // Temporary IE 11 polyfills --- These don't affect file size for non-ie browsers.
-            wp_enqueue_script('ie-pollyfil', 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CIntersectionObserverEntry%2CCustomEvent', null, null, false);
             wp_enqueue_script( 'buildy-js', "{$url}/public/frontend-bundle.js", null, '1.0.0', true );
             wp_enqueue_style( 'buildy-css', "{$url}/public/frontend.css", null, '1.0.0', '');
         }
@@ -236,9 +235,6 @@ trait WordpressInit {
     public function wordpress_init()
     {
 		add_filter( 'wp_default_editor', [$this, 'wordpress_wp_default_editor']);
-
-        // Enables the rich text/media stuff to work
-        wp_enqueue_editor();
 
         //The Following registers an api route with multiple parameters.
         add_action( 'rest_api_init', function() {

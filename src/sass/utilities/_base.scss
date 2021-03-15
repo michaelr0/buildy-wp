@@ -6,20 +6,20 @@ $utilities: map-merge(
   (
     "overflow": (
       property: overflow,
-      values: auto hidden
+      values: auto hidden,
     ),
     "position": (
       property: position,
-      values: static relative absolute fixed sticky
+      values: static relative absolute fixed sticky,
     ),
     // Text
-      "text-size":
+    "text-size":
       (
         property: font-size,
         class: text,
         values: (
-          sm: 1.6rem clamp(1.4rem, 1.6vw, 1.6rem)
-        )
+          sm: 1.6rem clamp(1.4rem, 1.6vw, 1.6rem),
+        ),
       ),
     "font-weight": (
       property: font-weight,
@@ -30,49 +30,45 @@ $utilities: map-merge(
         normal: $font-weight-normal,
         bold: $font-weight-bold,
         semibold: $font-weight-semibold,
-        bolder: $font-weight-bolder
-      )
+        bolder: $font-weight-bolder,
+      ),
     ),
     "text-transform": (
       property: text-transform,
       class: text,
-      values: lowercase uppercase capitalize
+      values: lowercase uppercase capitalize,
     ),
     "text-align": (
       responsive: true,
       property: text-align,
       class: text,
-      values: left right center
+      values: left right center,
     ),
     "white-space": (
       property: white-space,
       class: text,
       values: (
         wrap: normal,
-        nowrap: nowrap
-      )
+        nowrap: nowrap,
+      ),
     ),
     "text-decoration": (
       property: text-decoration,
-      values: none underline line-through
-    ),
-    "user-select": (
-      property: user-select,
-      values: all auto none
+      values: none underline line-through,
     ),
     "pointer-events": (
       property: pointer-events,
       class: pe,
-      values: none auto
+      values: none auto,
     ),
     "visibility": (
       property: visibility,
       class: null,
       values: (
         visible: visible,
-        invisible: hidden
-      )
-    )
+        invisible: hidden,
+      ),
+    ),
   ),
   $utilities
 );
@@ -80,4 +76,4 @@ $utilities: map-merge(
 @import "spacing";
 @import "sizing";
 @import "flex";
-@import "border";
+// @import "border";

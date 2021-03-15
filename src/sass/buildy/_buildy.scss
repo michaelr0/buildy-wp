@@ -78,16 +78,6 @@
   }
 }
 
-// @each $name, $breakpoint in $grid-breakpoints {
-//   @include media-breakpoint-up($name) {
-//     .row:not([class*="gap-"])
-//       .col-#{$name}-12:not(:empty)
-//       + .bmcb-column:not(:empty) {
-//       margin-top: 4rem;
-//     }
-//   }
-// }
-
 // Anything with col-1 is considered auto. It will attempt to layout
 // a 5-col grid but will also flex to fit whatever.
 .col-xs-1,
@@ -133,7 +123,7 @@
 
 // Default
 .bmcb-heading {
-  margin-bottom: 1.8rem;
+  margin-bottom: 0.8em;
 }
 
 // Remove margin-bottom from the last elements inside a module (prevents p tags etc from breaking the layout spacing)
