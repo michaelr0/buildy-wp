@@ -32,8 +32,7 @@
           <slot />
 
           <!-- Accordion Modules Need Different Paths -->
-          <!-- <custom-fields v-if="component.type !== 'accordion-module'" /> -->
-          <custom-fields />
+          <custom-fields v-if="component.type !== 'accordion-module'" />
         </vue-tab>
         <vue-tab class="design-tab" name="Design">
           <!-- Design Options -->
@@ -149,7 +148,7 @@
       </vue-tabs>
       <a
         @click.prevent="saveAll"
-        class="btn py-2 uppercase text-sm block bg-blue-800 text-white rounded-none w-full text-center font-bold"
+        class="py-2 uppercase text-sm block bg-blue-800 text-white rounded-none w-full text-center font-bold"
         href="#"
         >Save</a
       >

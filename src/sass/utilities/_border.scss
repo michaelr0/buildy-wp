@@ -4,56 +4,52 @@ $utilities: () !default;
 
 $utilities: map-merge(
   (
-    'border': (
+    "border": (
       property: border,
       values: (
         null: $border-width solid $border-color,
-        0: 0
-      )
+        0: 0,
+      ),
     ),
-    'border-top': (
+    "border-top": (
       property: border-top,
       class: bt,
       values: (
         null: $border-width solid $border-color,
-        0: 0
-      )
+        0: 0,
+      ),
     ),
-    'border-right': (
+    "border-right": (
       property: border-right,
       class: br,
       values: (
         null: $border-width solid $border-color,
-        0: 0
-      )
+        0: 0,
+      ),
     ),
-    'border-bottom': (
+    "border-bottom": (
       property: border-bottom,
       class: bb,
       values: (
         null: $border-width solid $border-color,
-        0: 0
-      )
+        0: 0,
+      ),
     ),
-    'border-left': (
+    "border-left": (
       property: border-left,
       class: bl,
       values: (
         null: $border-width solid $border-color,
-        0: 0
-      )
+        0: 0,
+      ),
     ),
-    'border-color': (
+    "border-color": (
       property: border-color,
       class: border,
-      values:
-        map-merge(
-          $theme-colors,
-          (
-            'white': $color__white
-          )
-        )
-    )
+      values: (
+        "white": $color__white,
+      ),
+    ),
   ),
   $utilities
 );

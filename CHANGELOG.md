@@ -2,7 +2,15 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.50 - ## 2.6.57
+## 2.6.70 - ## 2.6.71
+
+- Replace stickybody with stickyheader (it's all it was used for anyway)
+- Add lazy load to youtube iframes
+- Add sitewide message bar in site options
+- Various cleanups
+- Fix infill issue on util API
+
+## 2.6.50 - ## 2.6.68
 
 - Fix code module not stringifying input
 - Added gallery module to GUI
@@ -12,6 +20,14 @@ All notable changes to `buildy-wp` will be documented in this file
 - Fix gallery title, now using title component
 - Fix bug where tiny MCE wouldn't save TEXT tab changes unless switching back to visual first
 - Add Masonry to grid layout
+- Fix duplicate custom fields
+- Fix galleries / lightbox intiiating even if no galleries are on the page
+- Add button style dropdown that match theme styles.
+- Remove btn class on buildy buttons (gui) to avoid conflicts in styles
+- Fix up CSS grid system defaults in buildy.
+- Adjust GUI button preview
+- Fix issue where image ID is not found on opening media library
+- Add background image blend mode to background settings
 
 ## 2.6.40 - ## 2.6.49
 

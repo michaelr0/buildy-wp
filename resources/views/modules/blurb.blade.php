@@ -18,10 +18,8 @@ if ($buttonOneEnabled) {
     $buttonOneText = (string) ($bladeData->content->button->text ?? null);
     $buttonOneColor = $bladeData->content->button->colour ?? null;
     $buttonOneBgColor = $bladeData->content->button->backgroundColor ?? null;
-    $buttonOneBorderColor = $bladeData->content->button->borderColor ?? null;
-    $buttonOneShowBG = $bladeData->content->button->showBackground ?? null;
-    $buttonOneOutlined = $bladeData->content->button->outlined ?? false;
-    $buttonOneUnStyled = $bladeData->content->button->unStyled ?? null;
+    $buttonOneManualStyle = $bladeData->content->button->manualStyle ?? null;
+    $buttonOneStyle = $bladeData->content->button->buttonStyle ?? null;
     $buttonOneTarget = $bladeData->content->button->target ?? null;
     $buttonOneClass = $bladeData->content->button->class ?? "";
     $buttonOneSize = $bladeData->content->button->size ?? false;
@@ -29,25 +27,15 @@ if ($buttonOneEnabled) {
       $buttonOneSize = false;
     }
 
-    if(isset($buttonOneUnStyled) && !$buttonOneUnStyled) :
+    if($buttonOneManualStyle) :
       if(!empty($buttonOneBgColor)) :
-        if(!empty($buttonOneShowBG)) :
           $buttonOneClass .= " bg-{$buttonOneBgColor}";
-        endif;
-        if(isset($buttonOneOutlined) && !$buttonOneOutlined) :
-          $buttonOneClass .= " bg-{$buttonOneBgColor}";
-        else:
-          $buttonOneClass .= " is-outlined";
-        endif;
-        if((isset($buttonOneOutlined) && $buttonOneOutlined) && (isset($buttonOneBorderColor) && $buttonOneBorderColor)) :
-          $buttonOneClass .= " border-{$buttonOneBorderColor}";
-        endif;
       endif;
-    else:
-      $buttonOneClass .= " btn-unstyled";
-    endif;
-    if(!empty($buttonOneColor)) :
-      $buttonOneClass .= " text-{$buttonOneColor}";
+      if(!empty($buttonOneColor)) :
+        $buttonOneClass .= " text-{$buttonOneColor}";
+      endif;
+    elseif(isset($buttonOneStyle)) :
+      $buttonOneClass .= "btn--$buttonOneStyle";
     endif;
     if(!empty($buttonOneSize)) :
       $buttonOneClass .= " btn--{$buttonOneSize}";
@@ -67,33 +55,21 @@ if ($buttonTwoEnabled) {
     $buttonTwoText = (string) ($bladeData->content->buttontwo->text ?? null);
     $buttonTwoColor = $bladeData->content->buttontwo->colour ?? null;
     $buttonTwoBgColor = $bladeData->content->buttontwo->backgroundColor ?? null;
-    $buttonTwoBorderColor = $bladeData->content->buttontwo->borderColor ?? null;
-    $buttonTwoShowBG = $bladeData->content->buttontwo->showBackground ?? null;
-    $buttonTwoOutlined = $bladeData->content->buttontwo->outlined ?? null;
-    $buttonTwoUnStyled = $bladeData->content->buttontwo->unStyled ?? null;
+    $buttonTwoManualStyle = $bladeData->content->buttontwo->manualStyle ?? null;
+    $buttonTwoStyle = $bladeData->content->buttontwo->buttonStyle ?? null;
     $buttonTwoTarget = $bladeData->content->buttontwo->target ?? null;
     $buttonTwoClass = $bladeData->content->buttontwo->class ?? "";
     $buttonTwoSize = $bladeData->content->buttontwo->size && $bladeData->content->buttontwo->size !== 'Initial' ? $bladeData->content->buttontwo->size : false;
 
-    if(isset($buttonTwoUnStyled) && !$buttonTwoUnStyled) :
+    if($buttonTwoManualStyle) :
       if(!empty($buttonTwoBgColor)) :
-        if(!empty($buttonTwoShowBG)) :
           $buttonTwoClass .= " bg-{$buttonTwoBgColor}";
-        endif;
-        if(isset($buttonTwoOutlined) && !$buttonTwoOutlined) :
-          $buttonTwoClass .= " bg-{$buttonTwoBgColor}";
-        else:
-          $buttonTwoClass .= " is-outlined";
-        endif;
-        if((isset($buttonTwoOutlined) && $buttonTwoOutlined) && (isset($buttonTwoBorderColor) && $buttonTwoBorderColor)) :
-          $buttonTwoClass .= " border-{$buttonTwoBorderColor}";
-        endif;
       endif;
-    else:
-      $buttonTwoClass .= " btn-unstyled";
-    endif;
-    if(!empty($buttonTwoColor)) :
-      $buttonTwoClass .= " text-{$buttonTwoColor}";
+      if(!empty($buttonTwoColor)) :
+        $buttonTwoClass .= " text-{$buttonTwoColor}";
+      endif;
+    elseif(isset($buttonTwoStyle)) :
+      $buttonTwoClass .= "btn--$buttonTwoStyle";
     endif;
     if(!empty($buttonTwoSize)) :
       $buttonTwoClass .= " btn--{$buttonTwoSize}";

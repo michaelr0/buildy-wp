@@ -7,35 +7,26 @@
     }
     $color = $bladeData->content->button->colour ?? null;
     $bgColor = $bladeData->content->button->backgroundColor ?? null;
-    $borderColor = $bladeData->content->button->borderColor ?? null;
-    $showBG = $bladeData->content->button->showBackground ?? false;
-    $outlined = $bladeData->content->button->outlined ?? false;
-    $unStyled = $bladeData->content->button->unStyled ?? false;
     $target = $bladeData->content->button->target ?? null;
-    $size = ($bladeData->content->button->size && $bladeData->content->button->size !== 'Initial') ? $bladeData->content->button->size ?? false : false;
+    $size = ($bladeData->content->button->size && $bladeData->content->button->size !== 'Initial') ? $bladeData->content->button->size ?? null : null;
+    $manualStyle = $bladeData->content->button->manualStyle ?? null;
+    $buttonStyle = $bladeData->content->button->buttonStyle ?? null;
+    $manualStylesSet = $manualStyle || isset($bgColor) || isset($buttonStyle);
 @endphp
 
 @section('content')
     <a
     class="btn
-    @if(!$unStyled)
-        @if($showBG && isset($bgColor))
-            bg-{{ $bgColor }}
-        @endif
-        @if(!$outlined && isset($bgColor))
-            bg-{{ $bgColor }}
-        @else
-            is-outlined
-        @endif
-        @if($outlined && isset($borderColor))
-            border-{{ $borderColor }}
-        @endif
-    @else
-        btn-unstyled
-    @endif
-    @isset($color)
+    @if($manualStylesSet)
+      @if(isset($bgColor))
+          bg-{{ $bgColor }}
+      @endif
+      @isset($color)
         text-{{ $color }}
-    @endisset
+      @endisset
+    @elseif(isset($buttonStyle)) 
+      btn--{{ $buttonStyle }}      
+    @endif    
     @isset($size)
         btn--{{ $size }}
     @endisset

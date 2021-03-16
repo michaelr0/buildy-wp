@@ -14,7 +14,7 @@ export default {
   components: {
     // VueEditor
   },
-  data: function() {
+  data: function () {
     return {
       cursorLocation: Number,
       editClassOpen: false,
@@ -157,7 +157,7 @@ export default {
     },
   },
   watch: {
-    value: function() {
+    value: function () {
       setDeep(this.component, this.path, this.value);
     },
   },

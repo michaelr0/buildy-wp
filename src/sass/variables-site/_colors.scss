@@ -18,29 +18,5 @@ $color__quinary: var(--color-quinary);
 $color__white: var(--color-white);
 $color__black: var(--color-black);
 
-// scss-docs-start theme-colors-map
-$theme-colors: (
-  'primary': $color__primary,
-  'secondary': $color__secondary,
-  'tertiary': $color__tertiary,
-  'quaternary': $color__quaternary,
-  'quinary': $color__quinary,
-  'white': $color__white,
-  'black': $color__black
-) !default;
-// scss-docs-end theme-colors-map
-
-$color__background-body: $color__white;
-$color__background-screen: $color__quinary;
-$color__background-hr: $color__quinary;
-$color__background-pre: inherit;
-$color__background-ins: inherit;
-
-$color__text-screen: $color__quaternary;
-$color__text-input: $color__black;
-$color__text-input-focus: $color__tertiary;
-$color__link: var(--color-link);
-$color__link-visited: inherit;
-$color__link-hover: $color__tertiary-hover;
 $color__text-main: var(--color-text-main);
 $color__text-headings: var(--color-text-headings);

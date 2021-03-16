@@ -39,6 +39,7 @@ if (!empty($inline)) {
   $bgImageSize = $bladeData->inline->backgroundImage->imageSize ?? "full";
   $bgImageURL = $bladeData->inline->backgroundImage->url ?? null;
   $bgImageID = $bladeData->inline->backgroundImage->imageID ?? null;
+  $bgBlendMode = $bladeData->inline->backgroundImage->BlendMode ?? null;
 
   // CSS GRID
   $enableCSSGrid = $bladeData->inline->cssGrid->enabled ?? null;
@@ -87,10 +88,6 @@ if (!empty($enableCSSGrid) && $enableCSSGrid) {
     $moduleClasses .= " $colClass";
 }
 
-if (!empty($cssGridGap)) {
-    $moduleClasses .= " col-gap-$cssGridGap";
-}
-
 // Temporary large/small version of text align, I'll loop this eventually
 if (!empty($textAlignxs)) {
     !empty($moduleClasses) ? $moduleClasses .= " text-$textAlignxs" : $moduleClasses = "text-$textAlignxs";
@@ -112,9 +109,11 @@ if (!empty($spacing)) {
     @isset($internalLinkText) data-internal_link_text="{{ $internalLinkText }}" @endisset
     class="bmcb-row row {{ isset($moduleClasses) ? $moduleClasses : '' }}"
     style="
+    @if(!empty($cssGridGap)) {{ "--col-gap: $cssGridGap;" }} @endif
     @if(!empty($bgColor)) {{ "background-color: $bgColor;" }} @endif
     @if(!empty($bgImage)) {{ "background-image: url($bgImage);" }} @endif
     @if(!empty($bgSize)) {{ "background-size: $bgSize;" }} @endif
+    @if(!empty($bgBlendMode)) {{ "background-blend-mode: $bgBlendMode;" }} @endif
     @if(!empty($bgPosition)) {{ "background-position: $bgPosition;" }} @endif
     @if(!empty($bgRepeat)) {{ "background-repeat: $bgRepeat;" }} @endif"
     @if(!empty($dataAttString))

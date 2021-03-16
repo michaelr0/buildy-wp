@@ -263,9 +263,13 @@ export default {
 </script>
 <style scoped lang="scss">
 // Gallery module styles
+.gallery-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
 .gallery-module {
   padding: 1rem;
-  margin-bottom: 1rem;
   background: #e2e8f0;
   > div {
     display: grid;
