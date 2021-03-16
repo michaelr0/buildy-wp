@@ -3,7 +3,6 @@
   $module_link_url = $bladeData->options->module_link->url ?? null;
   $images = $bladeData->content->gallery->images ?? null;
   $gap = isset($bladeData->content->gallery->columnGap) ? "gap: {$bladeData->content->gallery->columnGap};" : "gap: 2rem";
-  $cols = !empty($bladeData->content->gallery->columnCount) ? "grid-{$bladeData->content->gallery->columnCount}" : 'grid-3';
   $imageSize = $bladeData->content->gallery->imageSize ?? 'full';
   
   $is_slider = !empty($bladeData->content->gallery->isSlider) ? "bmcb-slider" : false;
@@ -15,14 +14,31 @@
 
   $gallery_items_class = "";  
 
-  if ($is_masonry) {
+  if (!$is_slider && $is_masonry) {
     $gallery_items_class = "is-masonry";
   }
 
-  elseif (!$is_slider) {
+  $cols = 0;
+  $grid_cols = trim($bladeData->content->gallery->columnCount) ?? 0;
+
+
+  if (!empty($grid_cols)) : 
+    if (strpos($grid_cols, ' ') !== false) : 
+      $col_array = preg_split('/[\s]+/', $grid_cols);
+      foreach($col_array as $col) : 
+        $cols .= " grid-{$col}";
+      endforeach;
+    else:
+      $cols = "grid-{$grid_cols}";
+    endif;
+  endif;
+  
+  $cols = trim($cols);
+  
+  if (!$is_slider && !empty($cols)) {
     $gallery_items_class = "grid";
   }
- 
+  
 @endphp
 
 @extends('modules.common', ["customClasses" => "{$is_slider}"])

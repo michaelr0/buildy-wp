@@ -78,6 +78,11 @@
         }
       }
     }
+    @for $i from 0 through 6 {
+      .grid-#{$i} {
+        @include grid-cols(#{$i});
+      }
+    }
   } @else {
     @include media-breakpoint-up($name) {
       .col-#{$name} {
