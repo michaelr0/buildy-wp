@@ -7,10 +7,9 @@
   $imageSize = $bladeData->content->gallery->imageSize ?? 'full';
   
   $is_slider = !empty($bladeData->content->gallery->isSlider) ? "bmcb-slider" : false;
-  $options = $bladeData->options->slider ?? null;
+  $slider_options = $bladeData->options->slider ?? null;
   
   $is_masonry = $bladeData->content->gallery->isMasonry ?: false;
-
   $masonry_marginX = $bladeData->options->masonry->marginX ?: false;
   $masonry_marginY = $bladeData->options->masonry->marginY ?: false;
 
@@ -44,18 +43,17 @@
         @endif
 
         @if($is_masonry) 
-        @if($masonry_marginX) data-marginx="{{ $masonry_marginX }}" @endif
-        @if($masonry_marginY) data-marginy="{{ $masonry_marginY }}" @endif
+          @if($masonry_marginX) data-marginx="{{ $masonry_marginX }}" @endif
+          @if($masonry_marginY) data-marginy="{{ $masonry_marginY }}" @endif
         @endif
 
-        @if (isset($options) && $is_slider)
-          @foreach($options as $key=>$val)
+        @if (isset($slider_options) && $is_slider)
+          @foreach($slider_options as $key=>$val)
             @if($val !== '')
               data-{{ $key }}="{{ $val ? $val : 'false' }}"
             @endif
           @endforeach
         @endif
-
       >
         @foreach($images as $image)
           @if(!$is_slider)
