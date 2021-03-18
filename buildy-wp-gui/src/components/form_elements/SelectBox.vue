@@ -55,12 +55,12 @@ export default {
 
       if (this.api_options) {
         if (typeof this.api_options === "object") {
-          return this.api_options.map(el => el.style_name.trim());
+          return this.api_options.map((el) => el.style_name.trim());
         } else {
           if (this.api_options.includes(",")) {
-            return this.api_options.split(",").map(el => el.trim());
+            return this.api_options.split(",").map((el) => el.trim());
           }
-          return this.api_options.split("\n").map(el => el.trim());
+          return this.api_options.split("\n").map((el) => el.trim());
         }
       }
 
@@ -68,7 +68,7 @@ export default {
         ? this.options
             .replace(/[[\]']+/g, "")
             .split(",")
-            .map(el => el.trim())
+            .map((el) => el.trim())
         : null;
     },
     valueClean() {
@@ -97,6 +97,9 @@ export default {
   mounted() {
     if (this.selected) {
       this.value = this.selected.trim();
+      if (getDeep(this.component, this.path) !== this.selected) {
+        setDeep(this.component, this.path, this.value);
+      }
     }
 
     if (!this.selected && this.path) {
@@ -106,7 +109,10 @@ export default {
     if (!this.options && this.endpoint) {
       this.fetchOptions().then(() => {
         if (!this.value) {
-          this.value = getDeep(this.component, this.path) || this.defaultVal;
+          this.value =
+            getDeep(this.component, this.path) ||
+            this.selected ||
+            this.defaultVal;
         }
       });
     }

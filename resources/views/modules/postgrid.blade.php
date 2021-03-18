@@ -1,12 +1,15 @@
 @extends('modules.common')
 
 @php
-$type = $bladeData->content->post->postType;
-$perpage = $bladeData->content->post->perPage;
-$cols = $bladeData->content->post->columns;
-$offset = $bladeData->content->post->offset;
-$cat_in = $bladeData->content->post->includeCats;
+$type = $bladeData->content->post->postType ?? null;
+$perpage = $bladeData->content->post->perPage ?? 6;
+$cols = $bladeData->content->post->columns ?? 3;
+$offset = $bladeData->content->post->offset ?? null;
+$cat_in = $bladeData->content->post->includeCats ?? null;
 $paged = $bladeData->content->post->enablePagination;
+$paginationType = $bladeData->content->post->paginationType ?? 'default';
+$paginationTrigger = $bladeData->content->post->paginationTrigger ?? 'click';
+$contentTemplate = $bladeData->content->post->contentTemplate ?? '';
 
 // Build up the attribute string
 $atts = "";
@@ -15,7 +18,11 @@ $atts = "";
     if(!empty($cols)) : $atts .= "cols='$cols' "; endif;
     if(!empty($type)) : $atts .= "post_type='$type' "; endif;
     if(!empty($cat_in)) : $atts .= "cats='$cat_in' "; endif;
-    if(!empty($paged)) : $atts .= "paged='$paged' "; endif;
+    if(!empty($cat_in)) : $atts .= "cats='$cat_in' "; endif;
+    if(!empty($paged)) : $atts .= "pagination_enabled='$paged' "; endif;
+    if(!empty($paginationType)) : $atts .= "pagination_type='$paginationType' "; endif;
+    if(!empty($paginationTrigger)) : $atts .= "pagination_trigger='$paginationTrigger' "; endif;
+    if(!empty($contentTemplate)) : $atts .= "content_template='$contentTemplate' "; endif;
 @endphp
 
 @section('content')

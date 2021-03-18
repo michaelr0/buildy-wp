@@ -11,6 +11,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Fix infill issue on util API
 - Fix XS classes for gallery grid
 - Add ability to do multiple breakpoint gallery grids e.g "sm-2 md-4"
+- Update postgrid module to allow pagination options
 
 ## 2.6.50 - ## 2.6.68
 
