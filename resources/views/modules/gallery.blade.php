@@ -18,21 +18,27 @@
     $gallery_items_class = "is-masonry";
   }
 
-  $cols = 0;
-  $grid_cols = trim($bladeData->content->gallery->columnCount) ?? 0;
+  // Default = 3
+  $cols = 3;
+  $grid_cols = trim($bladeData->content->gallery->columnCount) ?? $cols;
 
 
   if (!empty($grid_cols)) : 
+    // Check if string contains a space
     if (strpos($grid_cols, ' ') !== false) : 
+      // Split at space
       $col_array = preg_split('/[\s]+/', $grid_cols);
-      foreach($col_array as $col) : 
-        $cols .= " grid-{$col}";
-      endforeach;
+      // Array map all the values with grid- prefix
+      $cols = join(array_map(function($col) {
+        return " grid-{$col}";
+      }, $col_array));
     else:
+      // If there was no space, it should be a single number
       $cols = "grid-{$grid_cols}";
     endif;
   endif;
   
+  // Trim any extra space at start/end
   $cols = trim($cols);
   
   if (!$is_slider && !empty($cols)) {
