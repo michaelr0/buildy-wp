@@ -97,9 +97,6 @@ export default {
   mounted() {
     if (this.selected) {
       this.value = this.selected.trim();
-      if (getDeep(this.component, this.path) !== this.selected) {
-        setDeep(this.component, this.path, this.value);
-      }
     }
 
     if (!this.selected && this.path) {
@@ -109,10 +106,7 @@ export default {
     if (!this.options && this.endpoint) {
       this.fetchOptions().then(() => {
         if (!this.value) {
-          this.value =
-            getDeep(this.component, this.path) ||
-            this.selected ||
-            this.defaultVal;
+          this.value = getDeep(this.component, this.path) || this.defaultVal;
         }
       });
     }
