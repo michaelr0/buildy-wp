@@ -52,7 +52,7 @@
       class="px-2 flex-1"
       label="Pagination Type"
       path="content.post.paginationType"
-      options="defaualt, loadmore"
+      options="default, loadmore"
     />
     <div v-if="pagination && isLoadmore">
       <attribute-editor
