@@ -2,7 +2,7 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.70 - ## 2.6.73
+## 2.6.70 - ## 2.6.80
 
 - Replace stickybody with stickyheader (it's all it was used for anyway)
 - Add lazy load to youtube iframes
@@ -12,6 +12,8 @@ All notable changes to `buildy-wp` will be documented in this file
 - Fix XS classes for gallery grid
 - Add ability to do multiple breakpoint gallery grids e.g "sm-2 md-4"
 - Update postgrid module to allow pagination options
+- Typos
+- Path fix for pagination trigger
 
 ## 2.6.50 - ## 2.6.68
 
