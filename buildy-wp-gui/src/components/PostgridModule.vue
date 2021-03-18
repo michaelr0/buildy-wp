@@ -63,7 +63,7 @@
       <select-box
         class="px-2 flex-1"
         label="Pagination Trigger"
-        path="content?.post.paginationTrigger"
+        path="content.post.paginationTrigger"
         options="click, scroll"
       />
     </div>
