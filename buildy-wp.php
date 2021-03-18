@@ -5,7 +5,7 @@
  * Plugin Name: Buildy for WP
  * Plugin URI:
  * Description: Before you judge a man, walk a mile in his shoes. After that who cares?... He’s a mile away and you’ve got his shoes!
- * Version:     2.6.76
+ * Version:     2.6.77
  * Author:
  * Author URI:
  * Text Domain: buildy-wp
