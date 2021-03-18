@@ -64,7 +64,6 @@
         class="px-2 flex-1"
         label="Pagination Trigger"
         path="content?.post.paginationTrigger"
-        selected="click"
         options="click, scroll"
       />
     </div>
