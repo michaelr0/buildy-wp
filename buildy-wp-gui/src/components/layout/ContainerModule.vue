@@ -28,7 +28,9 @@
         ><plus-circle-icon class="mr-2"></plus-circle-icon> Add empty section</a
       >
       <a
-        @click.prevent="$modal.show('global-selection-selector')"
+        @click.prevent="
+          [$modal.show('global-selection-selector'), fetchGlobals()]
+        "
         class="flex pr-6 items-center justify-center"
         href="#"
         ><plus-circle-icon class="mr-2"></plus-circle-icon> Add global
@@ -56,9 +58,9 @@
         ></x-icon>
         <div class="w-full bg-gray-400 px-12 py-6">
           <h2 class="mb-6 text-2xl">Choose Module:</h2>
-          <div v-if="globalModules" class="flex flex-wrap">
+          <div v-if="globals" class="flex flex-wrap">
             <div
-              v-for="globalModule in globalModules"
+              v-for="globalModule in globals"
               :key="globalModule.id"
               class="mb-1 md:w-1/2"
             >
@@ -69,8 +71,8 @@
               >
                 <span
                   class="px-2 py-1 flex-b inline-block mr-2 bg-gray-200 rounded border border-grey flex-no-shrink flex items-center justify-center"
-                  >{{ globalModule.title.rendered }}</span
-                >
+                  >{{ globalModule.title.rendered }}
+                </span>
               </label>
             </div>
           </div>
@@ -91,7 +93,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { EventBus } from "../../EventBus";
 import { Module } from "../../classes/ModuleClass";
 import { PlusCircleIcon, XIcon, ClipboardIcon } from "vue-feather-icons";
@@ -100,30 +102,30 @@ import { recursifyID } from "../../functions/idHelpers";
 import { tryParseJSON } from "../../functions/helpers";
 export default {
   name: "container-module",
-  data: function() {
+  data: function () {
     return {
-      globalModules: [],
       dragArray: this.pageBuilder,
-      showTextarea: false
+      showTextarea: false,
     };
   },
   computed: {
-    ...mapGetters(["dragDisabled"]),
+    ...mapGetters(["dragDisabled", "globals"]),
     dragOptions() {
       return {
         group: "sections",
         ghostClass: "ghost",
-        disabled: this.dragDisabled
+        disabled: this.dragDisabled,
       };
-    }
+    },
   },
   components: {
     PlusCircleIcon,
     XIcon,
     ClipboardIcon,
-    draggable
+    draggable,
   },
   methods: {
+    ...mapActions(["fetchGlobals"]),
     addSection() {
       let newObj = new Module();
       let newComponent = newObj.newSection();
@@ -149,24 +151,15 @@ export default {
         this.pageBuilder.push(content);
       }
     },
-    async getGlobals() {
-      if (this.globalAPI) {
-        let res = await fetch(this.globalAPI);
-        let globals = await res.json();
-        this.globalModules = globals;
-      }
-    }
   },
   mounted() {
-    this.getGlobals();
-    EventBus.$on("dragToggle", val => {
+    EventBus.$on("dragToggle", (val) => {
       this.dragOptions.disabled = val;
     });
   },
   props: {
     pageBuilder: Array,
-    globalAPI: String
-  }
+  },
 };
 </script>
 <style scoped>
