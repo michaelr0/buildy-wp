@@ -95,16 +95,13 @@
 <script>
 export default {
   name: "slider-module",
-  data: function() {
+  data: function () {
     return {
-      icon: "SlidersIcon"
+      icon: "SlidersIcon",
     };
   },
-  mounted() {
-    console.log(typeof this.component.options.auto_play !== "undefined");
-  },
   props: {
-    component: Object
-  }
+    component: Object,
+  },
 };
 </script>

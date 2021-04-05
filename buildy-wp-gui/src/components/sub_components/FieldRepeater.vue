@@ -91,8 +91,6 @@ export default {
         );
         let data = await res.json();
 
-        console.log({ data });
-
         if (data.body && typeof data.body === "object") {
           let res = data.body.find((el) => el.style_name === this.moduleStyle);
           if (res) {
@@ -118,14 +116,8 @@ export default {
       this.handleChange();
     });
 
-    console.log("path", this.path);
-
     // Get any current results
     this.value = getDeep(this.component, this.path) || this.value;
-
-    console.log("Value", this.value);
-
-    console.log("Style", this.moduleStyle);
 
     if (this.endpoint && !this.value.length) {
       this.fetchOptions();

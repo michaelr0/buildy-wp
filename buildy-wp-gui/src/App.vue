@@ -8,7 +8,6 @@
     />
     <container-module
       :pageBuilder="pageBuilder"
-      :globalAPI="configAPI"
       adminClass="w-full"
     ></container-module>
   </div>
@@ -29,13 +28,6 @@ export default {
         output = JSON.stringify(this.pageBuilder);
       }
       return output;
-    },
-    configAPI() {
-      if (this.config.length) {
-        const configObj = JSON.parse(this.config);
-        return configObj.global_api;
-      }
-      return "";
     },
   },
   props: {

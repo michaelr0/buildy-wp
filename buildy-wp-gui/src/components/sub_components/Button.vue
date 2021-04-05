@@ -259,7 +259,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.component);
     this.payload = getDeep(this.component, this.path) || this.payload;
   },
   inject: ["component"],

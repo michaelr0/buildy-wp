@@ -43,6 +43,14 @@
         label="Exclude Categories"
       ></attribute-editor>
     </div>
+    <div class="flex -mx-2 items-center">
+      <attribute-editor
+        class="px-2 flex-grow"
+        path="content.post.featuredKey"
+        placeholder="The meta_key e.g featured_service"
+        label="Featured Key (if only wanting to show featured posts)"
+      ></attribute-editor>
+    </div>
     <toggle-switch
       path="content.post.paginationEnabled"
       label="Enable Pagination"

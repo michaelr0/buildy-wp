@@ -8,6 +8,7 @@ export default new Vuex.Store({
     isWP: false,
     config: {},
     colours: [],
+    globals: [],
     dragDisabled: false,
     validComponents: [],
     imageSizes: []
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     DRAG_TOGGLE(state, payload) {
       state.dragDisabled = payload
+    },
+    SET_GLOBALS(state, globals) {
+      state.globals = globals
     },
     SET_COLOURS(state, colours) {
       state.colours = colours;
@@ -51,8 +55,19 @@ export default new Vuex.Store({
         context.commit('SET_REGISTERED_IMAGE_SIZES', payload.registered_image_sizes)
       }
 
+      // if (payload.global_api) {
+      //   context.dispatch('fetchGlobals')
+      // }
+
       // Config object only exists in wordpress scenarios at the moment
       context.commit('FLAG_WP', true)
+    },
+    async fetchGlobals({ commit, state }) {
+      if (state.config.global_api) {
+        let res = await fetch(state.config.global_api);
+        let globals = await res.json();
+        commit('SET_GLOBALS', globals)
+      }
     },
     dragToggle(context, payload) {
       if (context.state.config.is_admin) {
@@ -73,26 +88,13 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    isWP: state => {
-      return state.isWP;
-    },
-    config: state => {
-      return state.config
-    },
-    spacers: state => {
-      return state.config.spacers || null
-    },
-    colours: state => {
-      return state.colours
-    },
-    dragDisabled: state => {
-      return state.dragDisabled
-    },
-    imageSizes: state => {
-      return Object.keys(state.imageSizes).join(',')
-    },
-    validComponents: state => {
-      return state.validComponents
-    }
+    isWP: state => state.isWP,
+    config: state => state.config,
+    spacers: state => state.config.spacers || null,
+    colours: state => state.colours,
+    globals: state => state.globals,
+    dragDisabled: state => state.dragDisabled,
+    imageSizes: state => Object.keys(state.imageSizes).join(','),
+    validComponents: state => state.validComponents
   }
 })
