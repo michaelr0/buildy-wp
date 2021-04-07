@@ -4,7 +4,7 @@
     class="section bg-gray-400 mb-5 flex flex-wrap"
     :class="[
       settingsOpen ? 'highlight-section' : '',
-      renderDisabled ? 'border-8 border-b-0 border-gray-500' : ''
+      renderDisabled ? 'border-8 border-b-0 border-gray-500' : '',
     ]"
   >
     <module-settings-bar
@@ -30,7 +30,7 @@
       class="flex-1 flex-col"
       :class="[
         settingsOpen ? 'highlight-section' : '',
-        renderDisabled ? 'opacity-50' : ''
+        renderDisabled ? 'opacity-50' : '',
       ]"
     >
       <draggable :list="dragArray" v-bind="dragOptions">
@@ -43,7 +43,7 @@
             <row-module
               v-if="row.type === 'row-module'"
               :class="[
-                rowCount > 1 && index !== rowCount - 1 ? 'mb-6' : 'mb-0'
+                rowCount > 1 && index !== rowCount - 1 ? 'mb-6' : 'mb-0',
               ]"
               :key="row.id"
               :components="row.content"
@@ -93,7 +93,7 @@ import { copyToClipboard } from "../../functions/helpers";
 
 export default {
   name: "section-module",
-  data: function() {
+  data: function () {
     return {
       settingsOpen: false,
       dragArray: this.component.content,
@@ -103,10 +103,11 @@ export default {
         {
           name: "Copy Code",
           icon: "ClipboardIcon",
+          title: "Copy section code",
           action: this.copyCode,
-          order: 31
-        }
-      ]
+          order: 31,
+        },
+      ],
     };
   },
   computed: {
@@ -115,7 +116,7 @@ export default {
       return {
         group: "rows",
         ghostClass: "ghost",
-        disabled: this.dragDisabled
+        disabled: this.dragDisabled,
       };
     },
     renderDisabled() {
@@ -123,11 +124,11 @@ export default {
     },
     rowCount() {
       return this.dragArray.length;
-    }
+    },
   },
   components: {
     draggable,
-    PlusCircleIcon
+    PlusCircleIcon,
   },
   methods: {
     openSectionSettings() {
@@ -144,17 +145,17 @@ export default {
     },
     copyCode() {
       copyToClipboard(this.component);
-    }
+    },
   },
   props: {
     component: Object,
-    parent_array: Array
+    parent_array: Array,
   },
   provide() {
     return {
-      component: this.component
+      component: this.component,
     };
-  }
+  },
 };
 </script>
 

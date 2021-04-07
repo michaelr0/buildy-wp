@@ -4,11 +4,14 @@
       class="module component-module rounded text-module relative flex flex-wrap items-center text-gray-400 p-1"
       :class="[
         isValidComponent ? 'bg-gray-800' : 'bg-gray-600',
-        renderDisabled ? 'border-8 border-b-0 border-gray-500' : ''
+        renderDisabled ? 'border-8 border-b-0 border-gray-500' : '',
       ]"
       :id="component.id"
     >
-      <module-settings-bar :parent_array="parent_array"></module-settings-bar>
+      <module-settings-bar
+        :customSettings="customSettings"
+        :parent_array="parent_array"
+      ></module-settings-bar>
 
       <p
         ref="adminLabel"
@@ -49,7 +52,7 @@ import {
   ArrowRightIcon,
   AlignJustifyIcon,
   BoldIcon,
-  GridIcon
+  GridIcon,
 } from "vue-feather-icons";
 
 export default {
@@ -66,11 +69,11 @@ export default {
     ArrowRightIcon,
     AlignJustifyIcon,
     BoldIcon,
-    GridIcon
+    GridIcon,
   },
   props: {
     component: Object,
-    parent_array: Array
+    parent_array: Array,
   },
   computed: {
     ...mapGetters(["validComponents"]),
@@ -91,20 +94,52 @@ export default {
     },
     renderDisabled() {
       return this.component.attributes?.renderDisabled || false;
-    }
+    },
+    isGlobalModule() {
+      return this.component.type === "global-module";
+    },
+    editPageLink() {
+      return this.component.options.editPageLink?.url || false;
+    },
+    customSettings() {
+      if (this.isGlobalModule && this.editPageLink) {
+        return [
+          {
+            name: "Edit Page",
+            icon: "ExternalLinkIcon",
+            title: "Go to edit page",
+            action: this.goToEditPage,
+            order: 31,
+          },
+        ];
+      }
+    },
   },
   methods: {
     componentMap(type) {
-      return !!this.validComponents.find(el => el.type === type);
+      return !!this.validComponents.find((el) => el.type === type);
     },
-    setDeep
+    goToEditPage() {
+      window.open(this.editPageLink, "_blank");
+    },
+    setDeep,
+  },
+  created() {
+    // Deal with globals that never had the new feature (backwards compat)
+    if (this.isGlobalModule && !this.editPageLink) {
+      this.setDeep(
+        this.component,
+        "options.editPageLink.url",
+        `/wp-admin/post.php?post=${this.component.content.id}&action=edit`
+      );
+    }
   },
   provide() {
     return {
       component: this.component,
-      parent_array: this.parent_array
+      parent_array: this.parent_array,
     };
-  }
+  },
 };
 </script>
 <style>

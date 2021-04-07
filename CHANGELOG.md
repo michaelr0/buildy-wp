@@ -2,7 +2,7 @@
 
 All notable changes to `buildy-wp` will be documented in this file
 
-## 2.6.70 - ## 2.6.80
+## 2.6.70 - ## 2.6.83
 
 - Replace stickybody with stickyheader (it's all it was used for anyway)
 - Add lazy load to youtube iframes
@@ -15,6 +15,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Typos
 - Path fix for pagination trigger
 - Add order and orderby to postgrid
+- Add "Go to edit page" link on global modules! :D
 
 ## 2.6.50 - ## 2.6.68
 

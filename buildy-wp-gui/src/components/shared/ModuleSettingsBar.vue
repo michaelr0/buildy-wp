@@ -8,6 +8,7 @@
         v-for="setting in settings"
         :key="component.id + setting.name"
         class="flex px-3 items-center m-0"
+        :title="setting.title"
       >
         <component
           :is="setting.icon"
@@ -26,7 +27,8 @@ import {
   Trash2Icon,
   CopyIcon,
   ColumnsIcon,
-  ClipboardIcon
+  ClipboardIcon,
+  ExternalLinkIcon,
 } from "vue-feather-icons";
 import { recursifyID } from "../../functions/idHelpers";
 export default {
@@ -36,7 +38,8 @@ export default {
     Trash2Icon,
     CopyIcon,
     ColumnsIcon,
-    ClipboardIcon
+    ClipboardIcon,
+    ExternalLinkIcon,
   },
   computed: {
     colorClasses() {
@@ -54,24 +57,27 @@ export default {
         {
           name: "Menu",
           icon: "MenuIcon",
+          title: "Open settings modal",
           action: this.openModal,
-          order: 10
+          order: 10,
         },
         {
           name: "Clone",
           icon: "CopyIcon",
+          title: "Clone Module",
           action: this.cloneModule,
-          order: 20
+          order: 20,
         },
         {
           name: "Delete",
           icon: "Trash2Icon",
+          title: "Delete Module",
           action: this.deleteModule,
-          order: 30
+          order: 30,
         },
-        ...this.customSettings
+        ...this.customSettings,
       ].sort((a, b) => a.order - b.order);
-    }
+    },
   },
   methods: {
     cloneModule() {
@@ -83,7 +89,7 @@ export default {
 
       // Find index of current item in parent
       let index = this.parent_array.findIndex(
-        el => el.id === this.component.id
+        (el) => el.id === this.component.id
       );
 
       // Add clone directly after it
@@ -92,7 +98,7 @@ export default {
     deleteModule() {
       // Find index of current item in parent
       let index = this.parent_array.findIndex(
-        el => el.id === this.component.id
+        (el) => el.id === this.component.id
       );
 
       // Delete it
@@ -100,20 +106,20 @@ export default {
     },
     openModal() {
       this.$modal.show(this.component.id);
-    }
+    },
   },
   props: {
     customSettings: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     direction: {
       type: String,
-      default: "row"
+      default: "row",
     },
-    parent_array: Array
+    parent_array: Array,
   },
-  inject: ["component"]
+  inject: ["component"],
 };
 </script>
 

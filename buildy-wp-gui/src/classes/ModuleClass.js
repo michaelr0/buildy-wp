@@ -25,6 +25,10 @@ export class Module {
     base.content = { id: payload.id }
     base.id = generateModuleID(base.type)
     base.options.admin_label = payload.title.rendered
+    base.options.editPageLink = {
+      text: `Edit ${payload.title.rendered}`,
+      url: `/wp-admin/post.php?post=${payload.id}&action=edit`
+    }
     return base
   }
 
