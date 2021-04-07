@@ -14,6 +14,7 @@ All notable changes to `buildy-wp` will be documented in this file
 - Update postgrid module to allow pagination options
 - Typos
 - Path fix for pagination trigger
+- Add order and orderby to postgrid
 
 ## 2.6.50 - ## 2.6.68
 

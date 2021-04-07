@@ -46,6 +46,20 @@
     <div class="flex -mx-2 items-center">
       <attribute-editor
         class="px-2 flex-grow"
+        path="content.post.orderby"
+        placeholder="default menu_order"
+        label="Order By"
+      ></attribute-editor>
+      <attribute-editor
+        class="px-2 flex-grow"
+        path="content.post.order"
+        placeholder="default ASC"
+        label="Order"
+      ></attribute-editor>
+    </div>
+    <div class="flex -mx-2 items-center">
+      <attribute-editor
+        class="px-2 flex-grow"
         path="content.post.featuredKey"
         placeholder="The meta_key e.g featured_service"
         label="Featured Key (if only wanting to show featured posts)"
