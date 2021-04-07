@@ -4,7 +4,7 @@
     class="bg-gray-300 mx-0 flex flex-wrap row"
     :class="[
       settingsOpen ? 'highlight-row' : '',
-      renderDisabled ? 'border-8 border-b-0 border-gray-500' : ''
+      renderDisabled ? 'border-8 border-b-0 border-gray-500' : '',
     ]"
   >
     <module-settings-bar
@@ -57,7 +57,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "row-module",
-  data: function() {
+  data: function () {
     return {
       settingsOpen: false,
       dragArray: this.components,
@@ -66,10 +66,11 @@ export default {
         {
           name: "Column Selector",
           icon: "ColumnsIcon",
+          title: "Change columns",
           action: this.openColumnSelector,
-          order: 11
-        }
-      ]
+          order: 11,
+        },
+      ],
     };
   },
   computed: {
@@ -82,7 +83,7 @@ export default {
     },
     renderDisabled() {
       return this.component.attributes?.renderDisabled || false;
-    }
+    },
   },
   methods: {
     openRowSettings() {
@@ -90,19 +91,19 @@ export default {
     },
     openColumnSelector() {
       this.$modal.show(this.component.id + "-column-layouts");
-    }
+    },
   },
   props: {
     component: Object,
     components: Array,
-    parent_array: Array
+    parent_array: Array,
   },
   provide() {
     return {
       component: this.component,
-      parent: this.parent
+      parent: this.parent,
     };
-  }
+  },
 };
 </script>
 
