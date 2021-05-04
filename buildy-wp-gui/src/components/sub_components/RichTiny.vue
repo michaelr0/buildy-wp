@@ -140,12 +140,7 @@ export default {
         });
 
         window.tinymce.activeEditor.on("change", (e) => {
-          if (
-            !e.level.content.includes('data-mce-bogus="1"') &&
-            this.activeEditor
-          ) {
-            this.value = e.level.content;
-          }
+          this.value = e.level.content;
         });
 
         // window.tinymce.activeEditor.on("PreProcess", (e) => {

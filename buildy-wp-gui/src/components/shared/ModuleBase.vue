@@ -102,17 +102,19 @@ export default {
       return this.component.options.editPageLink?.url || false;
     },
     customSettings() {
-      if (this.isGlobalModule && this.editPageLink) {
-        return [
-          {
-            name: "Edit Page",
-            icon: "ExternalLinkIcon",
-            title: "Go to edit page",
-            action: this.goToEditPage,
-            order: 31,
-          },
-        ];
+      if (!this.isGlobalModule && !this.editPageLink) {
+        return [];
       }
+
+      return [
+        {
+          name: "Edit Page",
+          icon: "ExternalLinkIcon",
+          title: "Go to edit page",
+          action: this.goToEditPage,
+          order: 31,
+        },
+      ];
     },
   },
   methods: {
