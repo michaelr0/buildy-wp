@@ -27,6 +27,7 @@
     <iframe
       class="youtube-iframe"
       data-src="https://www.youtube.com/embed/{{ $youtube_video_ID }}"
+      src="https://www.youtube.com/embed/{{ $youtube_video_ID }}"
       width="{{ $youtube_width }}"
       height="{{ $youtube_height }}"
       frameborder="0"
