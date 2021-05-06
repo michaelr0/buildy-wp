@@ -1,7 +1,7 @@
 <template>
   <div
     class="settings-bar rounded rounded-r-none rounded-b-none module"
-    :class="[`bg-${colorClasses}`]"
+    :class="[`${colorClasses}`]"
   >
     <ul class="list-unstyled flex py-1" :class="[`flex-${direction}`]">
       <li
@@ -45,9 +45,9 @@ export default {
     colorClasses() {
       switch (this.component.type) {
         case "row-module":
-          return "green-500";
+          return "bg-green-500";
         case "section-module":
-          return "blue-500";
+          return "bg-blue-500";
         default:
           return "none";
       }

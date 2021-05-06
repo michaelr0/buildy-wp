@@ -9,11 +9,12 @@ $internalLinkEnabled = false;
 
 if (!empty($atts)) {
   $moduleID = $bladeData->attributes->id ?? null;
-  $moduleClasses .= $bladeData->attributes->class ?? null;
+  $moduleClasses .= $bladeData->attributes->class ?? "";
   $dataAtts = $bladeData->attributes->data ?? null;
   $internalLinkEnabled = $bladeData->attributes->in_page_link_enabled ?? null;
   $internalLinkText = $bladeData->attributes->in_page_link_text ?? null;
 }
+
 
 $options = $bladeData->options ?? null;
 $moduleStyle = $options ? $bladeData->options->moduleStyle ?? null : null;
@@ -21,6 +22,13 @@ $moduleStyle = $options ? $bladeData->options->moduleStyle ?? null : null;
 if (isset($moduleStyle) && $moduleStyle !== 'none') {
   $moduleStyle = strtolower(preg_replace("/\s+/", "-", $moduleStyle));
   $moduleClasses .= " module-style__$moduleStyle";
+}
+
+if (isset($customAtts)) {
+  if (!isset($dataAtts)) {
+    $dataAtts = $customAtts;
+ }  
+ $dataAtts = array_merge($dataAtts, $customAtts);
 }
 
 $dataAttString = null;

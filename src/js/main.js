@@ -1,4 +1,5 @@
 import accordions from './components/accordion'
+import counters from './components/counters'
 import { initSliders } from './components/slider'
 import youtubeVideos from './components/youtube'
 import baguetteBox from 'baguettebox.js';
@@ -43,3 +44,6 @@ initSliders();
 
 // Enable YoutubeVideos
 youtubeVideos();
+
+// Enable Counters 
+counters();
