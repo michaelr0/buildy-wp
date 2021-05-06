@@ -7,10 +7,10 @@
 <script>
 export default {
   name: "code-module",
-  data: function() {
+  data: function () {
     return {
-      icon: "CodeIcon"
+      icon: "CodeIcon",
     };
-  }
+  },
 };
 </script>
