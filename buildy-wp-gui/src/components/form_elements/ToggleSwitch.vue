@@ -56,12 +56,15 @@ export default {
     },
   },
   mounted() {
+    let findVal = getDeep(this.component, this.path);
+
     if (this.status) {
       this.value = this.status;
+      if (findVal !== this.value) {
+        setDeep(this.component, this.path, this.value, true);
+      }
     }
     if (this.path && this.component) {
-      let findVal = getDeep(this.component, this.path);
-
       if (typeof findVal !== "undefined") {
         this.value = getDeep(this.component, this.path);
       }

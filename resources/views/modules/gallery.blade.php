@@ -44,8 +44,9 @@
   if (!$is_slider && !empty($cols)) {
     $gallery_items_class = "grid";
   }
-  
 @endphp
+
+
 
 @extends('modules.common', ["customClasses" => "{$is_slider}"])
 
@@ -87,6 +88,16 @@
           @endif
         @endforeach
       </div>
+      @if($slider_options->arrow_nav)
+        <div class="bmcb-slider__navigation-arrows">
+          <div class="bmcb-slider__arrow-prev">
+            <i class="fa fa-chevron-left"></i>
+          </div>
+          <div class="bmcb-slider__arrow-next">
+            <i class="fa fa-chevron-right"></i>
+          </div>
+        </div>
+      @endif
     @endif
 
     @if(!empty($module_link_url))
