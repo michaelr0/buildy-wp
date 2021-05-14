@@ -1,6 +1,11 @@
 @import "~baguettebox.js/dist/baguetteBox.min.css";
 
 .bmcb-gallery {
+  &.bmcb-slider {
+    .bmcb-gallery__items {
+      position: relative;
+    }
+  }
   &__item {
     width: fit-content;
   }

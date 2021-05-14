@@ -15,6 +15,8 @@ if (sliders.length) {
       const prev = el.querySelector('.bmcb-slider__arrow-prev');
       const next = el.querySelector('.bmcb-slider__arrow-next');
 
+      console.log(el);
+
       const slider = new Siema({
         selector: slides,
         duration: Number(dataAtts?.duration) || 200,

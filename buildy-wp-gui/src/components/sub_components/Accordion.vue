@@ -89,7 +89,7 @@ import {
   CopyIcon,
   PlusCircleIcon,
   ChevronRightIcon,
-  PlusIcon
+  PlusIcon,
 } from "vue-feather-icons";
 import { CollapseTransition } from "vue2-transitions";
 import draggable from "vuedraggable";
@@ -105,7 +105,7 @@ export default {
     PlusIcon,
     ChevronRightIcon,
     TrashIcon,
-    CopyIcon
+    CopyIcon,
   },
   data() {
     return {
@@ -113,7 +113,7 @@ export default {
       activeItemIndex: null,
       showAccordion: true,
       disableDrag: false,
-      items: []
+      items: [],
     };
   },
   props: {
@@ -124,28 +124,28 @@ export default {
      */
     itemPayload: {
       type: Array,
-      required: false
+      required: false,
     },
     /**
      * Key name of object in items array for specifying title of title
      */
     titleProperty: {
       type: String,
-      default: "title"
+      default: "title",
     },
     /**
      * Path on the component where this module stores the content
      */
     path: {
       type: String,
-      default: "content.accordion.items"
+      default: "content.accordion.items",
     },
     /**
      * Key name of object in items array for specifying content text of open title
      */
     answerProperty: {
       type: String,
-      default: "body"
+      default: "body",
     },
     /**
      * Color for hover and active tab/title
@@ -153,29 +153,29 @@ export default {
      */
     activeColor: {
       type: String,
-      default: "#D50000"
+      default: "#D50000",
     },
     /**
      * Color for borders
      */
     borderColor: {
       type: String,
-      default: "#9E9E9E"
+      default: "#9E9E9E",
     },
     /**
      * Color for fonts
      */
     fontColor: {
       type: String,
-      default: "#000000"
+      default: "#000000",
     },
     /**
      * Enable Image
      */
     isSlider: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     ...mapGetters(["isWP"]),
@@ -195,9 +195,9 @@ export default {
       return {
         group: "accordion_items",
         ghostClass: "ghost",
-        disabled: this.disableDrag
+        disabled: this.disableDrag,
       };
-    }
+    },
   },
   methods: {
     toggleActive(itemIndex, item) {
@@ -205,7 +205,7 @@ export default {
         this.activeItemIndex === itemIndex ? null : itemIndex;
 
       // Set any previous ones back to false
-      this.items = this.items.map(item => {
+      this.items = this.items.map((item) => {
         item.editMode = false;
         return item;
       });
@@ -221,6 +221,7 @@ export default {
       let newItem = { title: "", body: "", editMode: false };
       this.items.push(newItem);
       this.toggleActive(this.items.length - 1, newItem);
+      setDeep(this.component, this.path, this.items);
     },
     cloneItem(item) {
       let newItem = JSON.parse(JSON.stringify(item));
@@ -232,7 +233,7 @@ export default {
       setDeep(this.component, this.path, this.items);
     },
     removeItem(item) {
-      const index = this.items.findIndex(el => el.title === item.title);
+      const index = this.items.findIndex((el) => el.title === item.title);
       let confirm = window.confirm(
         "Are you sure you want to delete this item?"
       );
@@ -245,19 +246,19 @@ export default {
         "accordion__toggle-button",
         this.activeItemIndex === buttonIndex
           ? "accordion__toggle-button_active"
-          : null
+          : null,
       ];
     },
     generateModuleClasses(titleIndex) {
       return [
         "accordion__title",
-        this.activeItemIndex === titleIndex ? "accordion__title_active" : null
+        this.activeItemIndex === titleIndex ? "accordion__title_active" : null,
       ];
     },
     updateListOrder() {
       setDeep(this.component, this.path, this.dragArray);
       // this.updateStoreComponent({ path: 'content.accordion.items', prop: this.dragArray})
-    }
+    },
   },
   mounted() {
     let currentItems = getDeep(this.component, this.path);
@@ -265,13 +266,14 @@ export default {
     this.$refs.rootEl.style.setProperty("--active-color", this.activeColor);
     this.$refs.rootEl.style.setProperty("--border-color", this.borderColor);
     this.$refs.rootEl.style.setProperty("--font-color", this.fontColor);
+    console.log(this.items);
   },
   inject: ["component"],
   provide() {
     return {
-      component: this.component
+      component: this.component,
     };
-  }
+  },
 };
 </script>
 

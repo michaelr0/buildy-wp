@@ -34,5 +34,5 @@
     @isset($target)
         target="{{ $target }}"
     @endisset
-    href="{{ isset($buttonURL) ? $buttonURL : '#' }}">{{ $bladeData->content->button->text }}</a>
+    href="{!! isset($buttonURL) ? $buttonURL : '#' !!}">{{ $bladeData->content->button->text }}</a>
 @overwrite
